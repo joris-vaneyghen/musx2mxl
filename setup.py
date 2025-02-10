@@ -1,10 +1,21 @@
+from pathlib import Path
+
 from setuptools import setup, find_packages
+
+this_directory = Path(__file__).parent
+long_description = (this_directory / "README.md").read_text()
+
+# Read dependencies from requirements.txt
+requirements_path = this_directory / "requirements.txt"
+install_requires = requirements_path.read_text().splitlines() if requirements_path.exists() else []
 
 setup(
     name="musx2mxl",  # Package name
-    version="0.1.0",  # Version
+    version="0.1.1",  # Version
+    long_description=long_description,
+    long_description_content_type='text/markdown',
     packages=find_packages(),  # Automatically find package directories
-    install_requires=[],  # Dependencies (e.g., install_requires=["numpy"])
+    install_requires=install_requires,
     entry_points={
         "console_scripts": [
             "musx2mxl=musx2mxl.musx2mxl:main",  # Creates a CLI command
