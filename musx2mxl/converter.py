@@ -35,7 +35,7 @@ def lookup_note_alter(root, entnum: str):
 
 def lookup_meas_expressions(root, meas_spec_cmper: str):
     expressions = []
-    measExprAssigns = root.xpath(f"/f:finale/f:others/f:measExprAssign[@cmper='{meas_spec_cmper}']", namespaces=ns)
+    measExprAssigns = root.xpath(f"/f:finale/f:others/f:measExprAssign[@cmper='{meas_spec_cmper}'][f:textExprID]", namespaces=ns)
     for measExprAssign in measExprAssigns:
         textExprID = measExprAssign.find("f:textExprID", namespaces=ns).text
         staffAssign = measExprAssign.find("f:staffAssign", namespaces=ns).text
@@ -443,7 +443,7 @@ def handleSmartShapeDetail(root, entry, notations):
 
 
 def lookup_artic_detail(root, entnum):
-    articAssigns = root.xpath(f"/f:finale/f:details/f:articAssign[@entnum = '{entnum}']", namespaces=ns)
+    articAssigns = root.xpath(f"/f:finale/f:details/f:articAssign[@entnum = '{entnum}'][f:articDef]", namespaces=ns)
     artic_details = []
     for articAssign in articAssigns:
         articDef_cmper = articAssign.find("f:articDef", namespaces=ns).text
