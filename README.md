@@ -9,7 +9,7 @@ This project is a private initiative aimed at musicians and composers who no lon
 
 
 ## Online File Converter
-Check out the [online musx2xml converter](https://huggingface.co/spaces/jorisvaneyghen/musx2mxl)
+Check out the [online musx2xml converter](https://jorisvaneyghen-musx2mxl.hf.space/)
 
 ## Installation
 To install the required package, use:
