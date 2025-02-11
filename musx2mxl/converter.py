@@ -35,23 +35,25 @@ def lookup_note_alter(root, entnum: str):
 
 def lookup_meas_expressions(root, meas_spec_cmper: str):
     expressions = []
-    measExprAssigns = root.xpath(f"/f:finale/f:others/f:measExprAssign[@cmper='{meas_spec_cmper}'][f:textExprID]", namespaces=ns)
+    measExprAssigns = root.xpath(f"/f:finale/f:others/f:measExprAssign[@cmper='{meas_spec_cmper}'][f:textExprID]",
+                                 namespaces=ns)
     for measExprAssign in measExprAssigns:
         textExprID = measExprAssign.find("f:textExprID", namespaces=ns).text
         staffAssign = measExprAssign.find("f:staffAssign", namespaces=ns).text
         textExprDef = root.xpath(f"/f:finale/f:others/f:textExprDef[@cmper='{textExprID}']", namespaces=ns)[0]
         textIDKey = textExprDef.find("f:textIDKey", namespaces=ns).text
         categoryID = textExprDef.find("f:categoryID", namespaces=ns).text
-        value = textExprDef.find("f:categoryID", namespaces=ns).text if textExprDef.find("f:categoryID",
-                                                                                         namespaces=ns) is not None else None
+        value = textExprDef.find("f:value", namespaces=ns).text if textExprDef.find("f:value",
+                                                                                    namespaces=ns) is not None else None
         descStr = textExprDef.find("f:descStr", namespaces=ns).text if textExprDef.find("f:descStr",
                                                                                         namespaces=ns) is not None else None
         textBlock = root.xpath(f"/f:finale/f:others/f:textBlock[@cmper='{textIDKey}']", namespaces=ns)[0]
         markingsCategory = root.xpath(f"/f:finale/f:others/f:markingsCategory[@cmper='{categoryID}']", namespaces=ns)[0]
+        textID = textBlock.find("f:textID", namespaces=ns).text
         textTag = textBlock.find("f:textTag", namespaces=ns).text
         showShape = textBlock.find("f:textTag", namespaces=ns) is not None
         categoryType = markingsCategory.find("f:categoryType", namespaces=ns).text
-        expression_text = root.xpath(f"/f:finale/f:texts/f:expression[@number='{textExprID}']", namespaces=ns)[0].text
+        expression_text = root.find(f"f:texts/f:expression[@number='{textID}']", namespaces=ns).text
         expression = {
             "staffAssign": staffAssign,
             "value": value,
@@ -95,7 +97,6 @@ def lookup_block_text(root, id):
     return replace_music_symbols(remove_styling_tags(text))
 
 
-
 def convert_tree(tree, meta_tree):
     root = tree.getroot()
     meta_root = meta_tree.getroot()
@@ -126,7 +127,8 @@ def convert_tree(tree, meta_tree):
     for i, staff_spec in enumerate(staff_specs):
         part = SubElement(score_partwise, "part", id=f"P{i + 1}")
         staff_spec_cmper = staff_spec.get("cmper")
-        key_adjust = int(staff_spec.find('f:transposition/f:keysig/f:adjust', namespaces=ns).text)
+        key_adjust = int(staff_spec.find('f:transposition/f:keysig/f:adjust', namespaces=ns).text) if staff_spec.find(
+            'f:transposition/f:keysig/f:adjust', namespaces=ns) is not None else 0
 
         current_key = None
         current_beats = None
@@ -241,10 +243,12 @@ def convert_tree(tree, meta_tree):
                     if VERBOSE: print(f'Expression: {expression}')
                     if expression['staffAssign'] == staff_spec_cmper:
                         if expression['categoryType'] == 'dynamics':
-                            direction = SubElement(measure, "direction", placement='below')
-                            direction_type = SubElement(direction, "direction-type")
-                            dynamics = SubElement(direction_type, "dynamics")
-                            SubElement(dynamics, translate_dynamics(expression['text']))
+                            dynamic_name = translate_dynamics(expression['text'])
+                            if dynamic_name is not None:
+                                direction = SubElement(measure, "direction", placement='below')
+                                direction_type = SubElement(direction, "direction-type")
+                                dynamics = SubElement(direction_type, "dynamics")
+                                SubElement(dynamics, dynamic_name)
                         elif expression['categoryType'] == 'tempoAlts':
                             direction = SubElement(measure, "direction", placement='above')
                             direction_type = SubElement(direction, "direction-type")
@@ -456,7 +460,7 @@ def lookup_artic_detail(root, entnum):
 
 
 def add_rest_to_empty_measure(root, measure, meas_spec_cmper):
-    first_gfhold = root.find(f"f:details/f:gfhold[@cmper2 = '{meas_spec_cmper}']", namespaces=ns)
+    first_gfhold = root.find(f"f:details/f:gfhold[@cmper2 = '{meas_spec_cmper}'][f:frame1]", namespaces=ns)
     if first_gfhold is not None:
         frame = first_gfhold.find(f"f:frame1", namespaces=ns).text
         frameSpec = root.find(f"f:others/f:frameSpec[@cmper = '{frame}'][f:startEntry][f:endEntry]", namespaces=ns)
@@ -469,9 +473,9 @@ def add_rest_to_empty_measure(root, measure, meas_spec_cmper):
             entry = root.find(f"f:entries/f:entry[@entnum = '{next_entnum}']", namespaces=ns)
             current_entnum = next_entnum
             next_entnum = entry.get("next")
-            dura +=  int(entry.find("f:dura", namespaces=ns).text)
+            dura += int(entry.find("f:dura", namespaces=ns).text)
 
-        type_name, nb_dots = calculate_type_and_dots(dura) #todo what if dura does not match type + dots
+        type_name, nb_dots = calculate_type_and_dots(dura)  # todo what if dura does not match type + dots
         note = SubElement(measure, "note")
         SubElement(note, "rest")
         SubElement(note, "duration").text = str((dura * DIVISIONS) // 1024)

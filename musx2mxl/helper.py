@@ -247,7 +247,7 @@ def translate_dynamics(text):
     if len(text) == 1 and ord(text) in ENGRAVER_CHAR_MAP_DYNAMICS:
         return ENGRAVER_CHAR_MAP_DYNAMICS[ord(text)]
     else:
-        return text
+        return None
 
 def translate_articualtion(charMain:str):
     if int(charMain) in ENGRAVER_CHAR_MAP_ARTICUALTIONS:
