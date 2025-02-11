@@ -140,7 +140,7 @@ def convert_tree(tree, meta_tree):
         nb_measures = len(meas_specs)
         for meas_idx, meas_spec in enumerate(meas_specs):
             meas_spec_cmper = meas_spec.get("cmper")
-            if VERBOSE: print(f'Measure: {meas_spec_cmper}')
+            if VERBOSE: print(f'Staff: {staff_spec_cmper} - Measure: {meas_spec_cmper}')
             measure = SubElement(part, "measure", number=meas_spec_cmper)
             beats = meas_spec.find("f:beats", namespaces=ns).text
             divbeat = meas_spec.find("f:divbeat", namespaces=ns).text
@@ -210,7 +210,8 @@ def convert_tree(tree, meta_tree):
                 add_rest_to_empty_measure(root, measure, meas_spec_cmper)
 
             for gfhold in gfholds:
-                clefID = gfhold.find("f:clefID", namespaces=ns).text
+                clefID = gfhold.find("f:clefID", namespaces=ns).text if gfhold.find("f:clefID", namespaces=ns) is not None else current_clefID
+                # todo handle clefListID =(mid-measure clef changes)
                 # todo use <hasExpr/> to determine show time_signature
                 # todo use <showClefFirstSystemOnly/> to determine show clef
                 if clefID != current_clefID:
