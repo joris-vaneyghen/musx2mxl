@@ -1,6 +1,5 @@
-from os import MFD_ALLOW_SEALING
-
-from lxml.etree import Element, SubElement, parse, ElementTree
+from io import BytesIO
+from lxml.etree import Element, SubElement, parse, ElementTree, XMLSyntaxError
 
 from musx2mxl.helper import calculate_mode_and_key_fifths, calculate_type_and_dots, calculate_step_alter_and_octave, \
     translate_clef_sign, translate_bar_style, replace_music_symbols, remove_styling_tags, translate_dynamics, \
@@ -17,7 +16,14 @@ def convert_from_stream(input_stream, metadata_stream, output_stream):
     Convert data from an input stream and return the converted data as a bytes object.
     """
     tree = parse(input_stream)
-    meta_tree = parse(metadata_stream)
+
+    try:
+        meta_tree = parse(metadata_stream)
+    except XMLSyntaxError as e:
+        # try to solve wrong encoding
+        metadata_stream = BytesIO(metadata_stream.getvalue().decode("latin1").encode("utf-8"))
+        meta_tree = parse(metadata_stream)
+
     output_tree = convert_tree(tree, meta_tree)
     output_tree.write(output_stream, pretty_print=True, encoding="UTF-8", xml_declaration=True)
 
@@ -28,7 +34,7 @@ def lookup_note_alter(root, entnum: str):
     for noteAlter in noteAlters:
         noteID = noteAlter.find("f:noteID", namespaces=ns).text
         enharmonic = noteAlter.find("f:enharmonic", namespaces=ns) is not None
-        percent = noteAlter.find("f:percent", namespaces=ns).text
+        percent = noteAlter.find("f:percent", namespaces=ns) if noteAlter.find("f:percent", namespaces=ns) is not None else None
         noteAlter_map[noteID] = {"enharmonic": enharmonic, "percent": percent}
     return noteAlter_map
 
@@ -47,23 +53,31 @@ def lookup_meas_expressions(root, meas_spec_cmper: str):
                                                                                     namespaces=ns) is not None else None
         descStr = textExprDef.find("f:descStr", namespaces=ns).text if textExprDef.find("f:descStr",
                                                                                         namespaces=ns) is not None else None
-        textBlock = root.xpath(f"/f:finale/f:others/f:textBlock[@cmper='{textIDKey}']", namespaces=ns)[0]
-        markingsCategory = root.xpath(f"/f:finale/f:others/f:markingsCategory[@cmper='{categoryID}']", namespaces=ns)[0]
-        textID = textBlock.find("f:textID", namespaces=ns).text
-        textTag = textBlock.find("f:textTag", namespaces=ns).text
-        showShape = textBlock.find("f:textTag", namespaces=ns) is not None
-        categoryType = markingsCategory.find("f:categoryType", namespaces=ns).text
-        expression_text = root.find(f"f:texts/f:expression[@number='{textID}']", namespaces=ns).text
-        expression = {
-            "staffAssign": staffAssign,
-            "value": value,
-            "categoryType": categoryType,
-            "textTag": textTag,
-            "showShape": showShape,
-            "descStr": descStr,
-            "text": expression_text,
-        }
-        expressions.append(expression)
+        textBlock = root.find(f"f:others/f:textBlock[@cmper='{textIDKey}']", namespaces=ns)
+        expression_text = None
+        if textBlock is not None:
+            markingsCategory = root.xpath(f"/f:finale/f:others/f:markingsCategory[@cmper='{categoryID}']", namespaces=ns)[0]
+            textID = textBlock.find("f:textID", namespaces=ns).text
+            textTag = textBlock.find("f:textTag", namespaces=ns).text
+            showShape = textBlock.find("f:textTag", namespaces=ns) is not None
+            categoryType = markingsCategory.find("f:categoryType", namespaces=ns).text
+            expression_text = root.find(f"f:texts/f:expression[@number='{textID}']", namespaces=ns).text if root.find(
+                f"f:texts/f:expression[@number='{textID}']", namespaces=ns) is not None else None
+        else:
+            print(f'textBlock with cmper {textIDKey} not found.')
+
+        if expression_text:
+            # todo what if expression_text is not found
+            expression = {
+                "staffAssign": staffAssign,
+                "value": value,
+                "categoryType": categoryType,
+                "textTag": textTag,
+                "showShape": showShape,
+                "descStr": descStr,
+                "text": expression_text,
+            }
+            expressions.append(expression)
     return expressions
 
 
@@ -94,14 +108,19 @@ def lookup_block_text(root, id):
     textBlock = root.xpath(f"/f:finale/f:others/f:textBlock[@cmper='{id}']", namespaces=ns)[0]
     textID = textBlock.find("f:textID", namespaces=ns).text
     text = root.xpath(f"/f:finale/f:texts/f:blockText[@number='{textID}']", namespaces=ns)[0].text
-    return replace_music_symbols(remove_styling_tags(text))
+    if text:
+        return replace_music_symbols(remove_styling_tags(text))
+    else:
+        return ''
 
 
 def convert_tree(tree, meta_tree):
     root = tree.getroot()
-    meta_root = meta_tree.getroot()
     score_partwise = Element("score-partwise", version="4.0", nsmap={None: "http://www.musicxml.org"})
-    handle_meta_data(score_partwise, meta_root)
+
+    if meta_tree:
+        meta_root = meta_tree.getroot()
+        handle_meta_data(score_partwise, meta_root)
     part_list = SubElement(score_partwise, "part-list")
 
     timeSigDoAbrvCommon = len(
@@ -145,7 +164,8 @@ def convert_tree(tree, meta_tree):
             beats = meas_spec.find("f:beats", namespaces=ns).text
             divbeat = meas_spec.find("f:divbeat", namespaces=ns).text
             key_ = meas_spec.find("f:keySig/f:key", namespaces=ns)
-            barline_ = meas_spec.find("f:barline", namespaces=ns).text
+            barline_ = meas_spec.find("f:barline", namespaces=ns).text if meas_spec.find("f:barline",
+                                                                                         namespaces=ns) is not None else 'normal'
             if meas_idx == nb_measures - 1:
                 barline_ = 'final'
             forRepBar = meas_spec.find("f:forRepBar", namespaces=ns) is not None
@@ -210,7 +230,8 @@ def convert_tree(tree, meta_tree):
                 add_rest_to_empty_measure(root, measure, meas_spec_cmper)
 
             for gfhold in gfholds:
-                clefID = gfhold.find("f:clefID", namespaces=ns).text if gfhold.find("f:clefID", namespaces=ns) is not None else current_clefID
+                clefID = gfhold.find("f:clefID", namespaces=ns).text if gfhold.find("f:clefID",
+                                                                                    namespaces=ns) is not None else current_clefID
                 # todo handle clefListID =(mid-measure clef changes)
                 # todo use <hasExpr/> to determine show time_signature
                 # todo use <showClefFirstSystemOnly/> to determine show clef
@@ -351,6 +372,7 @@ def handle_cleff_change(root, measure, attributes, clefID):
     clef_def = root.xpath(f"/f:finale/f:options/f:clefOptions/f:clefDef[@index = '{clefID}']", namespaces=ns)
     clef_char = clef_def[0].find('f:clefChar', namespaces=ns)
     clef_char_ = clef_char.text if clef_char is not None else None
+    # todo what if shape instead of clef_char (example : TAB)
     sign_, clef_octave_change_ = translate_clef_sign(clef_char_)
     clef_y_disp = clef_def[0].find('f:clefYDisp', namespaces=ns)
     clef_y_disp_ = int(clef_y_disp.text) if clef_y_disp is not None else 0
@@ -436,15 +458,18 @@ def handleSmartShapeDetail(root, entry, notations):
     smartShapeEntryMarks = root.xpath(f"/f:finale/f:details/f:smartShapeEntryMark[@entnum = '{entnum}']", namespaces=ns)
     for smartShapeEntryMark in smartShapeEntryMarks:
         shapeNum = smartShapeEntryMark.find('f:shapeNum', namespaces=ns).text
-        smartShape = root.xpath(f"/f:finale/f:others/f:smartShape[@cmper = '{shapeNum}']", namespaces=ns)[0]
-        shapeType = smartShape.find("f:shapeType", namespaces=ns).text if smartShape.find("f:shapeType",
-                                                                                          namespaces=ns) is not None else None
-        startEntry = smartShape.find("f:startTermSeg/f:endPt/f:entryNum", namespaces=ns).text
-        endEntry = smartShape.find("f:startTermSeg/f:endPt/f:entryNum", namespaces=ns).text
+        smartShape = root.find(f"f:others/f:smartShape[@cmper = '{shapeNum}']", namespaces=ns)
+        if smartShape is not None:
+            shapeType = smartShape.find("f:shapeType", namespaces=ns).text if smartShape.find("f:shapeType",
+                                                                                              namespaces=ns) is not None else None
+            startEntry = smartShape.find("f:startTermSeg/f:endPt/f:entryNum", namespaces=ns).text
+            endEntry = smartShape.find("f:startTermSeg/f:endPt/f:entryNum", namespaces=ns).text
 
-        if shapeType == 'slurAuto' or shapeType == 'slurUp':
-            slur_type = 'start' if startEntry == entnum else 'stop'
-            SubElement(notations, 'slur', number='1', type=slur_type)
+            if shapeType == 'slurAuto' or shapeType == 'slurUp':
+                slur_type = 'start' if startEntry == entnum else 'stop'
+                SubElement(notations, 'slur', number='1', type=slur_type)
+        else:
+            print(f'Smart shape with cmper {shapeNum} not found.')
 
 
 def lookup_artic_detail(root, entnum):

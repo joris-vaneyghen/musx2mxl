@@ -199,7 +199,7 @@ def calculate_type_and_dots(dura: int) -> tuple[str, int]:
 
 # todo can font be not Engraver?
 def translate_clef_sign(clef_char: str) -> tuple[str, int]:
-    if int(clef_char) in ENGRAVER_CHAR_MAP_CLEFS:
+    if clef_char is not None and int(clef_char) in ENGRAVER_CHAR_MAP_CLEFS:
         return ENGRAVER_CHAR_MAP_CLEFS[int(clef_char)]
     else:
         print('Unknown clef char:', clef_char)

@@ -20,14 +20,19 @@ pip install musx2mxl
 ## Usage
 You can use the converter via the command line:
 ```sh
-musx2mxl [options] input_file
+musx2mxl [options] input_path
+```
+
+```
+  input_path        A Finale file (*.musx) or a directory containing several Finale files.  
 ```
 
 ### Options:
 ```
-  -h, --help        show this help message and exit
-  --output_path     Path to the output .mxl file.
-  --keep            Keep decoded enigmaxml and uncompressed musicxml
+  -h, --help        Show this help message and exit.
+  --output_path     Path to the output .mxl file. Default value is the same as the input_path but with extension (*.mxl) (Is ignored if input_path is a directory).
+  --keep            Keep the decoded Finale data (*.enigmaxml) and uncompressed MuscicXml (*.musicxml).
+  --recursive       Scan subdirectories recursively if input_path is a directory.
 ```
 
 ## Supported Music Notation Software

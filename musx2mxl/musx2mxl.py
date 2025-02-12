@@ -193,10 +193,10 @@ def main():
     Main function to parse arguments and process the musx file(s).
     """
     parser = argparse.ArgumentParser(description="Convert Finale .musx files to MusicXML .mxl files.")
-    parser.add_argument("input_path", help="Path to a .musx file or directory containing .musx files.")
+    parser.add_argument("input_path", help="A Finale file (*.musx) or a directory containing several Finale files.")
     parser.add_argument("--output_path", default=None, required=False,
-                        help="Path to the output .mxl file or directory.")
-    parser.add_argument("--keep", action="store_true", help="Keep decoded enigmaxml and uncompressed musicxml.")
+                        help="Path to the output .mxl file. Default value is the same as the input_path but with extension (*.mxl) (Is ignored if input_path is a directory).")
+    parser.add_argument("--keep", action="store_true", help="Keep the decoded Finale data (*.enigmaxml) and uncompressed MuscicXml (*.musicxml).")
     parser.add_argument("--recursive", action="store_true",
                         help="Scan subdirectories recursively if input is a directory.")
 
