@@ -167,33 +167,65 @@ def convert_file(input_path, output_path, keep = False):
     save_as_mxl(output_stream, output_path)
 
 
+def process_directory(directory, output_dir=None, recursive=False, keep=False):
+    """
+    Process all .musx files in a directory, optionally scanning subdirectories.
+    """
+    for root, _, files in os.walk(directory):
+        for file in files:
+            if file.endswith(".musx"):
+                input_path = os.path.join(root, file)
+                output_path = os.path.join(output_dir or root, file.replace(".musx", ".mxl"))
+
+                try:
+                    convert_file(input_path, output_path, keep)
+                    print(f"Converted: {input_path} -> {output_path}")
+                except Exception as e:
+                    print(f"Error processing {input_path}: {e}")
+                    traceback.print_exc()
+
+        if not recursive:
+            break  # Stop after processing the first directory if not recursive
+
+
 def main():
     """
-    Main function to parse arguments and process the musx file.
+    Main function to parse arguments and process the musx file(s).
     """
-    parser = argparse.ArgumentParser(description="Convert a Finale .musx file to MusicXml .mxl file.")
-    parser.add_argument("musx_file", help="Path to the Finale .musx file.")
-    parser.add_argument("--output_path", default=None, required=False, help="Path to the output .mxl file.")
-    parser.add_argument("--keep",  default=False, required=False, help="Keep decoded enigmaxml and uncompressed musicxml")
-    args = parser.parse_args()
-    input_path = args.musx_file
-    assert input_path.endswith(".musx")
-    output_path = args.output_path
-    if output_path:
-        assert output_path.endswith(".mxl")
-    else:
-        output_path = input_path.replace(".musx", ".mxl")
-    keep = args.keep
+    parser = argparse.ArgumentParser(description="Convert Finale .musx files to MusicXML .mxl files.")
+    parser.add_argument("input_path", help="Path to a .musx file or directory containing .musx files.")
+    parser.add_argument("--output_path", default=None, required=False,
+                        help="Path to the output .mxl file or directory.")
+    parser.add_argument("--keep", action="store_true", help="Keep decoded enigmaxml and uncompressed musicxml.")
+    parser.add_argument("--recursive", action="store_true",
+                        help="Scan subdirectories recursively if input is a directory.")
 
-    try:
-        convert_file(input_path, output_path, keep)
-        print("Processing complete!")
-        return 0
-    except Exception as e:
-        print(f"Error: {e}")
-        traceback.print_exc()
+    args = parser.parse_args()
+    input_path = args.input_path
+    output_path = args.output_path
+    keep = args.keep
+    recursive = args.recursive
+
+    if os.path.isdir(input_path):
+        process_directory(input_path, output_path, recursive, keep)
+    elif os.path.isfile(input_path) and input_path.endswith(".musx"):
+        if output_path:
+            assert output_path.endswith(".mxl"), "Output file must have .mxl extension"
+        else:
+            output_path = input_path.replace(".musx", ".mxl")
+
+        try:
+            convert_file(input_path, output_path, keep)
+            print("Processing complete!")
+        except Exception as e:
+            print(f"Error: {e}")
+            traceback.print_exc()
+            return 1
+    else:
+        print("Error: Input path must be a .musx file or a directory containing .musx files.")
         return 1
 
+    return 0
 
 if __name__ == "__main__":
     exit(main())
