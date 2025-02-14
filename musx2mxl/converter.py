@@ -87,20 +87,23 @@ def lookup_meas_smart_shapes(root, meas_spec_cmper):
     meas_smart_shapes = []
     for smartShapeMeasMark in smartShapeMeasMarks:
         shapeNum = smartShapeMeasMark.find('f:shapeNum', namespaces=ns).text
-        smartShape = root.xpath(f"/f:finale/f:others/f:smartShape[@cmper = '{shapeNum}']", namespaces=ns)[0]
-        shapeType = smartShape.find("f:shapeType", namespaces=ns).text if smartShape.find("f:shapeType",
-                                                                                          namespaces=ns) is not None else None
-        startMeas = smartShape.find("f:startTermSeg/f:endPt/f:meas", namespaces=ns).text
-        startInst = smartShape.find("f:startTermSeg/f:endPt/f:inst", namespaces=ns).text
-        startEntry = smartShape.find("f:startTermSeg/f:endPt/f:entryNum", namespaces=ns).text if smartShape.find(
-            "f:startTermSeg/f:endPt/f:entryNum", namespaces=ns) is not None else None
-        endMeas = smartShape.find("f:endTermSeg/f:endPt/f:meas", namespaces=ns).text
-        endEntry = smartShape.find("f:endTermSeg/f:endPt/f:entryNum", namespaces=ns).text if smartShape.find(
-            "f:endTermSeg/f:endPt/f:entryNum", namespaces=ns) is not None else None
-        endInst = smartShape.find("f:endTermSeg/f:endPt/f:inst", namespaces=ns).text
-        meas_smart_shapes.append(
-            {'shapeType': shapeType, 'startMeas': startMeas, 'startEntry': startEntry, 'startInst': startInst,
-             'endMeas': endMeas, 'endEntry': endEntry, 'endInst': endInst, })
+        smartShape = root.find(f"f:others/f:smartShape[@cmper = '{shapeNum}']", namespaces=ns)
+        if smartShape is None:
+            print(f'smartShape with cmper {shapeNum} not found')
+        else:
+            shapeType = smartShape.find("f:shapeType", namespaces=ns).text if smartShape.find("f:shapeType",
+                                                                                              namespaces=ns) is not None else None
+            startMeas = smartShape.find("f:startTermSeg/f:endPt/f:meas", namespaces=ns).text
+            startInst = smartShape.find("f:startTermSeg/f:endPt/f:inst", namespaces=ns).text
+            startEntry = smartShape.find("f:startTermSeg/f:endPt/f:entryNum", namespaces=ns).text if smartShape.find(
+                "f:startTermSeg/f:endPt/f:entryNum", namespaces=ns) is not None else None
+            endMeas = smartShape.find("f:endTermSeg/f:endPt/f:meas", namespaces=ns).text
+            endEntry = smartShape.find("f:endTermSeg/f:endPt/f:entryNum", namespaces=ns).text if smartShape.find(
+                "f:endTermSeg/f:endPt/f:entryNum", namespaces=ns) is not None else None
+            endInst = smartShape.find("f:endTermSeg/f:endPt/f:inst", namespaces=ns).text
+            meas_smart_shapes.append(
+                {'shapeType': shapeType, 'startMeas': startMeas, 'startEntry': startEntry, 'startInst': startInst,
+                 'endMeas': endMeas, 'endEntry': endEntry, 'endInst': endInst, })
     return meas_smart_shapes
 
 
