@@ -63,12 +63,12 @@ You can also run the converter via the command line:
 musx2mxl [options] input_path
 ```
 
-#### 🔹 Arguments
+#### Arguments
 ```
   input_path        A Finale file (*.musx) or a directory containing several Finale files.
 ```
 
-#### 🔹 Options
+#### Options
 ```
   -h, --help        Show this help message and exit.
   --output_path     Specify the output .mxl file path (default: same as input but with .mxl extension). Ignored if input_path is a directory.
