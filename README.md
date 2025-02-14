@@ -11,6 +11,17 @@ This project is a private initiative aimed at musicians and composers who no lon
 ## Online File Converter
 Check out the [online musx2xml converter](https://jorisvaneyghen-musx2mxl.hf.space/)
 
+
+#### Run the Online File Converter local on your computer
+```sh
+docker run -it -p 7860:7860 --platform=linux/amd64 \
+	registry.hf.space/jorisvaneyghen-musx2mxl:latest python app.py
+```
+After successful execution open [http://localhost:7860/](http://localhost:7860/) in your web browser  
+
+For implementation details check [git](https://huggingface.co/spaces/jorisvaneyghen/musx2mxl/tree/main)
+
+
 ## Installation
 To install the required package, use:
 ```sh
@@ -18,6 +29,12 @@ pip install musx2mxl
 ```
 
 ## Usage
+### GUI:
+
+```sh
+musx2mxl-gui
+```
+### CMD line execution (batch)
 You can use the converter via the command line:
 ```sh
 musx2mxl [options] input_path
