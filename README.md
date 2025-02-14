@@ -9,46 +9,70 @@ This project is a private initiative aimed at musicians and composers who no lon
 
 
 ## Online File Converter
-Check out the [online musx2xml converter](https://jorisvaneyghen-musx2mxl.hf.space/)
 
+Easily convert Finale `.musx` files to `.mxl` format online.
 
-#### Run the Online File Converter local on your computer
+**[online musx2xml converter](https://jorisvaneyghen-musx2mxl.hf.space/)**.
+
+![Online Converter](images/online-converter.png)
+
+## Run Online File Converter Locally Using Docker
+You can run the online converter on your own machine using Docker.
+
+### Prerequisites
+Make sure you have the following installed:
+- **Docker** ([Install Docker](https://docs.docker.com/get-docker/))
+
+### Running the Converter
 ```sh
 docker run -it -p 7860:7860 --platform=linux/amd64 \
-	registry.hf.space/jorisvaneyghen-musx2mxl:latest python app.py
+    registry.hf.space/jorisvaneyghen-musx2mxl:latest python app.py
 ```
-After successful execution open [http://localhost:7860/](http://localhost:7860/) in your web browser  
+After running the command, open your web browser and go to: [http://localhost:7860/](http://localhost:7860/)
 
-For implementation details check [git](https://huggingface.co/spaces/jorisvaneyghen/musx2mxl/tree/main)
+For implementation details, check the **[Git repository](https://huggingface.co/spaces/jorisvaneyghen/musx2mxl/tree/main)**.
+
 
 
 ## Installation
-To install the required package, use:
+
+### Prerequisites
+Make sure you have the following installed:
+- **Python 3** ([Install Python](https://www.python.org/downloads/))
+- **pip** (comes with Python but can be updated via `python -m ensurepip` or `python -m pip install --upgrade pip`)
+
+### Install
+
+To install the required package on your local system:
 ```sh
 pip install musx2mxl
 ```
 
-## Usage
-### GUI:
+##  Usage
 
+### Graphical Interface (GUI)
+Run the GUI version with following command in console:
 ```sh
 musx2mxl-gui
 ```
-### CMD line execution (batch)
-You can use the converter via the command line:
+![GUI Screenshot](images/musx2mxl-gui.png)
+
+### Command Line Execution (Batch Processing)
+You can also run the converter via the command line:
 ```sh
 musx2mxl [options] input_path
 ```
 
+#### 🔹 Arguments
 ```
-  input_path        A Finale file (*.musx) or a directory containing several Finale files.  
+  input_path        A Finale file (*.musx) or a directory containing several Finale files.
 ```
 
-### Options:
+#### 🔹 Options
 ```
   -h, --help        Show this help message and exit.
-  --output_path     Path to the output .mxl file. Default value is the same as the input_path but with extension (*.mxl) (Is ignored if input_path is a directory).
-  --keep            Keep the decoded Finale data (*.enigmaxml) and uncompressed MuscicXml (*.musicxml).
+  --output_path     Specify the output .mxl file path (default: same as input but with .mxl extension). Ignored if input_path is a directory.
+  --keep            Keep the decoded Finale data (*.enigmaxml) and uncompressed MusicXML (*.musicxml).
   --recursive       Scan subdirectories recursively if input_path is a directory.
 ```
 
