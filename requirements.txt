@@ -1,1 +1,2 @@
-lxml
+lxml~=4.8.0
+tkinterdnd2~=0.4.2

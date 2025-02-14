@@ -11,7 +11,7 @@ install_requires = requirements_path.read_text().splitlines() if requirements_pa
 
 setup(
     name="musx2mxl",  # Package name
-    version="0.1.5",  # Version
+    version="0.1.6",  # Version
     long_description=long_description,
     long_description_content_type='text/markdown',
     packages=find_packages(),  # Automatically find package directories
@@ -19,6 +19,7 @@ setup(
     entry_points={
         "console_scripts": [
             "musx2mxl=musx2mxl.musx2mxl:main",  # Creates a CLI command
+            "musx2mxl-gui=musx2mxl.musx2mxl_gui:main",  # Creates a CLI command
         ],
     },
     classifiers=[
