@@ -34,7 +34,7 @@ For implementation details, check the **[Git repository](https://huggingface.co/
 
 
 
-## Installation
+## Desktop application
 
 ### Prerequisites
 Make sure you have the following installed:
@@ -48,27 +48,27 @@ To install the required package on your local system:
 pip install musx2mxl
 ```
 
-##  Usage
+###  Usage
 
-### Graphical Interface (GUI)
+#### Graphical Interface (GUI)
 Run the GUI version with following command in console:
 ```sh
 musx2mxl-gui
 ```
 ![GUI Screenshot](images/musx2mxl-gui.png)
 
-### Command Line Execution (Batch Processing)
+#### Command Line Execution (Batch Processing)
 You can also run the converter via the command line:
 ```sh
 musx2mxl [options] input_path
 ```
 
-#### Arguments
+##### Arguments
 ```
   input_path        A Finale file (*.musx) or a directory containing several Finale files.
 ```
 
-#### Options
+##### Options
 ```
   -h, --help        Show this help message and exit.
   --output_path     Specify the output .mxl file path (default: same as input but with .mxl extension). Ignored if input_path is a directory.

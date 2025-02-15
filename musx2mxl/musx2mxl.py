@@ -149,22 +149,34 @@ def save_as_mxl(data, output_path, musicxml_filename="score.musicxml"):
         mxl_zip.writestr("META-INF/container.xml", container_data, compress_type=zipfile.ZIP_DEFLATED)
 
 def convert_file(input_path, output_path, keep = False):
-    data = read_file_from_zip(input_path, 'score.dat')
-    metadata = read_file_from_zip(input_path, 'NotationMetadata.xml')
-    decrypt(data)
-    data = gzip.decompress(data)
-    if keep:
-        with open(output_path.replace(".mxl", ".enigmaxml"), "wb") as file:
-            file.write(data)
-    input_stream = BytesIO(data)
-    metadata_stream = BytesIO(metadata)
-    output_stream = BytesIO()
-    converter.convert_from_stream(input_stream, metadata_stream, output_stream)
-    if keep:
-        with open(output_path.replace(".mxl", ".musicxml"), "wb") as file:
-            output_stream.seek(0)
-            file.write(output_stream.getvalue())
-    save_as_mxl(output_stream, output_path)
+    try:
+        data = read_file_from_zip(input_path, 'score.dat')
+        metadata = read_file_from_zip(input_path, 'NotationMetadata.xml')
+        decrypt(data)
+        data = gzip.decompress(data)
+        if keep:
+            with open(output_path.replace(".mxl", ".enigmaxml"), "wb") as file:
+                file.write(data)
+        input_stream = BytesIO(data)
+        metadata_stream = BytesIO(metadata)
+        output_stream = BytesIO()
+        converter.convert_from_stream(input_stream, metadata_stream, output_stream)
+        if keep:
+            with open(output_path.replace(".mxl", ".musicxml"), "wb") as file:
+                output_stream.seek(0)
+                file.write(output_stream.getvalue())
+        save_as_mxl(output_stream, output_path)
+    except zipfile.BadZipFile as e:
+        print(f"Error: {e}")
+        traceback.print_exc()
+        raise Exception('Invalid File: Is no Finale Music Notation (musx)')
+    except FileNotFoundError as e:
+        print(f"Error: {e}")
+        traceback.print_exc()
+        raise Exception('Invalid File: Is no Finale Music Notation (musx)')
+    except Exception as e:
+        raise e
+
 
 
 def process_directory(directory, output_dir=None, recursive=False, keep=False):

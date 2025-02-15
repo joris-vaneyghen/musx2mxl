@@ -11,7 +11,7 @@ install_requires = requirements_path.read_text().splitlines() if requirements_pa
 
 setup(
     name="musx2mxl",  # Package name
-    version="0.1.6",  # Version
+    version="0.1.7",  # Version
     long_description=long_description,
     long_description_content_type='text/markdown',
     packages=find_packages(),  # Automatically find package directories

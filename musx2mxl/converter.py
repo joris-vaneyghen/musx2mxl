@@ -1,15 +1,22 @@
 from io import BytesIO
 from lxml.etree import Element, SubElement, parse, ElementTree, XMLSyntaxError
-
 from musx2mxl.helper import calculate_mode_and_key_fifths, calculate_type_and_dots, calculate_step_alter_and_octave, \
     translate_clef_sign, translate_bar_style, replace_music_symbols, remove_styling_tags, translate_dynamics, \
     do_tuplet_count, translate_articualtion
 
 ns = {"f": "http://www.makemusic.com/2012/finale"}
 ns2 = {"m": "http://www.makemusic.com/2012/NotationMetadata"}
-DIVISIONS = 2  # nb devisions per quarter note
+DIVISIONS = 4  # nb devisions per quarter note
 
 VERBOSE = False
+
+# Finale Bracket Styles
+THICK_LINE = '1'
+BRACKET_STRAIGHT_HOOKS = '2'
+PIANO_BRACE = '3'
+BRACKET_CURVED_HOOKS = '6'
+DESK_BRACKET = '8'
+
 
 def convert_from_stream(input_stream, metadata_stream, output_stream):
     """
@@ -29,12 +36,13 @@ def convert_from_stream(input_stream, metadata_stream, output_stream):
 
 
 def lookup_note_alter(root, entnum: str):
-    noteAlters = root.xpath(f"/f:finale/f:details/f:noteAlter[@entnum = '{entnum}']", namespaces=ns)
+    noteAlters = root.xpath(f"/f:finale/f:details/f:noteAlter[@entnum = '{entnum}'][f:noteID]", namespaces=ns)
     noteAlter_map = {}
     for noteAlter in noteAlters:
         noteID = noteAlter.find("f:noteID", namespaces=ns).text
         enharmonic = noteAlter.find("f:enharmonic", namespaces=ns) is not None
-        percent = noteAlter.find("f:percent", namespaces=ns) if noteAlter.find("f:percent", namespaces=ns) is not None else None
+        percent = noteAlter.find("f:percent", namespaces=ns) if noteAlter.find("f:percent",
+                                                                               namespaces=ns) is not None else None
         noteAlter_map[noteID] = {"enharmonic": enharmonic, "percent": percent}
     return noteAlter_map
 
@@ -56,7 +64,8 @@ def lookup_meas_expressions(root, meas_spec_cmper: str):
         textBlock = root.find(f"f:others/f:textBlock[@cmper='{textIDKey}']", namespaces=ns)
         expression_text = None
         if textBlock is not None:
-            markingsCategory = root.xpath(f"/f:finale/f:others/f:markingsCategory[@cmper='{categoryID}']", namespaces=ns)[0]
+            markingsCategory = \
+                root.xpath(f"/f:finale/f:others/f:markingsCategory[@cmper='{categoryID}']", namespaces=ns)[0]
             textID = textBlock.find("f:textID", namespaces=ns).text
             textTag = textBlock.find("f:textTag", namespaces=ns).text
             showShape = textBlock.find("f:textTag", namespaces=ns) is not None
@@ -114,7 +123,45 @@ def lookup_block_text(root, id):
     if text:
         return replace_music_symbols(remove_styling_tags(text))
     else:
+        print(f"blockText with number {textID} not found.")
         return ''
+
+
+def lookup_staff_groups(root):
+    # todo check multiStaffInstGroup and multiStaffGroupID
+    staff_group_list = []
+    staff_groups = root.xpath("/f:finale/f:details/f:staffGroup[not(@part)]", namespaces=ns)
+    for staffGroup in staff_groups:
+        startInst = staffGroup.find("f:startInst", namespaces=ns).text
+        endInst = staffGroup.find("f:endInst", namespaces=ns).text
+        startMeas = staffGroup.find("f:startMeas", namespaces=ns).text
+        endMeas = staffGroup.find("f:endMeas", namespaces=ns).text
+        fullID_ = staffGroup.find("f:fullID", namespaces=ns)
+        abbrvID_ = staffGroup.find("f:abbrvID", namespaces=ns)
+        fullName = lookup_block_text(root, fullID_.text) if fullID_ is not None else None
+        abbrvName = lookup_block_text(root, abbrvID_.text) if abbrvID_ is not None else None
+        bracket_id = staffGroup.find("f:bracket/f:id", namespaces=ns).text if staffGroup.find("f:bracket/f:id", namespaces=ns) is not None else None
+        staff_group_list.append({'startInst': startInst, 'endInst': endInst, 'startMeas': startMeas, 'endMeas': endMeas,
+                                 'fullName': fullName, 'abbrvName': abbrvName, 'bracket_id': bracket_id})
+    if VERBOSE: print(f"staff_group_list: {staff_group_list}")
+    return staff_group_list
+
+
+def find_staff_group_name(param, staff_spec_cmper, staff_groups):
+    names = []
+    for staff_group in staff_groups:
+        if int(staff_group["startInst"]) <= int(staff_spec_cmper) <= int(staff_group["endInst"]) and staff_group[
+            param]:
+            names.append(staff_group[param])
+    return ' '.join(names) if names else None
+
+
+def get_piano_brace_staff_group(staff_spec_cmper, staff_groups):
+    for staff_group in staff_groups:
+        if (staff_group["bracket_id"] == PIANO_BRACE and staff_group["startInst"] != staff_group["endInst"] and
+                int(staff_group["startInst"]) <= int(staff_spec_cmper) <= int(staff_group["endInst"])):
+            return staff_group
+    return None
 
 
 def convert_tree(tree, meta_tree):
@@ -131,201 +178,155 @@ def convert_tree(tree, meta_tree):
     timeSigDoAbrvCut = len(
         root.xpath("/f:finale/f:options/f:timeSignatureOptions/f:timeSigDoAbrvCut", namespaces=ns)) > 0
 
+    staff_groups = lookup_staff_groups(root)
+
     staff_specs = root.xpath("/f:finale/f:others/f:staffSpec[@cmper != '32767']", namespaces=ns)
-    for i, staff_spec in enumerate(staff_specs):
+    i = 1
+    part_ids = {}
+    for staff_spec in staff_specs:
+        staff_spec_cmper = staff_spec.get("cmper")
         fullName_ = staff_spec.find('f:fullName', namespaces=ns)
         abbrvName_ = staff_spec.find('f:abbrvName', namespaces=ns)
-        fullName = lookup_block_text(root, fullName_.text) if fullName_ is not None else None
-        abbrvName = lookup_block_text(root, abbrvName_.text) if abbrvName_ is not None else None
+        if fullName_ is not None:
+            fullName = lookup_block_text(root, fullName_.text)
+        else:
+            fullName = find_staff_group_name('fullName', staff_spec_cmper, staff_groups)
+        if abbrvName_ is not None:
+            abbrvName = lookup_block_text(root, abbrvName_.text)
+        else:
+            abbrvName = find_staff_group_name('abbrvName', staff_spec_cmper, staff_groups)
 
-        score_part = SubElement(part_list, "score-part", id=f"P{i + 1}")
-        if fullName:
-            SubElement(score_part, "part-name").text = fullName
-        if abbrvName:
-            SubElement(score_part, "part-abbreviation").text = abbrvName
+        piano_staff_group = get_piano_brace_staff_group(staff_spec_cmper, staff_groups)
+        if piano_staff_group is None or piano_staff_group['startInst'] == staff_spec_cmper:
+            part_id = f"P{i}"
+            i += 1
+            part_ids[staff_spec_cmper] = part_id
+            score_part = SubElement(part_list, "score-part", id=part_id)
+            if fullName:
+                SubElement(score_part, "part-name").text = fullName
+            if abbrvName:
+                SubElement(score_part, "part-abbreviation").text = abbrvName
 
     handle_tempo = True  # todo how to handle tempo changes correctly
 
-    for i, staff_spec in enumerate(staff_specs):
-        part = SubElement(score_partwise, "part", id=f"P{i + 1}")
+    for staff_spec in staff_specs:
         staff_spec_cmper = staff_spec.get("cmper")
-        key_adjust = int(staff_spec.find('f:transposition/f:keysig/f:adjust', namespaces=ns).text) if staff_spec.find(
-            'f:transposition/f:keysig/f:adjust', namespaces=ns) is not None else 0
+        if staff_spec_cmper in part_ids:
+            part = SubElement(score_partwise, "part", id=part_ids[staff_spec_cmper])
 
-        current_key = None
-        current_beats = None
-        current_divbeat = None
-        current_clefID = None
-        ending_cnt = 0  # todo how to find ending numbers correctly
+            piano_staff_group = get_piano_brace_staff_group(staff_spec_cmper, staff_groups)
 
-        meas_specs = root.xpath("/f:finale/f:others/f:measSpec[not(@shared) and not(@part)]", namespaces=ns)
-        nb_measures = len(meas_specs)
-        for meas_idx, meas_spec in enumerate(meas_specs):
-            meas_spec_cmper = meas_spec.get("cmper")
-            if VERBOSE: print(f'Staff: {staff_spec_cmper} - Measure: {meas_spec_cmper}')
-            measure = SubElement(part, "measure", number=meas_spec_cmper)
-            beats = meas_spec.find("f:beats", namespaces=ns).text
-            divbeat = meas_spec.find("f:divbeat", namespaces=ns).text
-            key_ = meas_spec.find("f:keySig/f:key", namespaces=ns)
-            barline_ = meas_spec.find("f:barline", namespaces=ns).text if meas_spec.find("f:barline",
-                                                                                         namespaces=ns) is not None else 'normal'
-            if meas_idx == nb_measures - 1:
-                barline_ = 'final'
-            forRepBar = meas_spec.find("f:forRepBar", namespaces=ns) is not None
-            bacRepBar = meas_spec.find("f:bacRepBar", namespaces=ns) is not None
-            barEnding = meas_spec.find("f:barEnding", namespaces=ns) is not None
-            hasSmartShape = meas_spec.find("f:hasSmartShape", namespaces=ns) is not None
-            if hasSmartShape:
-                meas_smart_shapes = lookup_meas_smart_shapes(root, meas_spec_cmper)
-                if VERBOSE: print(f'Measure smart shapes: {meas_smart_shapes}')
-            else:
-                meas_smart_shapes = []
-            # todo: Check if inst is always referring to staff_spec_cmper
-            for meas_smart_shape in meas_smart_shapes:
-                if meas_smart_shape['shapeType'] == 'cresc' and meas_smart_shape['startMeas'] == meas_spec_cmper and \
-                        meas_smart_shape['startInst'] == staff_spec_cmper:
-                    direction = SubElement(measure, "direction", placement='below')
-                    direction_type = SubElement(direction, "direction-type")
-                    SubElement(direction_type, "wedge", type="crescendo")
-                elif meas_smart_shape['shapeType'] == 'decresc' and meas_smart_shape['startMeas'] == meas_spec_cmper and \
-                        meas_smart_shape['endInst'] == staff_spec_cmper:
-                    direction = SubElement(measure, "direction", placement='below')
-                    direction_type = SubElement(direction, "direction-type")
-                    SubElement(direction_type, "wedge", type="diminuendo")
+            key_adjust = int(
+                staff_spec.find('f:transposition/f:keysig/f:adjust', namespaces=ns).text) if staff_spec.find(
+                'f:transposition/f:keysig/f:adjust', namespaces=ns) is not None else 0
 
-            leftBarline = meas_spec.find("f:leftBarline", namespaces=ns).text
-            if key_ is None:
-                key = None
-            else:
-                key = int(key_.text)
+            current_key = None
+            current_beats = None
+            current_divbeat = None
+            current_clefID = None
+            ending_cnt = 0  # todo how to find ending numbers correctly
 
-            attributes = None
-            if (meas_idx == 0):
-                attributes = handle_devisions(measure)
-            if key != current_key:
-                attributes = handle_key_change(measure, attributes, key, key_adjust)
-                current_key = key
-
-            if beats != current_beats or divbeat != current_divbeat:
-                attributes = handle_time_change(measure, attributes, beats, divbeat, timeSigDoAbrvCommon,
-                                                timeSigDoAbrvCut)
-                current_beats = beats
-                current_divbeat = divbeat
-
-            if forRepBar or barEnding:
-                left_barline = SubElement(measure, "barline", location='left')
-                if barEnding:
-                    ending_cnt += 1
-                    SubElement(left_barline, "ending", number=str(ending_cnt), type='start').text = f'{ending_cnt}.'
-                if forRepBar:
-                    SubElement(left_barline, "bar-style").text = 'heavy-light'
-                    SubElement(left_barline, "repeat", direction='forward')
-
-            gfholds = root.xpath(
-                f"/f:finale/f:details/f:gfhold[@cmper1 = '{staff_spec_cmper}' and @cmper2 = '{meas_spec_cmper}']",
-                namespaces=ns)
-            if len(gfholds) == 0:
-                first_clefID = root.find(f"f:details/f:gfhold[@cmper1 = '{staff_spec_cmper}']/f:clefID", namespaces=ns)
-                clefID = first_clefID.text if first_clefID is not None else None
-                if clefID != current_clefID:
-                    attributes = handle_cleff_change(root, measure, attributes, clefID)
-                    current_clefID = clefID
-                add_rest_to_empty_measure(root, measure, meas_spec_cmper)
-
-            for gfhold in gfholds:
-                clefID = gfhold.find("f:clefID", namespaces=ns).text if gfhold.find("f:clefID",
-                                                                                    namespaces=ns) is not None else current_clefID
-                # todo handle clefListID =(mid-measure clef changes)
-                # todo use <hasExpr/> to determine show time_signature
-                # todo use <showClefFirstSystemOnly/> to determine show clef
-                if clefID != current_clefID:
-                    attributes = handle_cleff_change(root, measure, attributes, clefID)
-                    current_clefID = clefID
-
-                if handle_tempo:
-                    beatsPerMinute = root.xpath(f"/f:finale/f:options/f:playbackOptions/f:beatsPerMinute",
-                                                namespaces=ns)
-                    edusPerBeat = root.xpath(f"/f:finale/f:options/f:playbackOptions/f:edusPerBeat", namespaces=ns)
-                    if beatsPerMinute is not None and edusPerBeat is not None:
-                        direction = SubElement(measure, "direction", placement='above')
+            meas_specs = root.xpath("/f:finale/f:others/f:measSpec[not(@shared) and not(@part)]", namespaces=ns)
+            nb_measures = len(meas_specs)
+            for meas_idx, meas_spec in enumerate(meas_specs):
+                meas_spec_cmper = meas_spec.get("cmper")
+                if VERBOSE: print(f'Staff: {staff_spec_cmper} - Measure: {meas_spec_cmper}')
+                measure = SubElement(part, "measure", number=meas_spec_cmper)
+                beats = meas_spec.find("f:beats", namespaces=ns).text
+                divbeat = meas_spec.find("f:divbeat", namespaces=ns).text
+                key_ = meas_spec.find("f:keySig/f:key", namespaces=ns)
+                barline_ = meas_spec.find("f:barline", namespaces=ns).text if meas_spec.find("f:barline",
+                                                                                             namespaces=ns) is not None else 'normal'
+                if meas_idx == nb_measures - 1:
+                    barline_ = 'final'
+                forRepBar = meas_spec.find("f:forRepBar", namespaces=ns) is not None
+                bacRepBar = meas_spec.find("f:bacRepBar", namespaces=ns) is not None
+                barEnding = meas_spec.find("f:barEnding", namespaces=ns) is not None
+                hasSmartShape = meas_spec.find("f:hasSmartShape", namespaces=ns) is not None
+                if hasSmartShape:
+                    meas_smart_shapes = lookup_meas_smart_shapes(root, meas_spec_cmper)
+                    if VERBOSE: print(f'Measure smart shapes: {meas_smart_shapes}')
+                else:
+                    meas_smart_shapes = []
+                # todo: Check if inst is always referring to staff_spec_cmper
+                for meas_smart_shape in meas_smart_shapes:
+                    if meas_smart_shape['shapeType'] == 'cresc' and meas_smart_shape['startMeas'] == meas_spec_cmper and \
+                            meas_smart_shape['startInst'] == staff_spec_cmper:
+                        direction = SubElement(measure, "direction", placement='below')
                         direction_type = SubElement(direction, "direction-type")
-                        metronome = SubElement(direction_type, "metronome")
-                        type_name, nb_dots = calculate_type_and_dots(int(edusPerBeat[0].text))
-                        SubElement(metronome, "beat-unit").text = type_name
-                        SubElement(metronome, "per-minute").text = beatsPerMinute[0].text
-                    handle_tempo = False
+                        SubElement(direction_type, "wedge", type="crescendo")
+                    elif meas_smart_shape['shapeType'] == 'decresc' and meas_smart_shape[
+                        'startMeas'] == meas_spec_cmper and \
+                            meas_smart_shape['endInst'] == staff_spec_cmper:
+                        direction = SubElement(measure, "direction", placement='below')
+                        direction_type = SubElement(direction, "direction-type")
+                        SubElement(direction_type, "wedge", type="diminuendo")
 
-                for frame_num in range(1, 5):
-                    frame = gfhold.find(f"f:frame{frame_num}", namespaces=ns)
-                    if frame is not None:
-                        frameSpec_cmper = frame.text
-                        process_frame(root, measure, frameSpec_cmper, frame_num, key, key_adjust)
+                leftBarline = meas_spec.find("f:leftBarline", namespaces=ns).text
+                if key_ is None:
+                    key = None
+                else:
+                    key = int(key_.text)
 
-            hasExpr = meas_spec.find("f:hasExpr", namespaces=ns) is not None
-            if hasExpr:
-                expressions = lookup_meas_expressions(root, meas_spec_cmper)
-                for expression in expressions:
-                    if VERBOSE: print(f'Expression: {expression}')
-                    if expression['staffAssign'] == staff_spec_cmper:
-                        if expression['categoryType'] == 'dynamics':
-                            dynamic_name = translate_dynamics(expression['text'])
-                            if dynamic_name is not None:
-                                direction = SubElement(measure, "direction", placement='below')
-                                direction_type = SubElement(direction, "direction-type")
-                                dynamics = SubElement(direction_type, "dynamics")
-                                SubElement(dynamics, dynamic_name)
-                        elif expression['categoryType'] == 'tempoAlts':
-                            direction = SubElement(measure, "direction", placement='above')
-                            direction_type = SubElement(direction, "direction-type")
-                            words = SubElement(direction_type, 'words')
-                            words.text = remove_styling_tags(expression['text'])
-                            words.set('font-style', 'italic')
-                        elif expression['categoryType'] == 'expressiveText':
-                            direction = SubElement(measure, "direction", placement='bellow')
-                            direction_type = SubElement(direction, "direction-type")
-                            words = SubElement(direction_type, 'words')
-                            words.text = remove_styling_tags(expression['text'])
-                            words.set('font-style', 'italic')
-                        elif expression['categoryType'] == 'techniqueText':
-                            direction = SubElement(measure, "direction", placement='above')
-                            direction_type = SubElement(direction, "direction-type")
-                            words = SubElement(direction_type, 'words')
-                            words.text = remove_styling_tags(expression['text'])
-                            words.set('font-style', 'italic')
-                        elif expression['categoryType'] == 'tempoMarks':
-                            # todo: use instead of using element beatsPerMinute?
-                            pass
-                        elif expression['categoryType'] == 'rehearsalMarks':
-                            # todo: use instead of using elements forRepBar & bacRepBar?
-                            pass
-                        elif expression['categoryType'] == 'misc':
-                            direction = SubElement(measure, "direction", placement='above')
-                            direction_type = SubElement(direction, "direction-type")
-                            words = SubElement(direction_type, 'words')
-                            words.text = remove_styling_tags(expression['text'])
-                            words.set('font-style', 'italic')
+                attributes = None
+                if (meas_idx == 0):
+                    attributes = handle_devisions(measure)
+                if key != current_key:
+                    attributes = handle_key_change(measure, attributes, key, key_adjust)
+                    current_key = key
 
-            barline = SubElement(measure, "barline", location="right")
-            bar_style = SubElement(barline, "bar-style")
-            bar_style.text = translate_bar_style(barline_, bacRepBar, barEnding)
-            if barEnding:
-                SubElement(barline, "ending", number=str(ending_cnt), type='stop').text = f'{ending_cnt}.'
-            else:
-                ending_cnt = 0
-            if bacRepBar:
-                SubElement(barline, "repeat", direction='backward', winged='none')
+                if beats != current_beats or divbeat != current_divbeat:
+                    attributes = handle_time_change(measure, attributes, beats, divbeat, timeSigDoAbrvCommon,
+                                                    timeSigDoAbrvCut)
+                    current_beats = beats
+                    current_divbeat = divbeat
 
-            for meas_smart_shape in meas_smart_shapes:
-                if meas_smart_shape['shapeType'] == 'cresc' and meas_smart_shape['endMeas'] == meas_spec_cmper and \
-                        meas_smart_shape['startInst'] == staff_spec_cmper:
-                    direction = SubElement(measure, "direction", placement='below')
-                    direction_type = SubElement(direction, "direction-type")
-                    SubElement(direction_type, "wedge", type="stop")
-                elif meas_smart_shape['shapeType'] == 'decresc' and meas_smart_shape['endMeas'] == meas_spec_cmper and \
-                        meas_smart_shape['endInst'] == staff_spec_cmper:
-                    direction = SubElement(measure, "direction", placement='below')
-                    direction_type = SubElement(direction, "direction-type")
-                    SubElement(direction_type, "wedge", type="stop")
+                if forRepBar or barEnding:
+                    left_barline = SubElement(measure, "barline", location='left')
+                    if barEnding:
+                        ending_cnt += 1
+                        SubElement(left_barline, "ending", number=str(ending_cnt), type='start').text = f'{ending_cnt}.'
+                    if forRepBar:
+                        SubElement(left_barline, "bar-style").text = 'heavy-light'
+                        SubElement(left_barline, "repeat", direction='forward')
+
+                if piano_staff_group:
+                    staff_id = 1
+                    clefIDs = {}
+                    prev = False
+                    for staff_spec in staff_specs:
+                        staff_spec_cmper = staff_spec.get("cmper")
+                        if int(piano_staff_group["startInst"]) <= int(staff_spec_cmper) <= int(
+                                piano_staff_group["endInst"]):
+                            if prev:
+                                backup = SubElement(measure, "backup")
+                                # todo is duration correctly calculated? Always start from start measure?
+                                SubElement(backup, "duration").text = str(
+                                    (int(current_beats) * int(current_divbeat) * DIVISIONS) // 1024)
+                            clefID, handle_tempo = process_gfholds(staff_spec_cmper, meas_spec_cmper, staff_id,
+                                                                           measure, root, meas_spec,
+                                                                           meas_smart_shapes, handle_tempo, barline_,
+                                                                           bacRepBar, barEnding, ending_cnt,
+                                                                           current_beats, current_divbeat, key,
+                                                                           key_adjust)
+                            clefIDs[staff_id] = clefID
+                            staff_id += 1
+                            prev = True
+                    if clefIDs != current_clefID:
+                        attributes = handle_mutli_staff_cleff_change(root, measure, attributes, clefIDs)
+                        current_clefID = clefIDs
+                else:
+                    clefID, handle_tempo = process_gfholds(staff_spec_cmper, meas_spec_cmper, None, measure,
+                                                                   root, meas_spec, meas_smart_shapes,
+                                                                   handle_tempo, barline_, bacRepBar, barEnding,
+                                                                   ending_cnt, current_beats, current_divbeat, key,
+                                                                   key_adjust)
+                    # todo handle clefListID =(mid-measure clef changes)
+                    # todo use <hasExpr/> to determine show time_signature
+                    # todo use <showClefFirstSystemOnly/> to determine show clef
+                    if clefID != current_clefID:
+                        attributes = handle_clef_change(root, measure, attributes, clefID)
+                        current_clefID = clefID
 
     return ElementTree(score_partwise)
 
@@ -367,26 +368,48 @@ def handle_devisions(measure):
 
     return attributes
 
+def lookup_clef_info(root, clefID:str):
+    if clefID:
+        clef_def = root.find(f"f:options/f:clefOptions/f:clefDef[@index = '{clefID}']", namespaces=ns)
+        clef_char = clef_def.find('f:clefChar', namespaces=ns)
+        clef_char_ = clef_char.text if clef_char is not None else None
+        # todo what if shape instead of clef_char (example : TAB)
+        sign, clef_octave_change = translate_clef_sign(clef_char_)
+        clef_y_disp = clef_def.find('f:clefYDisp', namespaces=ns)
+        clef_y_disp_ = int(clef_y_disp.text) if clef_y_disp is not None else 0
+        line = str(5 + clef_y_disp_ // 2)
+        return {'sign': sign, 'line': line, 'clef_octave_change': str(clef_octave_change)}
+    else:
+        return {'sign': 'G', 'line': '2', 'clef_octave_change': '0'}
 
-def handle_cleff_change(root, measure, attributes, clefID):
+def handle_mutli_staff_cleff_change(root, measure, attributes, clefIDs):
+    if attributes is None:
+        attributes = SubElement(measure, "attributes")
+    for staff_id, clefID in clefIDs.items():
+        clef_info = lookup_clef_info(root, clefID)
+        clef = SubElement(attributes, "clef", number=str(staff_id))
+        sign = SubElement(clef, "sign")
+        sign.text = clef_info['sign']
+        line = SubElement(clef, "line")
+        line.text = clef_info['line']
+        if clef_info['clef_octave_change'] != '0':
+            clef_octave_change = SubElement(clef, "clef-octave-change").text = clef_info['clef_octave_change']
+
+    return attributes
+
+def handle_clef_change(root, measure, attributes, clefID):
     if attributes is None:
         attributes = SubElement(measure, "attributes")
 
-    clef_def = root.xpath(f"/f:finale/f:options/f:clefOptions/f:clefDef[@index = '{clefID}']", namespaces=ns)
-    clef_char = clef_def[0].find('f:clefChar', namespaces=ns)
-    clef_char_ = clef_char.text if clef_char is not None else None
-    # todo what if shape instead of clef_char (example : TAB)
-    sign_, clef_octave_change_ = translate_clef_sign(clef_char_)
-    clef_y_disp = clef_def[0].find('f:clefYDisp', namespaces=ns)
-    clef_y_disp_ = int(clef_y_disp.text) if clef_y_disp is not None else 0
+    clef_info = lookup_clef_info(root, clefID)
     clef = SubElement(attributes, "clef")
     sign = SubElement(clef, "sign")
-    sign.text = sign_
+    sign.text = clef_info['sign']
     line = SubElement(clef, "line")
-    line.text = str(5 + clef_y_disp_ // 2)
-    if clef_octave_change_ != 0:
+    line.text = clef_info['line']
+    if clef_info['clef_octave_change'] != '0':
         clef_octave_change = SubElement(clef, "clef-octave-change")
-        clef_octave_change.text = str(clef_octave_change_)
+        clef_octave_change.text = clef_info['clef_octave_change']
 
     return attributes
 
@@ -416,26 +439,32 @@ def handle_time_change(measure, attributes, beats, divbeat, timeSigDoAbrvCommon:
     return attributes
 
 
-def process_frame(root, measure, frameSpec_cmper, voice, key, key_adjust):
+def process_frame(root, measure, frameSpec_cmper, frame_num, staff_id, key, key_adjust):
+    if staff_id is None:
+        voice = frame_num
+    else:
+        voice = (staff_id - 1) * 4 + frame_num
     frameSpecs = root.xpath(f"/f:finale/f:others/f:frameSpec[@cmper = '{frameSpec_cmper}']", namespaces=ns)
     for frameSpec in frameSpecs:
         startEntry = frameSpec.find("f:startEntry", namespaces=ns)
         endEntry = frameSpec.find("f:endEntry", namespaces=ns)
         if (startEntry is not None) and (endEntry is not None):
-            process_frame_entries(root, measure, startEntry.text, endEntry.text, voice, key, key_adjust, None)
+            process_frame_entries(root, measure, startEntry.text, endEntry.text, staff_id, voice, key, key_adjust, None)
 
 
-def process_frame_entries(root, measure, current_entnum, end_entnum, voice, key, key_adjust, tuplet_attributes):
+def process_frame_entries(root, measure, current_entnum, end_entnum, staff_id, voice, key, key_adjust,
+                          tuplet_attributes):
     current_entry = root.xpath(f"/f:finale/f:entries/f:entry[@entnum = '{current_entnum}']", namespaces=ns)[
         0] if root.xpath(f"/f:finale/f:entries/f:entry[@entnum = '{current_entnum}']", namespaces=ns) else None
     if current_entry is None:
         return
-    tuplet_attributes = process_entry(root, measure, current_entry, voice, key, key_adjust, tuplet_attributes)
+    tuplet_attributes = process_entry(root, measure, current_entry, staff_id, voice, key, key_adjust, tuplet_attributes)
 
     if current_entnum != end_entnum:
         next_entnum = current_entry.get("next")
         if next_entnum:
-            process_frame_entries(root, measure, next_entnum, end_entnum, voice, key, key_adjust, tuplet_attributes)
+            process_frame_entries(root, measure, next_entnum, end_entnum, staff_id, voice, key, key_adjust,
+                                  tuplet_attributes)
 
 
 def handleTupletStart(root, entry, notations):
@@ -488,7 +517,7 @@ def lookup_artic_detail(root, entnum):
     return artic_details
 
 
-def add_rest_to_empty_measure(root, measure, meas_spec_cmper):
+def add_rest_to_empty_measure(root, measure, meas_spec_cmper, staff_id):
     first_gfhold = root.find(f"f:details/f:gfhold[@cmper2 = '{meas_spec_cmper}'][f:frame1]", namespaces=ns)
     if first_gfhold is not None:
         frame = first_gfhold.find(f"f:frame1", namespaces=ns).text
@@ -508,13 +537,149 @@ def add_rest_to_empty_measure(root, measure, meas_spec_cmper):
         note = SubElement(measure, "note")
         SubElement(note, "rest")
         SubElement(note, "duration").text = str((dura * DIVISIONS) // 1024)
-        SubElement(note, "voice").text = '1'
+        voice = (staff_id - 1) * 4 + 1 if staff_id is not None else 1
+        SubElement(note, "voice").text = str(voice)
         SubElement(note, "type").text = type_name
+        if staff_id:
+            SubElement(note, "staff").text = str(staff_id)
         for _ in range(nb_dots):
             SubElement(note, "dot")
 
 
-def process_entry(root, measure, entry, voice, key, key_adjust, tuplet_attributes):
+def process_gfholds(staff_spec_cmper, meas_spec_cmper, staff_id, measure, root, meas_spec,
+                    meas_smart_shapes, handle_tempo, barline_, bacRepBar, barEnding, ending_cnt, current_beats,
+                    current_divbeat, key, key_adjust):
+    clefID = None
+    gfholds = root.xpath(
+        f"/f:finale/f:details/f:gfhold[@cmper1 = '{staff_spec_cmper}' and @cmper2 = '{meas_spec_cmper}']",
+        namespaces=ns)
+    if len(gfholds) == 0:
+        first_clefID = root.find(f"f:details/f:gfhold[@cmper1 = '{staff_spec_cmper}']/f:clefID",
+                                 namespaces=ns)
+        clefID = first_clefID.text if first_clefID is not None else None
+        add_rest_to_empty_measure(root, measure, meas_spec_cmper, staff_id)
+
+    for gfhold in gfholds:
+        if gfhold.find("f:clefID", namespaces=ns) is not None:
+            clefID = gfhold.find("f:clefID", namespaces=ns).text
+        if handle_tempo:
+            beatsPerMinute = root.xpath(f"/f:finale/f:options/f:playbackOptions/f:beatsPerMinute",
+                                        namespaces=ns)
+            edusPerBeat = root.xpath(f"/f:finale/f:options/f:playbackOptions/f:edusPerBeat", namespaces=ns)
+            if beatsPerMinute is not None and edusPerBeat is not None:
+                direction = SubElement(measure, "direction", placement='above')
+                direction_type = SubElement(direction, "direction-type")
+                if staff_id:
+                    SubElement(direction, "staff").text = str(staff_id)
+                metronome = SubElement(direction_type, "metronome")
+                type_name, nb_dots = calculate_type_and_dots(int(edusPerBeat[0].text))
+                SubElement(metronome, "beat-unit").text = type_name
+                SubElement(metronome, "per-minute").text = beatsPerMinute[0].text
+            handle_tempo = False
+
+        has_prev_frame = False
+        for frame_num in range(1, 5):
+            frame = gfhold.find(f"f:frame{frame_num}", namespaces=ns)
+            if frame is not None:
+                if has_prev_frame:
+                    backup = SubElement(measure, "backup")
+                    # todo is duration correctly calculated? Always start from start measure?
+                    SubElement(backup, "duration").text = str(
+                        (int(current_beats) * int(current_divbeat) * DIVISIONS) // 1024)
+                frameSpec_cmper = frame.text
+                process_frame(root, measure, frameSpec_cmper, frame_num, staff_id, key, key_adjust)
+                has_prev_frame = True
+
+    hasExpr = meas_spec.find("f:hasExpr", namespaces=ns) is not None
+    if hasExpr:
+        expressions = lookup_meas_expressions(root, meas_spec_cmper)
+        for expression in expressions:
+            if VERBOSE: print(f'Expression: {expression}')
+            if expression['staffAssign'] == staff_spec_cmper:
+                if expression['categoryType'] == 'misc':
+                    # check if expression is recognizes as dynamics
+                    dynamic_name = translate_dynamics(expression['text'])
+                    if dynamic_name is not None:
+                        expression['categoryType'] = 'dynamics'
+                    else:
+                        direction = SubElement(measure, "direction", placement='above')
+                        direction_type = SubElement(direction, "direction-type")
+                        if staff_id:
+                            SubElement(direction, "staff").text = str(staff_id)
+                        words = SubElement(direction_type, 'words')
+                        words.text = remove_styling_tags(expression['text'])
+                        words.set('font-style', 'italic')
+                if expression['categoryType'] == 'dynamics':
+                    dynamic_name = translate_dynamics(expression['text'])
+                    if dynamic_name is not None:
+                        direction = SubElement(measure, "direction", placement='below')
+                        direction_type = SubElement(direction, "direction-type")
+                        if staff_id:
+                            SubElement(direction, "staff").text = str(staff_id)
+                        dynamics = SubElement(direction_type, "dynamics")
+                        SubElement(dynamics, dynamic_name)
+                elif expression['categoryType'] == 'tempoAlts':
+                    direction = SubElement(measure, "direction", placement='above')
+                    direction_type = SubElement(direction, "direction-type")
+                    if staff_id:
+                        SubElement(direction, "staff").text = str(staff_id)
+                    words = SubElement(direction_type, 'words')
+                    words.text = remove_styling_tags(expression['text'])
+                    words.set('font-style', 'italic')
+                elif expression['categoryType'] == 'expressiveText':
+                    direction = SubElement(measure, "direction", placement='bellow')
+                    direction_type = SubElement(direction, "direction-type")
+                    if staff_id:
+                        SubElement(direction, "staff").text = str(staff_id)
+                    words = SubElement(direction_type, 'words')
+                    words.text = remove_styling_tags(expression['text'])
+                    words.set('font-style', 'italic')
+                elif expression['categoryType'] == 'techniqueText':
+                    direction = SubElement(measure, "direction", placement='above')
+                    direction_type = SubElement(direction, "direction-type")
+                    if staff_id:
+                        SubElement(direction, "staff").text = str(staff_id)
+                    words = SubElement(direction_type, 'words')
+                    words.text = remove_styling_tags(expression['text'])
+                    words.set('font-style', 'italic')
+                elif expression['categoryType'] == 'tempoMarks':
+                    # todo: use instead of using element beatsPerMinute?
+                    pass
+                elif expression['categoryType'] == 'rehearsalMarks':
+                    # todo: use instead of using elements forRepBar & bacRepBar?
+                    pass
+
+    barline = SubElement(measure, "barline", location="right")
+    bar_style = SubElement(barline, "bar-style")
+    bar_style.text = translate_bar_style(barline_, bacRepBar, barEnding)
+    if barEnding:
+        SubElement(barline, "ending", number=str(ending_cnt), type='stop').text = f'{ending_cnt}.'
+    else:
+        ending_cnt = 0
+    if bacRepBar:
+        SubElement(barline, "repeat", direction='backward', winged='none')
+
+    for meas_smart_shape in meas_smart_shapes:
+        if meas_smart_shape['shapeType'] == 'cresc' and meas_smart_shape['endMeas'] == meas_spec_cmper and \
+                meas_smart_shape['startInst'] == staff_spec_cmper:
+            direction = SubElement(measure, "direction", placement='below')
+            direction_type = SubElement(direction, "direction-type")
+            if staff_id:
+                SubElement(direction, "staff").text = str(staff_id)
+            SubElement(direction_type, "wedge", type="stop")
+        elif meas_smart_shape['shapeType'] == 'decresc' and meas_smart_shape[
+            'endMeas'] == meas_spec_cmper and \
+                meas_smart_shape['endInst'] == staff_spec_cmper:
+            direction = SubElement(measure, "direction", placement='below')
+            direction_type = SubElement(direction, "direction-type")
+            if staff_id:
+                SubElement(direction, "staff").text = str(staff_id)
+            SubElement(direction_type, "wedge", type="stop")
+
+    return clefID, handle_tempo
+
+
+def process_entry(root, measure, entry, staff_id, voice, key, key_adjust, tuplet_attributes):
     dura = int(entry.find("f:dura", namespaces=ns).text)
     is_note = entry.find("f:isNote", namespaces=ns) is not None
     noteDetail = entry.find("f:noteDetail", namespaces=ns) is not None
@@ -581,6 +746,9 @@ def process_entry(root, measure, entry, voice, key, key_adjust, tuplet_attribute
                 for _ in range(nb_dots):
                     SubElement(note, "dot")
 
+            if staff_id:
+                SubElement(note, "staff").text = str(staff_id)
+
             if idx == 0:
                 notations = SubElement(note, "notations")
                 if smartShapeDetail:
@@ -622,5 +790,7 @@ def process_entry(root, measure, entry, voice, key, key_adjust, tuplet_attribute
             type_elem.text = type_name
             for _ in range(nb_dots):
                 SubElement(note, "dot")
+            if staff_id:
+                SubElement(note, "staff").text = str(staff_id)
 
     return tuplet_attributes
