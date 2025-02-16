@@ -429,13 +429,17 @@ def handle_time_change(measure, attributes, beats, divbeat, timeSigDoAbrvCommon:
         attributes = SubElement(measure, "attributes")
     time_ = SubElement(attributes, "time")
     beats_ = SubElement(time_, "beats")
-    beats_.text = beats
     beats_type = SubElement(time_, "beat-type")
-    beats_type.text = str(int(divbeat) // 256)
-    if beats == '4' and divbeat == '1024' and timeSigDoAbrvCommon:
-        time_.set('symbol', 'common')
-    if beats == '2' and divbeat == '2048' and timeSigDoAbrvCut:
-        time_.set('symbol', 'cut')
+    if divbeat == '1536':
+        beats_type.text = '8'
+        beats_.text = str(int(beats) * 3)
+    else:
+        beats_.text = beats
+        beats_type.text = str(4096 // int(divbeat))
+        if beats == '4' and divbeat == '1024' and timeSigDoAbrvCommon:
+            time_.set('symbol', 'common')
+        if beats == '2' and divbeat == '2048' and timeSigDoAbrvCut:
+            time_.set('symbol', 'cut')
     return attributes
 
 
