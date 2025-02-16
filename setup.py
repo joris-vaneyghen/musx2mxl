@@ -1,6 +1,13 @@
 from pathlib import Path
-
+import re
 from setuptools import setup, find_packages
+
+# Read the version from the package
+version_path = Path(__file__).parent / "musx2mxl" / "__init__.py"
+version_match = re.search(r'__version__ = ["\']([^"\']+)["\']', version_path.read_text())
+if not version_match:
+    raise RuntimeError("Unable to find version string in musx2mxl/__init__.py")
+version = version_match.group(1)
 
 this_directory = Path(__file__).parent
 long_description = (this_directory / "README.md").read_text()
@@ -11,7 +18,7 @@ install_requires = requirements_path.read_text().splitlines() if requirements_pa
 
 setup(
     name="musx2mxl",  # Package name
-    version="0.1.7",  # Version
+    version=version,  # Dynamically read version
     long_description=long_description,
     long_description_content_type='text/markdown',
     packages=find_packages(),  # Automatically find package directories
