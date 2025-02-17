@@ -247,8 +247,11 @@ def translate_bar_style(bar_line_type: str, bacRepBar: bool, barEnding: bool) ->
         return 'regular'
 
 
-def do_tuplet_count(tuplet_attributes, dura):
-    tuplet_attributes['count'] = tuplet_attributes['count'] + dura / int(tuplet_attributes['symbolicDur'])
+def count_tuplet(tuplet_attributes, dura):
+    refactor = 1 # refactor for nested tuples
+    for attributes in reversed(tuplet_attributes):
+        attributes['count'] = attributes['count'] + refactor * dura / int(attributes['symbolicDur'])
+        refactor *= int(attributes['refNum'])/int(attributes['symbolicNum'])
 
 
 def remove_styling_tags(text):

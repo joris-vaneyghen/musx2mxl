@@ -2,7 +2,7 @@ from io import BytesIO
 from lxml.etree import Element, SubElement, parse, ElementTree, XMLSyntaxError
 from musx2mxl.helper import calculate_mode_and_key_fifths, calculate_type_and_dots, calculate_step_alter_and_octave, \
     translate_clef_sign, translate_bar_style, replace_music_symbols, remove_styling_tags, translate_dynamics, \
-    do_tuplet_count, translate_articualtion
+    count_tuplet, translate_articualtion
 
 ns = {"f": "http://www.makemusic.com/2012/finale"}
 ns2 = {"m": "http://www.makemusic.com/2012/NotationMetadata"}
@@ -453,7 +453,7 @@ def process_frame(root, measure, frameSpec_cmper, frame_num, staff_id, key, key_
         startEntry = frameSpec.find("f:startEntry", namespaces=ns)
         endEntry = frameSpec.find("f:endEntry", namespaces=ns)
         if (startEntry is not None) and (endEntry is not None):
-            process_frame_entries(root, measure, startEntry.text, endEntry.text, staff_id, voice, key, key_adjust, None)
+            process_frame_entries(root, measure, startEntry.text, endEntry.text, staff_id, voice, key, key_adjust, [])
 
 
 def process_frame_entries(root, measure, current_entnum, end_entnum, staff_id, voice, key, key_adjust,
@@ -471,11 +471,17 @@ def process_frame_entries(root, measure, current_entnum, end_entnum, staff_id, v
                                   tuplet_attributes)
 
 
-def handleTupletStart(root, entry, notations):
+def handleTupletStart(root, entry, notations, tuplet_attributes):
     entnum = entry.get("entnum")
     tupletDefs = root.xpath(f"/f:finale/f:details/f:tupletDef[@entnum = '{entnum}']", namespaces=ns)
-    for idx, tupletDef in enumerate(tupletDefs):
-        number = str(idx + 1)
+    if len(tuplet_attributes) == 0:
+        idx = 0
+    else:
+        idx = max([int(tuplet_attribute['number']) for tuplet_attribute in tuplet_attributes])
+
+    for tupletDef in tupletDefs:
+        idx += 1
+        number = str(idx)
         attributes = {
             'symbolicNum': tupletDef.find("f:symbolicNum", namespaces=ns).text,
             'symbolicDur': tupletDef.find("f:symbolicDur", namespaces=ns).text,
@@ -484,10 +490,18 @@ def handleTupletStart(root, entry, notations):
             'count': 0,
             'number': number,
         }
-        SubElement(notations, 'tuplet', number=number, type='start')
-        # todo handle nested tuplets
-        return attributes
+        tuplet = SubElement(notations, 'tuplet', number=number, type='start')
+        if idx > 1:
+            actual_type, _ = calculate_type_and_dots(int(attributes['symbolicDur']))
+            normal_type, _ = calculate_type_and_dots(int(attributes['refDur']))
+            tuplet_actual = SubElement(tuplet, 'tuplet-actual')
+            SubElement(tuplet_actual, 'tuplet-number').text = attributes['symbolicNum']
+            SubElement(tuplet_actual, 'tuplet-type').text = actual_type
+            tuplet_normal = SubElement(tuplet, 'tuplet-normal')
+            SubElement(tuplet_normal, 'tuplet-number').text = attributes['refNum']
+            SubElement(tuplet_normal, 'tuplet-type').text = normal_type
 
+        tuplet_attributes.append(attributes)
 
 def handleSmartShapeDetail(root, entry, notations):
     entnum = entry.get("entnum")
@@ -758,15 +772,26 @@ def process_entry(root, measure, entry, staff_id, voice, key, key_adjust, tuplet
                 if smartShapeDetail:
                     handleSmartShapeDetail(root, entry, notations)
                 if tupletStart:
-                    tuplet_attributes = handleTupletStart(root, entry, notations)
-                if tuplet_attributes:
-                    do_tuplet_count(tuplet_attributes, dura)
+                    handleTupletStart(root, entry, notations, tuplet_attributes)
+                if len(tuplet_attributes) > 0:
+                    # todo handle symbolicDur != refDur
+                    is_nested = len(tuplet_attributes) > 1
+                    count_tuplet(tuplet_attributes, dura)
+                    print(tuplet_attributes)
+                    actual_notes = 1
+                    normal_notes = 1
+                    for attributes in tuplet_attributes:
+                        actual_notes *= int(attributes['symbolicNum'])
+                        normal_notes *= int(attributes['refNum'])
+                        if attributes['count'] == int(attributes['symbolicNum']):
+                            SubElement(notations, 'tuplet', number=attributes['number'], type='stop')
+                            tuplet_attributes.remove(attributes)
                     time_modification = SubElement(note, "time-modification")
-                    SubElement(time_modification, "actual-notes").text = tuplet_attributes['symbolicNum']
-                    SubElement(time_modification, "normal-notes").text = tuplet_attributes['refNum']
-                    if tuplet_attributes['count'] == int(tuplet_attributes['symbolicNum']):
-                        SubElement(notations, 'tuplet', number=tuplet_attributes['number'], type='stop')
-                        tuplet_attributes = None
+                    SubElement(time_modification, "actual-notes").text = str(actual_notes)
+                    SubElement(time_modification, "normal-notes").text = str(normal_notes)
+                    if is_nested :
+                        normal_type, _ = calculate_type_and_dots(int(tuplet_attributes[0]['symbolicDur']))
+                        SubElement(time_modification, "normal-type").text = normal_type
 
                 if articDetail:
                     articulations = SubElement(notations, "articulations")
@@ -796,5 +821,33 @@ def process_entry(root, measure, entry, staff_id, voice, key, key_adjust, tuplet
                 SubElement(note, "dot")
             if staff_id:
                 SubElement(note, "staff").text = str(staff_id)
+        notations = SubElement(note, "notations")
+        if smartShapeDetail:
+            handleSmartShapeDetail(root, entry, notations)
+        if tupletStart:
+            handleTupletStart(root, entry, notations, tuplet_attributes)
+        if len(tuplet_attributes) > 0:
+            # todo handle symbolicDur != refDur
+            is_nested = len(tuplet_attributes) > 1
+            count_tuplet(tuplet_attributes, dura)
+            print(tuplet_attributes)
+            actual_notes = 1
+            normal_notes = 1
+            for attributes in tuplet_attributes:
+                actual_notes *= int(attributes['symbolicNum'])
+                normal_notes *= int(attributes['refNum'])
+                if attributes['count'] == int(attributes['symbolicNum']):
+                    SubElement(notations, 'tuplet', number=attributes['number'], type='stop')
+                    tuplet_attributes.remove(attributes)
+            time_modification = SubElement(note, "time-modification")
+            SubElement(time_modification, "actual-notes").text = str(actual_notes)
+            SubElement(time_modification, "normal-notes").text = str(normal_notes)
+            if is_nested:
+                normal_type, _ = calculate_type_and_dots(int(tuplet_attributes[0]['symbolicDur']))
+                SubElement(time_modification, "normal-type").text = normal_type
+
+        # Remove empty notations element
+        if len(notations.getchildren()) == 0:
+            note.remove(notations)
 
     return tuplet_attributes
