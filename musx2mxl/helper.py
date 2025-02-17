@@ -230,12 +230,11 @@ def translate_tempo_marks(text:str):
         beat_unit = None
         per_minute = None
 
-    if '(' in words and ')' in per_minute:
+    if words and  per_minute and '(' in words and ')' in per_minute:
         parentheses = 'yes'
-        words = words.replace('(','')
+        words = words.replace('(', '')
         per_minute = per_minute.replace(')','')
 
-    words = words.replace('(','').replace
     return words, beat_unit, per_minute, parentheses
 
 
