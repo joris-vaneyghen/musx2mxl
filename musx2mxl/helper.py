@@ -201,6 +201,43 @@ def calculate_step_alter_and_octave(harm_lev: int, harm_alt: int, key: int, key_
         step, alter = calculate_enharmonic(step, alter)
     return step, alter, str(octave)
 
+def translate_tempo_marks(text:str):
+    # todo translate dots, ties
+
+    # ^fontTxt(Times New Roman,4096)^size(14)^nfx(1)Andante piu tosto Adagio ^fontMus(Engraver Text T,8191)^size(12)^nfx(0)q^fontNum(Engraver Text T,8191) = 70
+    parentheses = 'no'
+    if '{' in text and '}' in text:
+        parentheses='yes'
+        text= text.replace('{','').replace('}','')
+    else:
+        parentheses = 'no'
+
+    if ')q^' in text and '=' in text:
+        idx1 = text.find(')q^')
+        idx2 = text.find('=')
+        words = remove_styling_tags(text[:idx1+1])
+        beat_unit = 'quarter'
+        per_minute = remove_styling_tags(text[idx2+1:]).strip()
+    elif ')q =' in text:
+        idx1 = text.find(')q =')
+        words = remove_styling_tags(text[:idx1+1])
+        beat_unit = 'quarter'
+        per_minute = remove_styling_tags(text[idx1+4:]).strip()
+        print(f'{words},{beat_unit},{per_minute}')
+    else:
+        print(f'unk tempomark {text}')
+        words =  remove_styling_tags(text)
+        beat_unit = None
+        per_minute = None
+
+    if '(' in words and ')' in per_minute:
+        parentheses = 'yes'
+        words = words.replace('(','')
+        per_minute = per_minute.replace(')','')
+
+    words = words.replace('(','').replace
+    return words, beat_unit, per_minute, parentheses
+
 
 def calculate_type_and_dots(dura: int) -> tuple[str, int]:
     """
@@ -256,7 +293,7 @@ def count_tuplet(tuplet_attributes, dura):
 
 def remove_styling_tags(text):
     cmds = [re.escape(cmd[1:]) for cmd in
-            ["^font", "^fontid", "^Font", "^fontMus", "^fontTxt", "^fontNum", "^size", "^nfx"]
+            ["^font", "^fontid", "^Font", "^fontMus", "^fontTxt", "^fontNum", "^size", "^nfx", "^baseline"]
             ]
     pattern = r"\^(?:" + "|".join(cmds) + r")\([^)]*\)"
     # Remove all occurrences of the pattern

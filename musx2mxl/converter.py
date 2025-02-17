@@ -2,7 +2,7 @@ from io import BytesIO
 from lxml.etree import Element, SubElement, parse, ElementTree, XMLSyntaxError
 from musx2mxl.helper import calculate_mode_and_key_fifths, calculate_type_and_dots, calculate_step_alter_and_octave, \
     translate_clef_sign, translate_bar_style, replace_music_symbols, remove_styling_tags, translate_dynamics, \
-    count_tuplet, translate_articualtion
+    count_tuplet, translate_articualtion, translate_tempo_marks
 
 ns = {"f": "http://www.makemusic.com/2012/finale"}
 ns2 = {"m": "http://www.makemusic.com/2012/NotationMetadata"}
@@ -473,7 +473,7 @@ def process_frame_entries(root, measure, current_entnum, end_entnum, staff_id, v
 
 def handleTupletStart(root, entry, notations, tuplet_attributes):
     entnum = entry.get("entnum")
-    tupletDefs = root.xpath(f"/f:finale/f:details/f:tupletDef[@entnum = '{entnum}']", namespaces=ns)
+    tupletDefs = root.xpath(f"/f:finale/f:details/f:tupletDef[@entnum = '{entnum}'][f:symbolicNum]", namespaces=ns)
     if len(tuplet_attributes) == 0:
         idx = 0
     else:
@@ -580,20 +580,20 @@ def process_gfholds(staff_spec_cmper, meas_spec_cmper, staff_id, measure, root, 
     for gfhold in gfholds:
         if gfhold.find("f:clefID", namespaces=ns) is not None:
             clefID = gfhold.find("f:clefID", namespaces=ns).text
-        if handle_tempo:
-            beatsPerMinute = root.xpath(f"/f:finale/f:options/f:playbackOptions/f:beatsPerMinute",
-                                        namespaces=ns)
-            edusPerBeat = root.xpath(f"/f:finale/f:options/f:playbackOptions/f:edusPerBeat", namespaces=ns)
-            if beatsPerMinute is not None and edusPerBeat is not None:
-                direction = SubElement(measure, "direction", placement='above')
-                direction_type = SubElement(direction, "direction-type")
-                if staff_id:
-                    SubElement(direction, "staff").text = str(staff_id)
-                metronome = SubElement(direction_type, "metronome")
-                type_name, nb_dots = calculate_type_and_dots(int(edusPerBeat[0].text))
-                SubElement(metronome, "beat-unit").text = type_name
-                SubElement(metronome, "per-minute").text = beatsPerMinute[0].text
-            handle_tempo = False
+        # if handle_tempo:
+        #     beatsPerMinute = root.xpath(f"/f:finale/f:options/f:playbackOptions/f:beatsPerMinute",
+        #                                 namespaces=ns)
+        #     edusPerBeat = root.xpath(f"/f:finale/f:options/f:playbackOptions/f:edusPerBeat", namespaces=ns)
+        #     if beatsPerMinute is not None and edusPerBeat is not None:
+        #         direction = SubElement(measure, "direction", placement='above')
+        #         direction_type = SubElement(direction, "direction-type")
+        #         if staff_id:
+        #             SubElement(direction, "staff").text = str(staff_id)
+        #         metronome = SubElement(direction_type, "metronome")
+        #         type_name, nb_dots = calculate_type_and_dots(int(edusPerBeat[0].text))
+        #         SubElement(metronome, "beat-unit").text = type_name
+        #         SubElement(metronome, "per-minute").text = beatsPerMinute[0].text
+        #     handle_tempo = False
 
         has_prev_frame = False
         for frame_num in range(1, 5):
@@ -613,30 +613,12 @@ def process_gfholds(staff_spec_cmper, meas_spec_cmper, staff_id, measure, root, 
         expressions = lookup_meas_expressions(root, meas_spec_cmper)
         for expression in expressions:
             if VERBOSE: print(f'Expression: {expression}')
-            if expression['staffAssign'] == staff_spec_cmper:
-                if expression['categoryType'] == 'misc':
-                    # check if expression is recognizes as dynamics
-                    dynamic_name = translate_dynamics(expression['text'])
-                    if dynamic_name is not None:
-                        expression['categoryType'] = 'dynamics'
-                    else:
-                        direction = SubElement(measure, "direction", placement='above')
-                        direction_type = SubElement(direction, "direction-type")
-                        if staff_id:
-                            SubElement(direction, "staff").text = str(staff_id)
-                        words = SubElement(direction_type, 'words')
-                        words.text = remove_styling_tags(expression['text'])
-                        words.set('font-style', 'italic')
-                if expression['categoryType'] == 'dynamics':
-                    dynamic_name = translate_dynamics(expression['text'])
-                    if dynamic_name is not None:
-                        direction = SubElement(measure, "direction", placement='below')
-                        direction_type = SubElement(direction, "direction-type")
-                        if staff_id:
-                            SubElement(direction, "staff").text = str(staff_id)
-                        dynamics = SubElement(direction_type, "dynamics")
-                        SubElement(dynamics, dynamic_name)
-                elif expression['categoryType'] == 'tempoAlts':
+            if expression['categoryType'] == 'misc' and expression['staffAssign'] == staff_spec_cmper:
+                # check if expression is recognizes as dynamics
+                dynamic_name = translate_dynamics(expression['text'])
+                if dynamic_name is not None:
+                    expression['categoryType'] = 'dynamics'
+                else:
                     direction = SubElement(measure, "direction", placement='above')
                     direction_type = SubElement(direction, "direction-type")
                     if staff_id:
@@ -644,28 +626,53 @@ def process_gfholds(staff_spec_cmper, meas_spec_cmper, staff_id, measure, root, 
                     words = SubElement(direction_type, 'words')
                     words.text = remove_styling_tags(expression['text'])
                     words.set('font-style', 'italic')
-                elif expression['categoryType'] == 'expressiveText':
-                    direction = SubElement(measure, "direction", placement='bellow')
+            if expression['categoryType'] == 'dynamics' and expression['staffAssign'] == staff_spec_cmper:
+                dynamic_name = translate_dynamics(expression['text'])
+                if dynamic_name is not None:
+                    direction = SubElement(measure, "direction", placement='below')
                     direction_type = SubElement(direction, "direction-type")
                     if staff_id:
                         SubElement(direction, "staff").text = str(staff_id)
-                    words = SubElement(direction_type, 'words')
-                    words.text = remove_styling_tags(expression['text'])
-                    words.set('font-style', 'italic')
-                elif expression['categoryType'] == 'techniqueText':
-                    direction = SubElement(measure, "direction", placement='above')
+                    dynamics = SubElement(direction_type, "dynamics")
+                    SubElement(dynamics, dynamic_name)
+            elif expression['categoryType'] == 'tempoAlts' and expression['staffAssign'] == staff_spec_cmper:
+                direction = SubElement(measure, "direction", placement='above')
+                direction_type = SubElement(direction, "direction-type")
+                if staff_id:
+                    SubElement(direction, "staff").text = str(staff_id)
+                words = SubElement(direction_type, 'words')
+                words.text = remove_styling_tags(expression['text'])
+                words.set('font-style', 'italic')
+            elif expression['categoryType'] == 'expressiveText' and expression['staffAssign'] == staff_spec_cmper:
+                direction = SubElement(measure, "direction", placement='bellow')
+                direction_type = SubElement(direction, "direction-type")
+                if staff_id:
+                    SubElement(direction, "staff").text = str(staff_id)
+                words = SubElement(direction_type, 'words')
+                words.text = remove_styling_tags(expression['text'])
+                words.set('font-style', 'italic')
+            elif expression['categoryType'] == 'techniqueText' and expression['staffAssign'] == staff_spec_cmper:
+                direction = SubElement(measure, "direction", placement='above')
+                direction_type = SubElement(direction, "direction-type")
+                if staff_id:
+                    SubElement(direction, "staff").text = str(staff_id)
+                words = SubElement(direction_type, 'words')
+                words.text = remove_styling_tags(expression['text'])
+                words.set('font-style', 'italic')
+            elif expression['categoryType'] == 'tempoMarks' and expression['staffAssign'] == '-1':
+                words, beat_unit, per_minute, parentheses = translate_tempo_marks(expression['text'])
+                direction = SubElement(measure, "direction", placement='above')
+                if words:
                     direction_type = SubElement(direction, "direction-type")
-                    if staff_id:
-                        SubElement(direction, "staff").text = str(staff_id)
-                    words = SubElement(direction_type, 'words')
-                    words.text = remove_styling_tags(expression['text'])
-                    words.set('font-style', 'italic')
-                elif expression['categoryType'] == 'tempoMarks':
-                    # todo: use instead of using element beatsPerMinute?
-                    pass
-                elif expression['categoryType'] == 'rehearsalMarks':
-                    # todo: use instead of using elements forRepBar & bacRepBar?
-                    pass
+                    SubElement(direction_type, "words").text= words
+                if beat_unit and per_minute:
+                    direction_type = SubElement(direction, "direction-type")
+                    metronome = SubElement(direction_type, "metronome", parentheses=parentheses)
+                    SubElement(metronome, "beat-unit").text = beat_unit
+                    SubElement(metronome, "per-minute").text = per_minute
+            elif expression['categoryType'] == 'rehearsalMarks':
+                # todo: use instead of using elements forRepBar & bacRepBar?
+                pass
 
     barline = SubElement(measure, "barline", location="right")
     bar_style = SubElement(barline, "bar-style")
@@ -777,7 +784,7 @@ def process_entry(root, measure, entry, staff_id, voice, key, key_adjust, tuplet
                     # todo handle symbolicDur != refDur
                     is_nested = len(tuplet_attributes) > 1
                     count_tuplet(tuplet_attributes, dura)
-                    print(tuplet_attributes)
+                    if VERBOSE: print(tuplet_attributes)
                     actual_notes = 1
                     normal_notes = 1
                     for attributes in tuplet_attributes:
@@ -830,7 +837,7 @@ def process_entry(root, measure, entry, staff_id, voice, key, key_adjust, tuplet
             # todo handle symbolicDur != refDur
             is_nested = len(tuplet_attributes) > 1
             count_tuplet(tuplet_attributes, dura)
-            print(tuplet_attributes)
+            if VERBOSE: print(tuplet_attributes)
             actual_notes = 1
             normal_notes = 1
             for attributes in tuplet_attributes:
