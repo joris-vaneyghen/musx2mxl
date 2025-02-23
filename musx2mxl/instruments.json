@@ -1,0 +1,3927 @@
+{
+    "58734c17-246e-4e83-8975-9a0d55577d16": {
+        "category": "Keyboards",
+        "name": "Accordion",
+        "sound_id": "keyboard.accordion"
+    },
+    "e2c49784-685f-45ae-8c3a-4985d24346cf": {
+        "category": "Plucked Strings",
+        "name": "Acoustic Bass",
+        "sound_id": "pluck.bass.acoustic"
+    },
+    "88643f58-07fd-431d-bc0b-7a25462c8c67": {
+        "category": "Plucked Strings",
+        "name": "Acoustic Guitar",
+        "sound_id": "pluck.guitar.acoustic"
+    },
+    "afe27a81-d1b2-40ae-a844-e01690a2eef8": {
+        "category": "Percussion",
+        "name": "Adodo",
+        "sound_id": "metal.adodo"
+    },
+    "872e204b-4e82-4543-a816-a6cec42e60e7": {
+        "category": "Percussion",
+        "name": "Aeolian Harp",
+        "sound_id": "effect.aeolian-harp"
+    },
+    "5ff79093-45b2-45fe-89fc-4598b82885f9": {
+        "category": "Percussion",
+        "name": "Afoxé",
+        "sound_id": "rattle.afoxe"
+    },
+    "50c22237-3f77-475e-885a-894720e210be": {
+        "category": "Drums",
+        "name": "African Log Drum",
+        "sound_id": "drum.log-drum.african"
+    },
+    "f6cf5b5b-5f89-4183-a46c-92840a7058c2": {
+        "category": "Percussion",
+        "name": "Agogo Bells",
+        "sound_id": "metal.bells.agogo"
+    },
+    "0315f2bd-67a3-4fcb-924c-d85e13edefb2": {
+        "category": "Percussion",
+        "name": "Agogo Block",
+        "sound_id": "wood.agogo-block"
+    },
+    "34b63a98-197d-42c8-bee7-70ce5ff50d6e": {
+        "category": "Percussion",
+        "name": "Agung",
+        "sound_id": "metal.gong.agung"
+    },
+    "f9091d1e-4db0-4427-8755-37f5fcfaaf49": {
+        "category": "Percussion",
+        "name": "Agung a Tamlang",
+        "sound_id": "wood.agung-a-tamlang"
+    },
+    "e9d454f3-ae77-4774-b31b-174eba15dc39": {
+        "category": "Percussion",
+        "name": "Ahoko",
+        "sound_id": "wood.ahoko"
+    },
+    "3bfc4287-d541-47f4-abbe-be13ed82e607": {
+        "category": "Percussion",
+        "name": "Air Horn",
+        "sound_id": "effect.air-horn"
+    },
+    "4da5baf0-a6c8-4993-83d7-882bbb2adbb9": {
+        "category": "Strings",
+        "name": "Ajaeng",
+        "sound_id": "strings.ajaeng"
+    },
+    "cc046dd9-f5b7-4e0e-aacc-349e38da8ff3": {
+        "category": "Woodwinds",
+        "name": "Albogue",
+        "sound_id": "wind.reed.albogue"
+    },
+    "068a2f5d-dd22-47e8-ad53-b4b4dbd149ee": {
+        "category": "Woodwinds",
+        "name": "Alboka",
+        "sound_id": "wind.reed.alboka"
+    },
+    "d841d923-42f6-4edb-8b6e-8842edb170b9": {
+        "category": "Woodwinds",
+        "name": "Algaita",
+        "sound_id": "wind.reed.algaita"
+    },
+    "e6cd3375-9c24-4568-9fa6-d5fb8f8b9931": {
+        "category": "Pitched Percussion",
+        "name": "Almglocken",
+        "sound_id": "pitched-percussion.glockenspiel"
+    },
+    "27f4a259-5246-4e83-8e0b-ec8e9f242224": {
+        "category": "Brass",
+        "name": "Alphorn",
+        "sound_id": "brass.alphorn"
+    },
+    "6c186f89-5f5d-45ea-ab13-26e4bf267d80": {
+        "category": "Woodwinds",
+        "name": "Alto Clarinet",
+        "sound_id": "wind.reed.clarinet.alto"
+    },
+    "43a2bdba-df71-4768-ae08-955c380f4adb": {
+        "category": "Woodwinds",
+        "name": "Alto Crumhorn",
+        "sound_id": "wind.reed.crumhorn.alto"
+    },
+    "71d2b8ec-becd-42ef-b99f-ee9264db925d": {
+        "category": "Woodwinds",
+        "name": "Alto Flute",
+        "sound_id": "wind.flutes.flute.alto"
+    },
+    "35d4384c-ca42-448a-a6b3-e8af86267015": {
+        "category": "Pitched Percussion",
+        "name": "Alto Glockenspiel",
+        "sound_id": "pitched-percussion.glockenspiel"
+    },
+    "6be23099-6719-4d08-b8b7-a12ca783cee3": {
+        "category": "Brass",
+        "name": "Alto Horn",
+        "sound_id": "brass.alto-horn"
+    },
+    "899a686f-a770-455f-8555-7e701f956b1f": {
+        "category": "Pitched Percussion",
+        "name": "Alto Metallophone",
+        "sound_id": "pitched-percussion.metallophone"
+    },
+    "6b43616e-06ad-4397-9ca5-889dcbda20a9": {
+        "category": "Woodwinds",
+        "name": "Alto Recorder",
+        "sound_id": "wind.flutes.recorder.alto"
+    },
+    "4cb4cfa1-0b19-4053-8bf5-6b2cb0a2363b": {
+        "category": "Woodwinds",
+        "name": "Alto Sax",
+        "sound_id": "wind.reed.saxophone.alto"
+    },
+    "78a60980-a0fa-48ca-b344-707f82f84670": {
+        "category": "Brass",
+        "name": "Alto Trombone",
+        "sound_id": "brass.trombone.alto"
+    },
+    "ab3fc62c-9de9-4018-adf7-58a9d4441a1a": {
+        "category": "Voices",
+        "name": "Alto Voice",
+        "sound_id": "voice.alto"
+    },
+    "ed798f0d-91de-4d95-a2a0-25cd8e02e98a": {
+        "category": "Pitched Percussion",
+        "name": "Alto Xylophone",
+        "sound_id": "pitched-percussion.xylophone"
+    },
+    "baff0f86-b7f2-466e-8d84-016a350f25af": {
+        "category": "Woodwinds",
+        "name": "Ancient Tárogató",
+        "sound_id": "wind.reed.tarogato.ancient"
+    },
+    "907d080c-1d5a-4fba-bdd1-ee216d2de7cc": {
+        "category": "Pitched Percussion",
+        "name": "Angklung",
+        "sound_id": "pitched-percussion.angklung"
+    },
+    "22173e36-209e-4b91-95c2-fbef21596ec8": {
+        "category": "Drums",
+        "name": "Apentemma",
+        "sound_id": "drum.apentemma"
+    },
+    "e7c4b591-97e2-4afa-827b-fe474d8e576c": {
+        "category": "Drums",
+        "name": "Arabian Frame Drum",
+        "sound_id": "drum.frame-drum.arabian"
+    },
+    "cfacbadf-49c0-49e3-b48e-ea891553b7f4": {
+        "category": "Plucked Strings",
+        "name": "Archlute",
+        "sound_id": "pluck.archlute"
+    },
+    "f79879d9-f370-4acb-a1b5-0ce2dc6c3895": {
+        "category": "Woodwinds",
+        "name": "Arghul",
+        "sound_id": "wind.reed.arghul"
+    },
+    "cec73493-406a-4100-9d9f-7706940a39f0": {
+        "category": "Strings",
+        "name": "Arpeggione",
+        "sound_id": "strings.arpeggione"
+    },
+    "98c24536-4751-4435-8ee4-8154fc14c84a": {
+        "category": "Pitched Percussion",
+        "name": "Array mbira",
+        "sound_id": "pitched-percussion.mbira"
+    },
+    "d0bd0218-d248-43ce-89f4-584de4625c0f": {
+        "category": "Drums",
+        "name": "Ashiko",
+        "sound_id": "drum.ashiko"
+    },
+    "9ff9e754-b3d3-428f-80d7-a30a4b102d4c": {
+        "category": "Drums",
+        "name": "Atabaque",
+        "sound_id": "drum.atabaque"
+    },
+    "e09e3499-e833-48a5-a2ba-b86e01c6dfe9": {
+        "category": "Woodwinds",
+        "name": "Aulochrome",
+        "sound_id": "wind.reed.saxophone.aulochrome"
+    },
+    "2d746875-aef6-4b26-bf36-87d301f1ce3f": {
+        "category": "Plucked Strings",
+        "name": "Autoharp",
+        "sound_id": "pluck.autoharp"
+    },
+    "797c2be3-64a7-4366-a943-11f7fc1078ba": {
+        "category": "Percussion",
+        "name": "Babendil",
+        "sound_id": "metal.babendil"
+    },
+    "51dd4781-92e0-482d-876a-80fe7603ae12": {
+        "category": "Plucked Strings",
+        "name": "Bağlama",
+        "sound_id": "pluck.baglama"
+    },
+    "85399b62-95db-463e-abaf-da5f8405d57f": {
+        "category": "Woodwinds",
+        "name": "Bagpipes",
+        "sound_id": "wind.pipes.bagpipes"
+    },
+    "7b4278a1-f175-4c1b-bb50-8219670865a8": {
+        "category": "Pitched Percussion",
+        "name": "Balafon",
+        "sound_id": "pitched-percussion.balafon"
+    },
+    "1970d512-38b1-4823-a4c9-1408d954c8c8": {
+        "category": "Plucked Strings",
+        "name": "Balalaika",
+        "sound_id": "pluck.balalaika"
+    },
+    "1477b876-0c2e-4991-b43b-bb5e9e876870": {
+        "category": "Pitched Percussion",
+        "name": "Balaphon",
+        "sound_id": "pitched-percussion.balafon"
+    },
+    "3320f54a-d594-438c-b276-6ac67d3d26b0": {
+        "category": "Woodwinds",
+        "name": "Bandoneon",
+        "sound_id": "keyboard.bandoneon"
+    },
+    "67ed6548-e863-47b8-b70b-bd75621f43d1": {
+        "category": "Plucked Strings",
+        "name": "Bandura",
+        "sound_id": "pluck.bandura"
+    },
+    "32c30095-3a21-48c0-96a3-21fc16fce443": {
+        "category": "Plucked Strings",
+        "name": "Banjo",
+        "sound_id": "pluck.banjo"
+    },
+    "581fa811-7ac3-42bc-a74f-4b871364d3fb": {
+        "category": "Plucked Strings",
+        "name": "Banjolele",
+        "sound_id": "pluck.banjolele"
+    },
+    "f26581a2-9cad-4523-b472-95d058b1a82e": {
+        "category": "Woodwinds",
+        "name": "Bansuri",
+        "sound_id": "wind.flutes.bansuri"
+    },
+    "8ea279ef-8c45-4891-bb83-c9996c160e7e": {
+        "category": "Plucked Strings",
+        "name": "Barbat",
+        "sound_id": "pluck.barbat"
+    },
+    "25f31945-528f-492c-8dc4-67751136ace1": {
+        "category": "Brass",
+        "name": "Baritone (B.C.)",
+        "sound_id": "brass.bugle.baritone"
+    },
+    "8f767980-0718-4154-a312-20f458ee2096": {
+        "category": "Woodwinds",
+        "name": "Baritone Sax",
+        "sound_id": "voice.baritone"
+    },
+    "3900022b-ae13-4520-8432-1a212d36b6f7": {
+        "category": "Brass",
+        "name": "Baritone (T.C.)",
+        "sound_id": "brass.baritone-horn"
+    },
+    "6637f6a3-8f69-4dbf-9654-2287933ee7d3": {
+        "category": "Voices",
+        "name": "Baritone Voice",
+        "sound_id": "voice.baritone"
+    },
+    "1e1edd0c-61c6-41e2-9f88-a2f27c06e131": {
+        "category": "Brass",
+        "name": "Baroque Trumpet",
+        "sound_id": "brass.trumpet.baroque"
+    },
+    "73eff966-03ff-4c38-b71a-f48fdfe47312": {
+        "category": "Strings",
+        "name": "Baryton",
+        "sound_id": "strings.baryton"
+    },
+    "aedc8963-5421-4062-b6fd-1d6b38695009": {
+        "category": "Percussion",
+        "name": "Basic Indian Percussion",
+        "sound_id": "drum.group.indian"
+    },
+    "e453be0a-d0fc-44b3-8b0a-5c4a95157d44": {
+        "category": "Voices",
+        "name": "Bass-Baritone Voice",
+        "sound_id": "voice.baritone"
+    },
+    "40d3efff-30c3-4fd7-b830-03907360feed": {
+        "category": "Woodwinds",
+        "name": "Bass Clarinet",
+        "sound_id": "wind.reed.clarinet.bass"
+    },
+    "68909857-9b9d-4a26-85c0-8f561162b99a": {
+        "category": "Drums",
+        "name": "Bass Drum [single line]",
+        "sound_id": "drum.bass-drum"
+    },
+    "c7a3fb97-8121-4069-89ed-1aeda124df4c": {
+        "category": "Drums",
+        "name": "Bass Drums [5 line]",
+        "sound_id": "drum.bass-drum"
+    },
+    "b74f3793-ed8e-4b0b-93ab-864097d4658b": {
+        "category": "Woodwinds",
+        "name": "Basset Clarinet",
+        "sound_id": "wind.reed.clarinet.basset"
+    },
+    "5a02ed14-9fbb-41b6-b0b2-1ae2052d28ca": {
+        "category": "Woodwinds",
+        "name": "Basset Horn",
+        "sound_id": "wind.reed.basset-horn"
+    },
+    "b15ed58a-8c7d-487b-b54a-049f52b0a264": {
+        "category": "Woodwinds",
+        "name": "Bass Flute",
+        "sound_id": "wind.flutes.flute.bass"
+    },
+    "0f44376d-e91d-4282-b983-445491635503": {
+        "category": "Plucked Strings",
+        "name": "Bass Guitar",
+        "sound_id": "pluck.bass"
+    },
+    "941ded93-3dc2-41cb-85d0-4c033988caef": {
+        "category": "Woodwinds",
+        "name": "Bass Harmonica",
+        "sound_id": "pitched-percussion.glass-harmonica"
+    },
+    "5d49fe61-91e8-41fb-8b7f-1deab2736648": {
+        "category": "Pitched Percussion",
+        "name": "Bass Marimba",
+        "sound_id": "pitched-percussion.marimba"
+    },
+    "3f810a8e-1bd2-4c62-96a5-5c2eb7b0bf77": {
+        "category": "Pitched Percussion",
+        "name": "Bass Metallophone",
+        "sound_id": "pitched-percussion.metallophone"
+    },
+    "99f375d2-da09-4eac-aa7c-11bc0df567f3": {
+        "category": "Woodwinds",
+        "name": "Bassoboe",
+        "sound_id": "wind.reed.oboe.bass"
+    },
+    "ec6fcc9b-d539-4a4a-a677-92a37298fec1": {
+        "category": "Woodwinds",
+        "name": "Bassoon",
+        "sound_id": "wind.reed.bassoon"
+    },
+    "ed544580-e477-410b-a54d-dbb14edbb31e": {
+        "category": "Woodwinds",
+        "name": "Bass Recorder",
+        "sound_id": "wind.flutes.recorder.bass"
+    },
+    "1e325f9e-bd57-49ca-9c94-e53a51f6108d": {
+        "category": "Woodwinds",
+        "name": "Bass Sax",
+        "sound_id": "wind.reed.saxophone.bass"
+    },
+    "0456b832-8192-4e9c-8606-4983e3064abd": {
+        "category": "Brass",
+        "name": "Bass Trombone",
+        "sound_id": "brass.trombone"
+    },
+    "bbb50096-c5f0-424b-b8fc-3b7e0eb97ce7": {
+        "category": "Brass",
+        "name": "Bass Trumpet",
+        "sound_id": "brass.trumpet"
+    },
+    "c5c18d0e-bc36-471b-9f9b-9b74d1ebf6d2": {
+        "category": "Brass",
+        "name": "Bass Tuba",
+        "sound_id": "brass.tuba"
+    },
+    "e9a8eb68-25a0-4c9b-81a1-6e0517ca15be": {
+        "category": "Voices",
+        "name": "Bass Voice",
+        "sound_id": "voice.bass"
+    },
+    "6daa67d4-a3f2-4a1a-939d-4bdd3e72eedb": {
+        "category": "Pitched Percussion",
+        "name": "Bass Xylophone",
+        "sound_id": "pitched-percussion.xylophone"
+    },
+    "b1dea916-1f2f-4e05-984f-33a882febd40": {
+        "category": "Drums",
+        "name": "Batá",
+        "sound_id": "drum.bata"
+    },
+    "0c0a399c-6e82-4fb7-8f5a-c7fe3d12dedb": {
+        "category": "Woodwinds",
+        "name": "Bawu",
+        "sound_id": "wind.reed.bawu"
+    },
+    "ac62ce27-0e7a-4f23-849c-fe3dee395910": {
+        "category": "Voices",
+        "name": "Beatbox",
+        "sound_id": "voice.percussion.beatbox"
+    },
+    "3258f617-b1a4-471e-add9-98f0dd99c617": {
+        "category": "Plucked Strings",
+        "name": "Begena",
+        "sound_id": "pluck.begena"
+    },
+    "dee774df-112b-4d13-9fbd-919253eca95b": {
+        "category": "Pitched Percussion",
+        "name": "Bell Lyre",
+        "sound_id": "pitched-percussion.bell-lyre"
+    },
+    "4ee42d49-7ad7-4b81-bfdb-8b740f7edc9a": {
+        "category": "Pitched Percussion",
+        "name": "BELLS",
+        "sound_id": "pitched-percussion.bells"
+    },
+    "ccd20f09-9ab9-4a61-9038-36e821905c48": {
+        "category": "Percussion",
+        "name": "Bell Tree",
+        "sound_id": "metal.bells.bell-tree"
+    },
+    "250a5eb3-5a2a-4963-a919-22b9dd282cf1": {
+        "category": "Drums",
+        "name": "Bendir",
+        "sound_id": "drum.bendir"
+    },
+    "556ee363-7ce1-4b09-8c1f-30bd3055675d": {
+        "category": "Percussion",
+        "name": "Berimbau",
+        "sound_id": "metal.berimbau"
+    },
+    "3ed3be98-578f-463e-bcfb-83cf4bbb01cc": {
+        "category": "Pitched Percussion",
+        "name": "Bianqing",
+        "sound_id": "pitched-percussion.bianqing"
+    },
+    "65ada1c3-785b-46fb-87c4-60a2e3dd464d": {
+        "category": "Pitched Percussion",
+        "name": "Bianzhong",
+        "sound_id": "pitched-percussion.bianzhong"
+    },
+    "7ccb817f-82e7-4b52-88b1-2f097de86773": {
+        "category": "Woodwinds",
+        "name": "Bifora",
+        "sound_id": "wind.reed.bifora"
+    },
+    "b915b502-2c36-409b-8c2e-6fb4f5c226ac": {
+        "category": "Plucked Strings",
+        "name": "Biwa",
+        "sound_id": "pluck.biwa"
+    },
+    "54422b22-4627-4100-abbf-064eedc15fe3": {
+        "category": "",
+        "name": "",
+        "sound_id": ""
+    },
+    "db2f5e5d-2c2f-4e81-9ff4-5447d528c8e3": {
+        "category": "Percussion",
+        "name": "Bo",
+        "sound_id": "metal.cymbal.bo"
+    },
+    "d189b35e-3250-4ab8-8c2f-860aa3ca5e96": {
+        "category": "Drums",
+        "name": "Bodhrán",
+        "sound_id": "drum.bodhran"
+    },
+    "4f1489ee-dbe1-49ea-8969-8d3c17f07d54": {
+        "category": "Plucked Strings",
+        "name": "Bolon",
+        "sound_id": "pluck.bass.bolon"
+    },
+    "103e61ac-6b51-4a70-92ef-3fc3ae6b170c": {
+        "category": "Woodwinds",
+        "name": "Bombarde",
+        "sound_id": "wind.reed.bombarde"
+    },
+    "08487b66-66f5-4da6-bf18-1a0498fd65a3": {
+        "category": "Drums",
+        "name": "Bombo",
+        "sound_id": "drum.bombo"
+    },
+    "041a9053-835f-4fb7-b8ca-056ff7c66d37": {
+        "category": "Pitched Percussion",
+        "name": "Bonang (Gamelan)",
+        "sound_id": "pitched-percussion.bonang"
+    },
+    "c765c7c2-1513-4a2d-8855-972327c86114": {
+        "category": "Percussion",
+        "name": "Bones",
+        "sound_id": "wood.bones"
+    },
+    "48bd0c4a-2fd0-43d1-bcc9-8a1a0607ad73": {
+        "category": "Percussion",
+        "name": "Bongo Bells",
+        "sound_id": "drum.bongo"
+    },
+    "e26d2a5b-3e91-454c-a228-064d95189f34": {
+        "category": "Drums",
+        "name": "Bongo Drums",
+        "sound_id": "drum.bongo"
+    },
+    "dfc51096-791e-47ff-9923-34e112c6009f": {
+        "category": "Pitched Percussion",
+        "name": "Boomwhackers® Tubes",
+        "sound_id": "pitched-percussion.tubes"
+    },
+    "c0ea9144-0df8-448c-9634-2eab8cc71bd4": {
+        "category": "Plucked Strings",
+        "name": "Bordonua",
+        "sound_id": "pluck.bordonua"
+    },
+    "9fc11d96-9d40-4c07-8135-d6178c1548fe": {
+        "category": "Woodwinds",
+        "name": "Bottle Blow",
+        "sound_id": "wind.flutes.blown-bottle"
+    },
+    "7fc64642-cbaf-4bd1-9a7b-c2204f20a5f6": {
+        "category": "Drums",
+        "name": "Bougarabou",
+        "sound_id": "drum.bougarabou"
+    },
+    "823a6cf0-cada-4c33-b79b-a5244f99f77f": {
+        "category": "Plucked Strings",
+        "name": "Bouzouki",
+        "sound_id": "pluck.bouzouki"
+    },
+    "f1eae261-5453-457a-8957-e8bf16f8a79d": {
+        "category": "Percussion",
+        "name": "Brake Drum",
+        "sound_id": "metal.brake-drums"
+    },
+    "05022401-354c-4423-a986-f3fb85f5f2ac": {
+        "category": "Brass",
+        "name": "Brass Section",
+        "sound_id": "brass.group"
+    },
+    "a54c2d8d-9fd5-49c8-a730-7ff882c6a989": {
+        "category": "Drums",
+        "name": "Buffalo Drum",
+        "sound_id": "drum.buffalo-drum"
+    },
+    "7bf9152e-e371-4e3d-9aa8-21b5baa7e80a": {
+        "category": "Brass",
+        "name": "Bugle",
+        "sound_id": "brass.bugle"
+    },
+    "fe74484c-bf44-4df9-bef1-2ca3961f7e61": {
+        "category": "Plucked Strings",
+        "name": "Bulgarian Tambura",
+        "sound_id": "pluck.tambura.bulgarian"
+    },
+    "6ec38faa-25aa-41f3-ba0c-e807ce598dcc": {
+        "category": "Percussion",
+        "name": "Bullroarer",
+        "sound_id": "effect.bullroarer"
+    },
+    "f240ab3f-8799-4834-a265-2f6b6abc8f4c": {
+        "category": "Strings",
+        "name": "Byzantine Lyra",
+        "sound_id": "strings.lyra.byzantine"
+    },
+    "8d110308-41ac-4a7f-a98f-d9e16608059f": {
+        "category": "Percussion",
+        "name": "Cabasa",
+        "sound_id": "rattle.cabasa"
+    },
+    "7eacc546-2239-4c6d-9566-8df8437db871": {
+        "category": "Percussion",
+        "name": "Cajón",
+        "sound_id": "drum.cajon"
+    },
+    "9ed685ae-e885-4b1f-b976-56ede8673922": {
+        "category": "Pitched Percussion",
+        "name": "Carillon",
+        "sound_id": "pitched-percussion.balafon"
+    },
+    "aa272c8a-4584-4d53-a060-a1b8a73af80b": {
+        "category": "Percussion",
+        "name": "Castanets",
+        "sound_id": "wood.castanets"
+    },
+    "739baf27-004b-4a91-b8ac-41dbfd95edc3": {
+        "category": "Percussion",
+        "name": "Caxixi",
+        "sound_id": "rattle.caxixi"
+    },
+    "2827e1dc-72a3-4228-87fb-c0daee5ca2ad": {
+        "category": "Keyboards",
+        "name": "Celesta",
+        "sound_id": "keyboard.celesta"
+    },
+    "33894688-c326-4f8f-b4e2-7a08745e7bcc": {
+        "category": "Strings",
+        "name": "Cello",
+        "sound_id": "strings.cello"
+    },
+    "255c105e-78a1-4c78-8755-8febc86d0f43": {
+        "category": "Strings",
+        "name": "Cello Section",
+        "sound_id": "trings.cello"
+    },
+    "fb57f7da-2a1e-4451-a795-0db01b55ba6b": {
+        "category": "Percussion",
+        "name": "Ceng Ceng (Gamelan)",
+        "sound_id": "metal.cymbal.ceng-ceng"
+    },
+    "212255a2-6a02-4416-be8c-37457d2f9ae2": {
+        "category": "Percussion",
+        "name": "Chabara",
+        "sound_id": "metal.cymbal.chabara"
+    },
+    "fcd4fd88-6114-4ef7-86f3-23077bce7e1b": {
+        "category": "Percussion",
+        "name": "Cha Cha Bells",
+        "sound_id": ""
+    },
+    "2b0e17ba-f185-4b97-b094-71a4668edfe2": {
+        "category": "Woodwinds",
+        "name": "Chalumeau",
+        "sound_id": "wind.reed.chalumeau"
+    },
+    "173fbe79-502e-4cd4-8cbd-0a0ef15649ce": {
+        "category": "Percussion",
+        "name": "Chanchiki",
+        "sound_id": "metal.gong.chanchiki"
+    },
+    "66f057a9-979e-45d1-8874-d2540612afed": {
+        "category": "Plucked Strings",
+        "name": "Chapman Stick",
+        "sound_id": ""
+    },
+    "8d1e02f2-a125-4f1b-b943-d54048e52e15": {
+        "category": "Plucked Strings",
+        "name": "Charango",
+        "sound_id": "pluck.charango"
+    },
+    "beec7105-9ca3-4e4f-b2d8-c04d34dbb560": {
+        "category": "Drums",
+        "name": "Chenda",
+        "sound_id": "drum.chenda"
+    },
+    "ffe92b6a-0d8e-40e8-b9f8-e9637d04e917": {
+        "category": "Pitched Percussion",
+        "name": "Chimes",
+        "sound_id": "pitched-percussion.handchimes"
+    },
+    "8d05ca8d-0efc-42cd-a6c3-6d98401d51dc": {
+        "category": "Percussion",
+        "name": "Chime Tree",
+        "sound_id": "metal.bells.chimes"
+    },
+    "f6c1d0e5-e207-404b-8bfc-114296d61763": {
+        "category": "Percussion",
+        "name": "Chimta",
+        "sound_id": "metal.bells.chimta"
+    },
+    "ecad5d50-26b7-46b9-8f76-b7e2de364d10": {
+        "category": "Percussion",
+        "name": "China Temple Blocks",
+        "sound_id": "wood.temple-block"
+    },
+    "4374eeae-6f31-469f-a0f0-3d389a1d8234": {
+        "category": "Percussion",
+        "name": "Chinese Cymbals",
+        "sound_id": "metal.cymbal.chinese"
+    },
+    "24356658-bf82-4e95-8365-34cafc677e0f": {
+        "category": "Percussion",
+        "name": "Chinese Gongs",
+        "sound_id": "metal.gong.chinese"
+    },
+    "1da58bd6-ebd4-43c2-8e26-e0476aedf9c6": {
+        "category": "Percussion",
+        "name": "Chinese Percussion Ensemble",
+        "sound_id": "drum.group.chinese"
+    },
+    "581059ef-57fa-48c0-89f2-bc843047476e": {
+        "category": "Percussion",
+        "name": "Ching",
+        "sound_id": "metal.cymbal.ching"
+    },
+    "84398568-363c-433e-82e4-348490ecc3c4": {
+        "category": "Percussion",
+        "name": "Chippli",
+        "sound_id": "metal.bells.chippli"
+    },
+    "6be1b75a-daa6-4239-8de4-02615f28993e": {
+        "category": "Plucked Strings",
+        "name": "Chitarra Battente",
+        "sound_id": "pluck.chitarra-battente"
+    },
+    "a8eecec5-6eee-47df-8a87-c4d31b052ffe": {
+        "category": "Plucked Strings",
+        "name": "Choazhou Guzheng",
+        "sound_id": "pluck.guzheng.choazhou"
+    },
+    "cc4e753f-85b9-43c6-b462-a5ec36a01167": {
+        "category": "Voices",
+        "name": "Choir Aahs",
+        "sound_id": "oice.aa"
+    },
+    "28426f8d-3f42-448b-913d-3ee37dc1c871": {
+        "category": "Voices",
+        "name": "Choir Oohs",
+        "sound_id": "voice.oo"
+    },
+    "09d61a49-9523-44b3-8c37-61328765353f": {
+        "category": "Pitched Percussion",
+        "name": "Chroma-Notes™ Instruments",
+        "sound_id": ""
+    },
+    "4e0d4723-06f4-4b1f-9612-f22b9ad8cb7a": {
+        "category": "Drums",
+        "name": "Chu-daiko",
+        "sound_id": "drum.chu-daiko"
+    },
+    "26493235-a4ef-4ad6-9e28-5b8191abc770": {
+        "category": "Plucked Strings",
+        "name": "Cimbalom",
+        "sound_id": "pitched-percussion.cimbalom"
+    },
+    "ccae2f20-379c-4c2c-bdb1-c52f2139ff5c": {
+        "category": "Brass",
+        "name": "Cimbasso",
+        "sound_id": "brass.cimbasso"
+    },
+    "918cca8a-8650-4f06-aedd-92ec23300297": {
+        "category": "Plucked Strings",
+        "name": "Cittern",
+        "sound_id": "pluck.cittern"
+    },
+    "995b3dbf-9fff-4d1b-9aee-94a9b0d72834": {
+        "category": "Percussion",
+        "name": "Clap",
+        "sound_id": "effect.hand-clap"
+    },
+    "dd57d769-fa9f-4c11-be68-3af71017604d": {
+        "category": "Percussion",
+        "name": "Clapper",
+        "sound_id": "wood.pan-clappers"
+    },
+    "9d3e28eb-0640-41f7-9144-0fdef3046d7c": {
+        "category": "Woodwinds",
+        "name": "Clarinet in A",
+        "sound_id": "wind.reed.clarinet.a"
+    },
+    "a16af0c1-8df8-476d-8d74-0d6e1972846b": {
+        "category": "Woodwinds",
+        "name": "Clarinet in B flat",
+        "sound_id": "wind.reed.clarinet.bflat"
+    },
+    "7e83467b-162e-4f30-b4a6-18a6d8beb202": {
+        "category": "Woodwinds",
+        "name": "Clarinet in E flat",
+        "sound_id": "wind.reed.clarinet.eflat"
+    },
+    "58054d04-a50d-4c3b-9b99-abbb13c28850": {
+        "category": "Woodwinds",
+        "name": "Clarinette D'amour",
+        "sound_id": "wind.reed.clarinette-damour"
+    },
+    "2f05a86f-3762-46c7-a7b3-ce74dad900c6": {
+        "category": "Plucked Strings",
+        "name": "Classical Guitar",
+        "sound_id": "pluck.guitar.nylon-string"
+    },
+    "58ae0978-6244-4974-a1bc-899097a1bea7": {
+        "category": "Percussion",
+        "name": "Claves",
+        "sound_id": "wood.claves"
+    },
+    "9322d689-68bc-4699-b77e-d370340830d7": {
+        "category": "Keyboards",
+        "name": "Clavichord",
+        "sound_id": "keyboard.clavichord"
+    },
+    "ba97d794-3171-49e6-ac1b-af4b29ee61b8": {
+        "category": "Keyboards",
+        "name": "Clavinet",
+        "sound_id": "wind.reed.clarinet"
+    },
+    "04d3f8ec-bb16-431f-b609-580d2d2d1169": {
+        "category": "Woodwinds",
+        "name": "C Melody Sax",
+        "sound_id": "wind.reed.saxophone.melody"
+    },
+    "cc65d11c-9cfc-46ed-ba60-cf9ec7bee3d5": {
+        "category": "Woodwinds",
+        "name": "Concertina",
+        "sound_id": "keyboard.concertina"
+    },
+    "f0dfa0ea-fb54-4237-9a05-2e59c1525ffc": {
+        "category": "Brass",
+        "name": "Conch Shell",
+        "sound_id": "brass.conch-shell"
+    },
+    "c79da759-1161-4d53-b92d-a024241c4175": {
+        "category": "Drums",
+        "name": "Conga Drums",
+        "sound_id": "drum.conga"
+    },
+    "9efb024e-88cb-4d91-97c8-1b84bc85185e": {
+        "category": "Woodwinds",
+        "name": "Contra-alto Flute",
+        "sound_id": "wind.flutes.flute.contra-alto"
+    },
+    "7724f2be-b200-4404-bc08-4ef719a1373c": {
+        "category": "Woodwinds",
+        "name": "Contrabass Clarinet",
+        "sound_id": "wind.reed.clarinet.contrabass"
+    },
+    "76326fd2-1a85-4620-9696-2b4b8d6e8f63": {
+        "category": "Woodwinds",
+        "name": "Contrabass Flute",
+        "sound_id": "wind.flutes.flute.contrabass"
+    },
+    "0d158020-9bf8-4d56-b62c-a6f0bf5f4ccf": {
+        "category": "Woodwinds",
+        "name": "Contrabassoon",
+        "sound_id": "wind.reed.contrabassoon"
+    },
+    "5f4bbe18-a82f-4435-80ff-2f39f4492f3e": {
+        "category": "Woodwinds",
+        "name": "Contrabass Sax",
+        "sound_id": "wind.reed.contrabass"
+    },
+    "639064b2-b067-4c4a-a114-392c1ef6ebd8": {
+        "category": "Strings",
+        "name": "Contrabass Section",
+        "sound_id": "strings.contrabass"
+    },
+    "3d24915a-0b0f-4092-835b-cd05c0e2cf62": {
+        "category": "Brass",
+        "name": "Contrabass Trombone",
+        "sound_id": "wind.reed.contrabassoon"
+    },
+    "5a1020cd-f0ce-45e8-bc99-49fbf5f6890f": {
+        "category": "Woodwinds",
+        "name": "Contralto Clarinet",
+        "sound_id": ""
+    },
+    "aba0e110-478a-4c69-b8be-908c280d64b2": {
+        "category": "Voices",
+        "name": "Contralto Voice",
+        "sound_id": "voice.alto"
+    },
+    "b68788f5-aed1-4d72-b4d4-facd99f28e90": {
+        "category": "Woodwinds",
+        "name": "Cornamuse",
+        "sound_id": "wind.reed.cornamuse"
+    },
+    "65df77cf-fc66-4211-83a3-606d15471281": {
+        "category": "Brass",
+        "name": "Cornet",
+        "sound_id": "brass.cornet"
+    },
+    "e9b14a24-dad5-49f3-ae56-602d4d05f5ca": {
+        "category": "Brass",
+        "name": "E flat Cornet",
+        "sound_id": ""
+    },
+    "3811817d-7cdd-4fca-b088-7cc5e671f1c1": {
+        "category": "Brass",
+        "name": "Cornetto",
+        "sound_id": "brass.cornett"
+    },
+    "e61680e6-4a19-48bd-a0d7-f0f1373c8be2": {
+        "category": "Voices",
+        "name": "Counter-Tenor Voice",
+        "sound_id": "voice.countertenor"
+    },
+    "298cc3b4-fc5e-4440-be13-f81790571580": {
+        "category": "Percussion",
+        "name": "Cowbell",
+        "sound_id": "metal.bells.cowbell"
+    },
+    "cc84983d-005c-4172-987b-c13b22709f35": {
+        "category": "Percussion",
+        "name": "Crash Cymbal",
+        "sound_id": "metal.cymbal.crash"
+    },
+    "b0c43bb0-eae5-410f-ba40-cf33d63994f1": {
+        "category": "Strings",
+        "name": "Cretan Lyra",
+        "sound_id": "strings.lyra.cretan"
+    },
+    "07786b62-f42f-4db3-90f1-35e6e12a9f8f": {
+        "category": "Woodwinds",
+        "name": "Cromorne",
+        "sound_id": "wind.reed.cromorne"
+    },
+    "f3790445-bd2c-43df-8be6-81ff93d08b9d": {
+        "category": "Pitched Percussion",
+        "name": "Crotales",
+        "sound_id": "pitched-percussion.tubes"
+    },
+    "e40c329a-cc79-4477-a314-0786731390b3": {
+        "category": "Strings",
+        "name": "Crwth",
+        "sound_id": "strings.crwth"
+    },
+    "338f8ed8-390d-40fe-8aae-44dc5b8a8cf5": {
+        "category": "Pitched Percussion",
+        "name": "Crystal Glasses",
+        "sound_id": "pitched-percussion.crystal-glasses"
+    },
+    "3fe64362-93c8-405d-8de2-9da45d739285": {
+        "category": "Plucked Strings",
+        "name": "Cuatro",
+        "sound_id": "pluck.cuatro"
+    },
+    "b251ffbb-79c3-4dbf-b84b-bec3434f9bef": {
+        "category": "Percussion",
+        "name": "Cuíca",
+        "sound_id": "drum.cuica"
+    },
+    "9605b878-9cdf-4e40-9716-3f64f1955c7f": {
+        "category": "Percussion",
+        "name": "Cymbals",
+        "sound_id": ""
+    },
+    "2e84e17f-4371-4034-9485-02d10dda3d08": {
+        "category": "Drums",
+        "name": "Dabakan",
+        "sound_id": "drum.dabakan"
+    },
+    "bc469d9c-f499-4714-aee3-40ae8f19cd55": {
+        "category": "Percussion",
+        "name": "Daff",
+        "sound_id": "drum.daff"
+    },
+    "6273fbe8-0f9f-423a-9a5f-f513bab3b20b": {
+        "category": "Percussion",
+        "name": "Dafli",
+        "sound_id": "drum.dafli"
+    },
+    "562a0d3f-0073-44e5-a4f1-430935a72f7e": {
+        "category": "Strings",
+        "name": "Dahu",
+        "sound_id": "strings.dihu"
+    },
+    "8bae2054-3bb9-4618-acd0-bf560ff8b8f9": {
+        "category": "Drums",
+        "name": "Daibyosi",
+        "sound_id": "drum.daibyosi"
+    },
+    "ee40f7d6-c58b-4a29-88c4-131d31725276": {
+        "category": "Drums",
+        "name": "Damroo",
+        "sound_id": "drum.damroo"
+    },
+    "18048201-645d-4b73-aa46-4271fc025e3f": {
+        "category": "Plucked Strings",
+        "name": "Đàn Bầu",
+        "sound_id": "pluck.dan-bau"
+    },
+    "d07f465c-0d1a-4eef-884e-feb414088078": {
+        "category": "Strings",
+        "name": "Đàn Gáo",
+        "sound_id": "strings.dan-gao"
+    },
+    "8fdd131f-7f07-4121-b972-8ff69934f32d": {
+        "category": "Plucked Strings",
+        "name": "Đàn Nguyệt",
+        "sound_id": "pluck.dan-nguyet"
+    },
+    "63208df8-8e11-4e19-b7b3-27c097e861f5": {
+        "category": "Woodwinds",
+        "name": "Danso",
+        "sound_id": "wind.flutes.danso"
+    },
+    "10824335-782b-4e63-8764-87c3ebf3d75c": {
+        "category": "Plucked Strings",
+        "name": "Đàn Tam Thập Lục",
+        "sound_id": "pitched-percussion.dan-tam-thap-luc"
+    },
+    "57a26119-98d1-4d71-8cba-b9edd5b871b9": {
+        "category": "Plucked Strings",
+        "name": "Đàn Tranh",
+        "sound_id": "pluck.dan-tranh"
+    },
+    "e5602a59-dc5a-40a6-8a37-4c3e8cc4bdcf": {
+        "category": "Plucked Strings",
+        "name": "Đàn Tỳ Bà",
+        "sound_id": "pluck.dan-ty-ba"
+    },
+    "76fb8299-d33c-4d3d-bb5c-58f1c5769bd9": {
+        "category": "Drums",
+        "name": "Darabuka",
+        "sound_id": "drum.darabuka"
+    },
+    "b819e47e-5dd4-45de-b3b1-77febe321924": {
+        "category": "Drums",
+        "name": "Datangu Lion Drum",
+        "sound_id": "drum.lion-drum"
+    },
+    "80cb13ed-f144-4426-9677-de5e9f949363": {
+        "category": "Percussion",
+        "name": "Dawuro",
+        "sound_id": "metal.bells.dawuro"
+    },
+    "49e7851b-adef-4a82-8d4c-31ee9681f66a": {
+        "category": "Percussion",
+        "name": "Def",
+        "sound_id": "drum.def"
+    },
+    "56470843-614b-4bbd-bb83-bf928bb10d7d": {
+        "category": "Woodwinds",
+        "name": "Descant Recorder",
+        "sound_id": "wind.flutes.recorder.descant"
+    },
+    "b2392c7c-dc7f-4d37-9ac4-20e48dc5424d": {
+        "category": "Drums",
+        "name": "Dhol",
+        "sound_id": "drum.dhol"
+    },
+    "ecf3cbb1-25d1-4189-8221-a827305e7e92": {
+        "category": "Drums",
+        "name": "Dholak",
+        "sound_id": "drum.dholak"
+    },
+    "ad90d6c7-0393-47fe-a600-44802c13f77d": {
+        "category": "Plucked Strings",
+        "name": "Diddley Bow",
+        "sound_id": "pluck.diddley-bow"
+    },
+    "29a1c1f8-ad06-462b-b540-0a7920804a34": {
+        "category": "Brass",
+        "name": "Didgeridoo",
+        "sound_id": "brass.didgeridoo"
+    },
+    "9102cdc2-13f9-4818-ba25-34226bd2d893": {
+        "category": "Strings",
+        "name": "Dihu",
+        "sound_id": "strings.dihu"
+    },
+    "abfc63a8-9453-4958-a3fb-60e2fc05006f": {
+        "category": "Woodwinds",
+        "name": "Dilli Kaval",
+        "sound_id": "wind.flutes.kaval"
+    },
+    "5a6e6ce3-155a-46cd-8c15-177e2e46ec3d": {
+        "category": "Woodwinds",
+        "name": "Diple",
+        "sound_id": "wind.reed.diple"
+    },
+    "eb27b9dd-b27c-47bb-b8c8-a0284535bece": {
+        "category": "Woodwinds",
+        "name": "Diplica",
+        "sound_id": "wind.reed.diplica"
+    },
+    "442552fd-b7f8-488b-880a-f141f617cf90": {
+        "category": "Woodwinds",
+        "name": "Di-Zi",
+        "sound_id": "wind.flutes.di-zi"
+    },
+    "4e17f6c6-9365-47f1-aa66-89e7cb56cc01": {
+        "category": "Drums",
+        "name": "Djembe",
+        "sound_id": "drum.djembe"
+    },
+    "fe4de130-7c14-4b4d-8589-12668399b7ae": {
+        "category": "Plucked Strings",
+        "name": "Dobro",
+        "sound_id": "pluck.guitar.resonator"
+    },
+    "1e3f9946-dba3-4864-a004-bcebcebaf84a": {
+        "category": "Percussion",
+        "name": "Doira",
+        "sound_id": "drum.doira"
+    },
+    "46d83ba6-9410-4231-9e9f-ac5413356fd6": {
+        "category": "Drums",
+        "name": "Dollu",
+        "sound_id": "drum.dhol"
+    },
+    "c357c1da-92f8-484b-bdf0-e19588e6bc02": {
+        "category": "Plucked Strings",
+        "name": "Domra",
+        "sound_id": "pluck.domra"
+    },
+    "6d21bdcf-ee23-4705-bd7b-653d9976706b": {
+        "category": "Drums",
+        "name": "Dondo",
+        "sound_id": "drum.dondo"
+    },
+    "4924f736-97a2-443d-b386-03de2ae6a848": {
+        "category": "Strings",
+        "name": "Doublebass",
+        "sound_id": "strings.viol.bass"
+    },
+    "08a26335-79bc-4d10-a879-7f9d752c199a": {
+        "category": "Strings",
+        "name": "Double Bass Section",
+        "sound_id": "strings.viol.bass"
+    },
+    "8b775b5f-90be-4922-8dee-2b82d3ac294b": {
+        "category": "Brass",
+        "name": "Double Bell Euphonium",
+        "sound_id": ""
+    },
+    "5ec4aaff-7e36-4bef-bbaa-1a996ad42420": {
+        "category": "Woodwinds",
+        "name": "Double Clarinet",
+        "sound_id": "wind.reed.clarinet"
+    },
+    "1b7dc77e-17ef-4a7f-80d7-01b8eb47aef5": {
+        "category": "Woodwinds",
+        "name": "Double Contrabass Flute",
+        "sound_id": "wind.flutes.flute.double-contrabass"
+    },
+    "bf8d7ea1-c1fa-44b7-adc3-6d7006dd7637": {
+        "category": "Woodwinds",
+        "name": "Double Flute",
+        "sound_id": "wind.flutes.flute.double-contrabass"
+    },
+    "11763209-2e9f-477c-a25b-fa8030453dae": {
+        "category": "Drums",
+        "name": "Doun Doun Ba",
+        "sound_id": "drum.doun-doun-ba"
+    },
+    "a0445938-cf1d-45cb-97d2-faad040fd0ff": {
+        "category": "Drums",
+        "name": "Drum Set",
+        "sound_id": "drum.group.set"
+    },
+    "9525113b-19b7-4ca6-a846-b417bc44bfcf": {
+        "category": "Woodwinds",
+        "name": "Duduk",
+        "sound_id": "wind.reed.duduk"
+    },
+    "9cc27ded-131c-4dd7-85ee-b991fcb84814": {
+        "category": "Drums",
+        "name": "Duff",
+        "sound_id": "drum.duff"
+    },
+    "43620b28-a8bd-478e-a610-85af5c9a0480": {
+        "category": "Woodwinds",
+        "name": "Dulcian",
+        "sound_id": "wind.reed.dulcian"
+    },
+    "a8308d34-bf29-4d86-9aa3-e1c073c1fb95": {
+        "category": "Plucked Strings",
+        "name": "Dulcimer",
+        "sound_id": "pluck.dulcimer"
+    },
+    "40e6808d-171a-46c4-aca1-23929e27e7a9": {
+        "category": "Plucked Strings",
+        "name": "Dulcimer (8vb)",
+        "sound_id": "pluck.dulcimer"
+    },
+    "a7a2cb49-c0b2-4bc2-b733-af19bc46076a": {
+        "category": "Woodwinds",
+        "name": "Dulzaina",
+        "sound_id": "wind.reed.dulzaina"
+    },
+    "358ff617-7420-42d6-9753-953784528c89": {
+        "category": "Drums",
+        "name": "Dumbek",
+        "sound_id": "drum.dumbek"
+    },
+    "e29b2f52-1ca3-46a1-acfe-d2715e3aad5e": {
+        "category": "Plucked Strings",
+        "name": "Dutar",
+        "sound_id": "pluck.dutar"
+    },
+    "f124492d-65cf-4574-a0b8-84384c8f36c0": {
+        "category": "Plucked Strings",
+        "name": "Duxianqin",
+        "sound_id": "pluck.duxianqin"
+    },
+    "867c9afa-428f-4918-99fb-a580c3941dd1": {
+        "category": "Woodwinds",
+        "name": "Dvojnice",
+        "sound_id": "wind.flutes.dvojnice"
+    },
+    "73019a0e-2f69-4b89-947e-cadbc91340ad": {
+        "category": "Woodwinds",
+        "name": "Dvojnice Drone",
+        "sound_id": "wind.flutes.dvojnice"
+    },
+    "0befcc9e-c792-46b2-a079-2952e8bfb032": {
+        "category": "Plucked Strings",
+        "name": "Ektara",
+        "sound_id": "pluck.ektara"
+    },
+    "09463ace-1054-4dd7-ba26-08b6c6a2b5b2": {
+        "category": "Plucked Strings",
+        "name": "Ektara",
+        "sound_id": "pluck.ektara"
+    },
+    "c9f445ac-93b0-4007-9101-65a167d38dd5": {
+        "category": "Plucked Strings",
+        "name": "Electric Bass",
+        "sound_id": "pluck.bass.electric"
+    },
+    "c7b7154c-79f0-4924-8873-22c51e62bf7a": {
+        "category": "Plucked Strings",
+        "name": "Electric Guitar",
+        "sound_id": "pluck.guitar.electric"
+    },
+    "4b54f9c4-35e3-41f8-9a17-a8797df0f057": {
+        "category": "Keyboards",
+        "name": "Electric Piano",
+        "sound_id": "keyboard.piano.electric"
+    },
+    "e4fc7b0a-5cd3-445b-ae1f-776764513741": {
+        "category": "Woodwinds",
+        "name": "English Horn",
+        "sound_id": "wind.reed.english-horn"
+    },
+    "df24de8e-08c8-4c1b-8f20-8673ce15009d": {
+        "category": "Strings",
+        "name": "Erhu",
+        "sound_id": "strings.erhu"
+    },
+    "8fd59c9c-f49d-4f05-b8db-dba34d1bf462": {
+        "category": "Strings",
+        "name": "Erxian",
+        "sound_id": "strings.erxian"
+    },
+    "c4b56ec1-51d3-4f98-b740-7d613dd893f9": {
+        "category": "Brass",
+        "name": "Euphonium",
+        "sound_id": "brass.euphonium"
+    },
+    "e0fd2f0f-a398-446a-accf-60f42416a719": {
+        "category": "Percussion",
+        "name": "Ewe Drum Atoke",
+        "sound_id": "drum.atoke"
+    },
+    "535f2ee9-846b-4d5d-b375-7fd513e3500c": {
+        "category": "Percussion",
+        "name": "Ewe Drum Axatse",
+        "sound_id": "drum.axatse"
+    },
+    "6ffc2237-7d6d-43b6-beff-d6cd492ae9c8": {
+        "category": "Percussion",
+        "name": "Ewe Drum Gangokui",
+        "sound_id": ""
+    },
+    "beb8f624-4a15-46e3-b640-5b13282e29ec": {
+        "category": "Drums",
+        "name": "Ewe Drum Kagan",
+        "sound_id": "drum.kagan"
+    },
+    "0cf5506a-1bb0-4c79-afaa-bac2157f2b07": {
+        "category": "Drums",
+        "name": "Ewe Drum Kpanlogo 1 Large",
+        "sound_id": "drum.kpanlogo"
+    },
+    "bac108b1-28d1-496f-937a-e664b1f80b15": {
+        "category": "Drums",
+        "name": "Ewe Drum Kpanlogo 2 Medium",
+        "sound_id": "drum.kpanlogo"
+    },
+    "783b8704-a0cd-4b0d-817b-c697d4140725": {
+        "category": "Drums",
+        "name": "Ewe Drum Kpanlogo 3 Combo",
+        "sound_id": "drum.kpanlogo"
+    },
+    "02679ff9-7fb6-44fd-a2cc-37f230bb0822": {
+        "category": "Drums",
+        "name": "Ewe Drum Sogo",
+        "sound_id": "drum.sogo"
+    },
+    "b5ae31ef-eae4-4458-a2bd-639c23658fe8": {
+        "category": "Pitched Percussion",
+        "name": "Fangxiang",
+        "sound_id": "pitched-percussion.fangxiang"
+    },
+    "00fb6661-7b4a-411e-8ec6-7f6c15d9f3b3": {
+        "category": "Strings",
+        "name": "Fiddle",
+        "sound_id": "strings.fiddle"
+    },
+    "54ebe5da-7965-4829-b919-b21841ffd05a": {
+        "category": "Woodwinds",
+        "name": "Fife",
+        "sound_id": "wind.flutes.fife"
+    },
+    "7c0a65e2-79dd-4fb7-b270-0d445e44941a": {
+        "category": "Percussion",
+        "name": "Finger Cymbals",
+        "sound_id": "metal.cymbal.finger"
+    },
+    "e330bdcd-889a-4314-b60d-aa05085790e7": {
+        "category": "Brass",
+        "name": "Fiscorn",
+        "sound_id": "brass.fiscorn"
+    },
+    "8070a42b-09f7-4142-bceb-5d48f0bccf9a": {
+        "category": "Woodwinds",
+        "name": "Flageolet",
+        "sound_id": "wind.flutes.flageolet"
+    },
+    "a91cc118-e002-4d67-9d59-5c8763f18278": {
+        "category": "Plucked Strings",
+        "name": "Flamenco Guitar",
+        "sound_id": "pluck.guitar.acoustic"
+    },
+    "86a0dbdf-3c84-4add-b8c0-464eb9003a69": {
+        "category": "Percussion",
+        "name": "Flexatone Percussion",
+        "sound_id": "metal.flexatone"
+    },
+    "a4ee65b8-5980-49b2-8543-628b03b83057": {
+        "category": "Pitched Percussion",
+        "name": "Flexatone",
+        "sound_id": "metal.flexatone"
+    },
+    "2597541f-c0b4-46a9-8295-9fc10323533f": {
+        "category": "Brass",
+        "name": "Flugelhorn",
+        "sound_id": "brass.flugelhorn"
+    },
+    "2575136d-9927-47bd-a727-f554c169257e": {
+        "category": "Woodwinds",
+        "name": "Flute",
+        "sound_id": "wind.flutes.flute"
+    },
+    "7e3ec42d-46ff-4199-a549-1e9773cf0868": {
+        "category": "Drums",
+        "name": "Fontomfrom",
+        "sound_id": "drum.fontomfrom"
+    },
+    "fed9c38a-9e57-4b71-b69a-0710d3c9c6b2": {
+        "category": "Plucked Strings",
+        "name": "Fretless Bass",
+        "sound_id": "pluck.bass.fretless"
+    },
+    "dbebe448-5f02-4cbe-b2af-8037506a0928": {
+        "category": "Woodwinds",
+        "name": "Fujara",
+        "sound_id": "wind.flutes.fujara"
+    },
+    "0bef0abc-85a3-4f5f-940a-3a9cfc7c128b": {
+        "category": "Woodwinds",
+        "name": "Gaida Pipes",
+        "sound_id": "wind.pipes.gaida"
+    },
+    "e98ccb19-0178-485f-90c0-f134a8fe5841": {
+        "category": "Percussion",
+        "name": "Gandingan",
+        "sound_id": "metal.gong.gandingan"
+    },
+    "96457207-743e-4abc-8bd5-091af9c6e218": {
+        "category": "Pitched Percussion",
+        "name": "Gandingan A Kayo",
+        "sound_id": "pitched-percussion.gandingan-a-kayo"
+    },
+    "d71c4ab2-8272-4034-abc7-0dbbe9795cb2": {
+        "category": "Pitched Percussion",
+        "name": "Gangsa (Gamelan)",
+        "sound_id": "pitched-percussion.gangsa"
+    },
+    "88215348-7b83-4522-bcc7-68b5aaebebcf": {
+        "category": "Percussion",
+        "name": "Ganzá",
+        "sound_id": "rattle.ganza"
+    },
+    "06d74eb0-5dd8-46ac-b1f9-dfdb5e1b1857": {
+        "category": "Strings",
+        "name": "Gaohu",
+        "sound_id": "strings.gaohu"
+    },
+    "defb37f6-f1ce-415e-b992-f0e3147ae843": {
+        "category": "Drums",
+        "name": "Geduk",
+        "sound_id": "drum.geduk"
+    },
+    "ced43fa4-9b0c-4413-be51-290a8e7b70d6": {
+        "category": "Strings",
+        "name": "Gehu",
+        "sound_id": "strings.gehu"
+    },
+    "4c4bf6bd-b778-48ee-9212-d463522c0213": {
+        "category": "Woodwinds",
+        "name": "Gemshorn",
+        "sound_id": "wind.flutes.gemshorn"
+    },
+    "0296a4c4-b551-4025-ace4-4216cf4558cd": {
+        "category": "Pitched Percussion",
+        "name": "Gendér (Gamelan)",
+        "sound_id": "pitched-percussion.gender"
+    },
+    "110c3907-9e1e-4a48-a00a-abf0b4098788": {
+        "category": "Plucked Strings",
+        "name": "Geomungo",
+        "sound_id": "pluck.geomungo"
+    },
+    "f0ecc0f9-7862-4304-a8e4-262b46e9049b": {
+        "category": "Percussion",
+        "name": "Ghatam",
+        "sound_id": "drum.ghatam"
+    },
+    "a80d5310-b1d0-4642-9e45-08c072028444": {
+        "category": "Percussion",
+        "name": "Ghungroo",
+        "sound_id": "metal.bells.ghungroo"
+    },
+    "15bddec3-9c8f-4c7e-992d-e141790b9636": {
+        "category": "Pitched Percussion",
+        "name": "Giying (Gamelan)",
+        "sound_id": "pitched-percussion.giying"
+    },
+    "6ad97c39-4343-4413-9624-f73173c48a10": {
+        "category": "Pitched Percussion",
+        "name": "Glass Harmonica",
+        "sound_id": "pitched-percussion.glass-harmonica"
+    },
+    "401ba530-b087-4ad4-a0b8-5c7f5a30b0cd": {
+        "category": "Pitched Percussion",
+        "name": "Glass Marimba",
+        "sound_id": "pitched-percussion.marimba"
+    },
+    "96f52b63-ae8e-4c17-838f-b6632ba07f15": {
+        "category": "Pitched Percussion",
+        "name": "Glockenspiel",
+        "sound_id": "pitched-percussion.glockenspiel"
+    },
+    "4c9e9269-c014-4467-aa97-6b60172ac701": {
+        "category": "Percussion",
+        "name": "Gome",
+        "sound_id": "drum.gome"
+    },
+    "5a9943e6-cc1b-439a-851e-e9e9d04f4272": {
+        "category": "Percussion",
+        "name": "Gong",
+        "sound_id": "metal.gong"
+    },
+    "7731a5ea-76c7-4086-ac26-f57e9532d17c": {
+        "category": "Percussion",
+        "name": "Gong Ageng (Gamelan)",
+        "sound_id": "metal.gong.ageng"
+    },
+    "6d90402a-c754-4855-bbc8-0138583bcee4": {
+        "category": "Plucked Strings",
+        "name": "Gottuvadhyam",
+        "sound_id": "pluck.gottuvadhyam"
+    },
+    "24b4c18d-6f6a-461c-983f-e0b0c3abcdbc": {
+        "category": "",
+        "name": "2 staves (a grand staff)",
+        "sound_id": "keyboard.piano"
+    },
+    "5466f457-7976-457f-a993-a5827497f54c": {
+        "category": "Woodwinds",
+        "name": "Guan",
+        "sound_id": "wood.guban"
+    },
+    "ab97d8ca-ebcb-4ebe-b107-d1924a89ea74": {
+        "category": "Woodwinds",
+        "name": "Guanzi",
+        "sound_id": "wind.reed.guanzi"
+    },
+    "bd46bd5e-16a0-40d1-bad2-ea5680ee585f": {
+        "category": "Percussion",
+        "name": "Guban",
+        "sound_id": "wood.guban"
+    },
+    "d591143f-1b3a-40c2-ad20-1738923fe0d8": {
+        "category": "Percussion",
+        "name": "Guiro",
+        "sound_id": "wood.guiro"
+    },
+    "5e1996eb-40ab-4a92-9a0b-888b93a84c2c": {
+        "category": "Plucked Strings",
+        "name": "Guitar",
+        "sound_id": "pluck.guitar"
+    },
+    "58149208-b689-4583-977e-10bc31bcd7a6": {
+        "category": "Plucked Strings",
+        "name": "Guitar (8vb)",
+        "sound_id": "pluck.guitar"
+    },
+    "94cb603b-52ac-4626-8c14-6ecc00630a42": {
+        "category": "Plucked Strings",
+        "name": "Guitarra Quinta Huapanguera",
+        "sound_id": "pluck.huapanguera"
+    },
+    "2a2bb6a9-5bba-4ecc-85e5-767d0eb41e78": {
+        "category": "Plucked Strings",
+        "name": "Guitarrón",
+        "sound_id": "pluck.bass.guitarron"
+    },
+    "fc1ea856-8fb1-4850-8410-30ea7f79c916": {
+        "category": "Plucked Strings",
+        "name": "Guitjo",
+        "sound_id": "pluck.guitjo"
+    },
+    "2f4e696a-d6dc-4943-a28f-94987dc41f01": {
+        "category": "Plucked Strings",
+        "name": "Guitjo (Double-Neck)",
+        "sound_id": "pluck.guitjo.double-neck"
+    },
+    "c6275324-1bd5-4adc-b2d0-2994e736ec92": {
+        "category": "Plucked Strings",
+        "name": "Guqin",
+        "sound_id": "pluck.guqin"
+    },
+    "0e2e2ca9-2259-4899-8e72-a014c79ddae1": {
+        "category": "Plucked Strings",
+        "name": "Guzheng",
+        "sound_id": "pluck.guzheng"
+    },
+    "bbb6a603-31c3-4a44-bc05-2c0cd440bfa0": {
+        "category": "Pitched Percussion",
+        "name": "Gyil",
+        "sound_id": "pitched-percussion.gyil"
+    },
+    "2c6d5aaa-04f6-4536-9564-40eb62ef9f1e": {
+        "category": "Strings",
+        "name": "Haegeum",
+        "sound_id": "strings.haegeum"
+    },
+    "2671e5b0-6de5-4c1d-92c5-b9c2b5f5f4dc": {
+        "category": "Plucked Strings",
+        "name": "Hammered Dulcimer",
+        "sound_id": "pitched-percussion.hammer-dulcimer"
+    },
+    "0de7a9b4-5da5-4a63-863f-17dac12cced4": {
+        "category": "Pitched Percussion",
+        "name": "Handbells",
+        "sound_id": "pitched-percussion.handbells"
+    },
+    "34f8ae0c-d91a-4b19-8d1f-8dcc923e4eda": {
+        "category": "Pitched Percussion",
+        "name": "Handbells [Bass Clef]",
+        "sound_id": "pitched-percussion.handbells"
+    },
+    "aaf9a38b-b333-4c48-9054-ede7ed9673f7": {
+        "category": "Pitched Percussion",
+        "name": "Handbells [Treble Clef]",
+        "sound_id": "pitched-percussion.handbells"
+    },
+    "950b7f44-1fd3-451a-831c-e66d4944bf44": {
+        "category": "Percussion",
+        "name": "Hand Cymbal",
+        "sound_id": "metal.cymbal.hand"
+    },
+    "e4714277-4304-44ec-bc9e-b7b2b2d10200": {
+        "category": "Drums",
+        "name": "Hand Drum",
+        "sound_id": "drum.hand-drum"
+    },
+    "41968e98-a916-4cc0-817b-fc4c39befa51": {
+        "category": "Percussion",
+        "name": "Hang",
+        "sound_id": "metal.hang"
+    },
+    "698094a5-d25f-4b34-9888-1b9d7134e539": {
+        "category": "Pitched Percussion",
+        "name": "Hang [Treble Clef]",
+        "sound_id": "metal.hang"
+    },
+    "c0666be0-a127-465c-9608-76cbdeb5e902": {
+        "category": "Strings",
+        "name": "Hardanger Fiddle",
+        "sound_id": "strings.fiddle.hardanger"
+    },
+    "59b8b559-24c6-4ef0-8e67-8dcf4e1708fb": {
+        "category": "Woodwinds",
+        "name": "Harmonica",
+        "sound_id": "wind.reed.harmonica"
+    },
+    "f3caf816-7be6-48e0-8067-07202cdb9b49": {
+        "category": "Keyboards",
+        "name": "Harmonium",
+        "sound_id": "keyboard.harmonium"
+    },
+    "61131353-ade8-46e0-98fa-6c682ca1b5ae": {
+        "category": "Plucked Strings",
+        "name": "Harp",
+        "sound_id": "pluck.harp"
+    },
+    "90f952e7-2428-4f71-989b-c7264ee2659e": {
+        "category": "Plucked Strings",
+        "name": "Harp Guitar",
+        "sound_id": "pluck.harp-guitar"
+    },
+    "5f34a4c0-b181-4d6d-8475-725374517ac5": {
+        "category": "Keyboards",
+        "name": "Harpsichord",
+        "sound_id": "keyboard.harpsichord"
+    },
+    "50804279-39f4-4dd0-b8e3-392950d6587d": {
+        "category": "Percussion",
+        "name": "Hatheli",
+        "sound_id": "metal.bells.hatheli"
+    },
+    "38f7cb85-166d-40fc-a71b-810564406fdc": {
+        "category": "Woodwinds",
+        "name": "Heckel-Clarina",
+        "sound_id": "wind.reed.heckel-clarina"
+    },
+    "944e0d72-f13a-43e3-985d-272b12776c8a": {
+        "category": "Woodwinds",
+        "name": "Heckelphone",
+        "sound_id": "wind.reed.heckelphone"
+    },
+    "cba3d8dd-e7a9-4b5e-bb6b-0e4ddc20fe63": {
+        "category": "Woodwinds",
+        "name": "Heckelphone-Clarinet",
+        "sound_id": "wind.reed.heckelphone-clarinet"
+    },
+    "08ef463b-e7a9-42e6-9c2a-ed5a700e0bf5": {
+        "category": "Brass",
+        "name": "Helicon",
+        "sound_id": "brass.helicon"
+    },
+    "c372616c-4d6c-4f25-a930-d19204582be0": {
+        "category": "Woodwinds",
+        "name": "Hichiriki",
+        "sound_id": "wind.reed.hichiriki"
+    },
+    "c60b115a-a287-4962-a94e-eba1e1e8e54f": {
+        "category": "Percussion",
+        "name": "Hihat Cymbal",
+        "sound_id": "metal.hi-hat"
+    },
+    "64d8263b-e12a-495a-b057-2a4dd1a7f2fb": {
+        "category": "Drums",
+        "name": "Hira-daiko",
+        "sound_id": "drum.hira-daiko"
+    },
+    "81777381-f632-4f78-aa8b-bfd7b4fef7fa": {
+        "category": "Woodwinds",
+        "name": "Hirtenschalmei",
+        "sound_id": "wind.reed.hirtenschalmei"
+    },
+    "ee53523b-5209-466d-b10e-c5f65ee442e7": {
+        "category": "Woodwinds",
+        "name": "Hne",
+        "sound_id": "wind.reed.hne"
+    },
+    "4a12d25d-5726-4886-8e98-991d5625b317": {
+        "category": "Woodwinds",
+        "name": "Hocchiku",
+        "sound_id": "wind.flutes.hocchiku"
+    },
+    "80f1c9c3-8dd9-4b67-b3af-c7d45f4e4dc7": {
+        "category": "Brass",
+        "name": "Horagai",
+        "sound_id": "brass.horagai"
+    },
+    "06662c43-783f-488c-9614-d94b52e5699d": {
+        "category": "Brass",
+        "name": "Horn in E flat",
+        "sound_id": ""
+    },
+    "616b3bf9-58df-4b44-8339-9f66461ac910": {
+        "category": "Brass",
+        "name": "Horn in F",
+        "sound_id": "brass.french"
+    },
+    "6cc5f057-3980-4562-b9a4-257403d17e96": {
+        "category": "Woodwinds",
+        "name": "Horn in F (Woodwind Quintet). Actually a brass instrument.",
+        "sound_id": "brass.french"
+    },
+    "e6449624-6912-454b-8f16-a8d44692ac8d": {
+        "category": "Woodwinds",
+        "name": "Hornpipe",
+        "sound_id": "wind.reed.hornpipe"
+    },
+    "f4e6e4dc-030d-4ace-9548-6821e90e4553": {
+        "category": "Percussion",
+        "name": "Hosho",
+        "sound_id": "rattle.hosho"
+    },
+    "a040181f-4ded-4a8d-8725-70efd42767ce": {
+        "category": "Woodwinds",
+        "name": "Hulusi",
+        "sound_id": "wind.reed.hulusi"
+    },
+    "1fd77046-302d-49fe-8342-d869272c148c": {
+        "category": "Woodwinds",
+        "name": "Hun",
+        "sound_id": "wind.flutes.hun"
+    },
+    "06a9413e-9739-4635-b968-bafedcb11db6": {
+        "category": "Strings",
+        "name": "Hurdy Gurdy",
+        "sound_id": "strings.hurdy-gurdy"
+    },
+    "3efb5b5f-e0fd-4814-8386-9cfb2bc57020": {
+        "category": "Percussion",
+        "name": "Hyoushigi",
+        "sound_id": "wood.hyoushigi"
+    },
+    "4413d227-8660-45ff-beb1-584161ccbf7e": {
+        "category": "Woodwinds",
+        "name": "Hyperbass Flute",
+        "sound_id": "wind.flutes.flute.contrabass"
+    },
+    "3450e084-0952-4e16-9c35-0c37732f9b5f": {
+        "category": "Percussion",
+        "name": "Ibo",
+        "sound_id": "drum.ibo"
+    },
+    "09a53624-d927-4ddc-8474-670f5a495af1": {
+        "category": "Drums",
+        "name": "Igihumurizo",
+        "sound_id": "drum.igihumurizo"
+    },
+    "99b31179-d930-48ef-b59b-de49a5630156": {
+        "category": "Strings",
+        "name": "Igil",
+        "sound_id": "strings.igil"
+    },
+    "72e3b743-fe70-4748-b888-0ed6099c25f8": {
+        "category": "Percussion",
+        "name": "Indian Gong",
+        "sound_id": ""
+    },
+    "0ea2481e-27ac-4b3f-8fb5-9295eec2f88c": {
+        "category": "Drums",
+        "name": "Ingoma",
+        "sound_id": ""
+    },
+    "b2e7b4ca-33b1-407b-950c-072f385c2305": {
+        "category": "Drums",
+        "name": "Inyahura",
+        "sound_id": "drum.inyahura"
+    },
+    "eb3126e3-659f-49c1-bd84-c38d32980256": {
+        "category": "Percussion",
+        "name": "Ipu",
+        "sound_id": "wood.ipu"
+    },
+    "f3030ec7-c452-41d0-8908-5a9f7fbabaaa": {
+        "category": "Plucked Strings",
+        "name": "Irish Bouzouki",
+        "sound_id": "pluck.bouzouki.irish"
+    },
+    "badaf8de-498d-4629-b853-97fdb849c83d": {
+        "category": "Woodwinds",
+        "name": "Irish Flute",
+        "sound_id": "wind.flutes.flute.irish"
+    },
+    "f5b42332-d846-426c-8cc7-1eda8488b739": {
+        "category": "Drums",
+        "name": "Janggu",
+        "sound_id": "drum.jang-gu"
+    },
+    "ea30ddc3-e7fb-46aa-9cde-36ee5d9d47fc": {
+        "category": "Plucked Strings",
+        "name": "Jarana Huasteca",
+        "sound_id": "pluck.jarana-huasteca"
+    },
+    "6e59acd7-64d8-4a9d-8965-ce49ff62744f": {
+        "category": "Plucked Strings",
+        "name": "Jarana Jarocho",
+        "sound_id": "pluck.jarana-jarocha"
+    },
+    "069288e4-4ff0-4e6d-a47e-45fb4a76b94f": {
+        "category": "Plucked Strings",
+        "name": "Jarana Mosquito",
+        "sound_id": "pluck.jarana-jarocha.mosquito"
+    },
+    "21f3ae79-18ba-4790-849a-2992f82cb0fa": {
+        "category": "Plucked Strings",
+        "name": "Jarana Segunda",
+        "sound_id": "pluck.jarana-jarocha.segunda"
+    },
+    "44978e17-23cb-487a-b106-fac30c0656c6": {
+        "category": "Plucked Strings",
+        "name": "Jarana Tercera",
+        "sound_id": "pluck.jarana-jarocha.tercera"
+    },
+    "b87bb002-1bdf-44c9-b8a6-dcbcb07ef73d": {
+        "category": "Percussion",
+        "name": "Jawbone",
+        "sound_id": "rattle.jawbone"
+    },
+    "24394eac-bd86-4e89-8e74-ed0bcd16567c": {
+        "category": "Pitched Percussion",
+        "name": "Jaw Harp",
+        "sound_id": "metal.jaw-harp"
+    },
+    "0a6d002d-89f4-45d7-b245-36c85c6e0e53": {
+        "category": "Percussion",
+        "name": "Jingle Bells",
+        "sound_id": "metal.bells.jingle-bell"
+    },
+    "5ac64ac7-54ce-441b-8339-33af4f695113": {
+        "category": "Woodwinds",
+        "name": "Jogi Baja",
+        "sound_id": "wind.reed.jogi-baja"
+    },
+    "1799027e-dfff-49f9-a637-03b3db915e9f": {
+        "category": "Woodwinds",
+        "name": "Jug",
+        "sound_id": "wind.jug"
+    },
+    "d49e3215-5d49-47d1-962b-4637b35c9b40": {
+        "category": "Plucked Strings",
+        "name": "Kabosy",
+        "sound_id": "pluck.kabosy"
+    },
+    "64b61662-f6b0-479d-917e-23cc12e81922": {
+        "category": "Percussion",
+        "name": "Ka'eke'eke",
+        "sound_id": "wood.kaekeeke"
+    },
+    "0d348566-292f-4457-8d4e-24294742dc47": {
+        "category": "Percussion",
+        "name": "Kagul",
+        "sound_id": "wood.kagul"
+    },
+    "8c780a43-f35b-4fc1-8640-04fbfa82ecbf": {
+        "category": "Drums",
+        "name": "Kakko",
+        "sound_id": "drum.kakko"
+    },
+    "94e1a66f-1baa-4d64-a03f-25f5cc34dc35": {
+        "category": "Percussion",
+        "name": "Kala'au",
+        "sound_id": "wood.kalaau"
+    },
+    "083c0880-19c8-4c2a-9bce-b5fbd864ea30": {
+        "category": "Pitched Percussion",
+        "name": "Kalimba",
+        "sound_id": "pitched-percussion.kalimba"
+    },
+    "50d11032-113c-4799-a473-e40db1161e8f": {
+        "category": "Strings",
+        "name": "Kamancha",
+        "sound_id": "strings.kamancha"
+    },
+    "8205370c-6012-42ae-8115-309d124f582d": {
+        "category": "Drums",
+        "name": "Kanjira",
+        "sound_id": "drum.kanjira"
+    },
+    "7acb5354-338e-465f-8dcc-6abffd6439fa": {
+        "category": "Plucked Strings",
+        "name": "Kantele",
+        "sound_id": "pluck.kantele"
+    },
+    "f4f04ddd-6ce6-44bb-80c0-f228bc88b715": {
+        "category": "Pitched Percussion",
+        "name": "Kantil (Gamelan)",
+        "sound_id": "pitched-percussion.kantil"
+    },
+    "360cff2c-cee0-4fa1-a049-91c87a318348": {
+        "category": "Percussion",
+        "name": "Kashiklar",
+        "sound_id": "wood.kashiklar"
+    },
+    "7792014c-81e2-4ff5-b45a-ca00f6d5a137": {
+        "category": "Woodwinds",
+        "name": "Kaval",
+        "sound_id": "wind.flutes.kaval"
+    },
+    "d6c3b1c3-27b3-4733-8a5e-403eab24e635": {
+        "category": "Plucked Strings",
+        "name": "Kayagum",
+        "sound_id": "pluck.kayagum"
+    },
+    "c79f9662-44d7-442f-b5e6-a8b0085e92f4": {
+        "category": "Voices",
+        "name": "Kazoo",
+        "sound_id": "voice.kazoo"
+    },
+    "4e74c977-7fcf-42a4-89f6-b40b004cb069": {
+        "category": "Percussion",
+        "name": "Kempul (Gamelan)",
+        "sound_id": "metal.gong.kempul"
+    },
+    "19b4b362-f073-4ef6-9a9b-b788ea060971": {
+        "category": "Percussion",
+        "name": "Kempyang (Gamelan)",
+        "sound_id": "metal.gong.kempyang"
+    },
+    "1d80222d-bcc3-4605-9979-729847c83b51": {
+        "category": "Woodwinds",
+        "name": "Kèn bầu",
+        "sound_id": "wind.reed.ken-bau"
+    },
+    "13458205-bb41-46a8-838f-ca4ef18abb7e": {
+        "category": "Drums",
+        "name": "Kendang (Gamelan)",
+        "sound_id": "drum.kendhang"
+    },
+    "eba780e1-d50a-46af-90da-17f75c7e6f08": {
+        "category": "Drums",
+        "name": "Kenkeni",
+        "sound_id": "drum.kenkeni"
+    },
+    "894e33c2-daa0-42fd-ae04-ecf066e063a0": {
+        "category": "Percussion",
+        "name": "Kenong (Gamelan)",
+        "sound_id": ""
+    },
+    "515e74a1-0f6e-4cf6-a904-589e34676fea": {
+        "category": "Percussion",
+        "name": "Kesi",
+        "sound_id": "metal.cymbal.kesi"
+    },
+    "22bc67fc-69ae-4293-aa5a-448898d32b56": {
+        "category": "Percussion",
+        "name": "Ketuk (Gamelan)",
+        "sound_id": "metal.gong.ketuk"
+    },
+    "642a83a4-4e29-4b84-8849-d4b6f9310455": {
+        "category": "Woodwinds",
+        "name": "Khaen Mouth Organ",
+        "sound_id": "wind.reed.khaen-mouth-organ"
+    },
+    "db43d176-446d-4500-ad9e-da15577f3c6e": {
+        "category": "Percussion",
+        "name": "Khartal",
+        "sound_id": "metal.bells.khartal"
+    },
+    "ff3c0ed3-443d-43f3-9ea1-3720147696e5": {
+        "category": "Plucked Strings",
+        "name": "Khim",
+        "sound_id": "pitched-percussion.khim"
+    },
+    "cdf417bc-db53-4488-8941-14bc8044f2f7": {
+        "category": "Woodwinds",
+        "name": "Khlui",
+        "sound_id": "wind.flutes.khlui"
+    },
+    "a64b0861-2418-408f-82cc-47818d13bd95": {
+        "category": "Drums",
+        "name": "Khol",
+        "sound_id": "drum.khol"
+    },
+    "eb190c98-d799-48e4-8d77-b69b78f5c4d6": {
+        "category": "Percussion",
+        "name": "Kkwaenggwari",
+        "sound_id": "metal.gong.kkwenggwari"
+    },
+    "3387f5dc-573e-4d38-b6aa-d8892360ef8a": {
+        "category": "Woodwinds",
+        "name": "Knotweed Flute",
+        "sound_id": "wind.flutes.knotweed"
+    },
+    "3693cf1b-32af-4be6-83b1-9e94d74e6722": {
+        "category": "Plucked Strings",
+        "name": "Kobza",
+        "sound_id": "pluck.kobza"
+    },
+    "2b581286-3e78-4b49-a49c-42100510df51": {
+        "category": "Drums",
+        "name": "Ko-daiko",
+        "sound_id": "drum.ko-daiko"
+    },
+    "89102882-aa4f-46aa-abed-255d279b679e": {
+        "category": "Strings",
+        "name": "Kokyu",
+        "sound_id": "strings.kokyu"
+    },
+    "c9c6ff58-b16e-432f-91d9-9b6200e6d788": {
+        "category": "Plucked Strings",
+        "name": "Komuz",
+        "sound_id": "pluck.komuz"
+    },
+    "3e47d131-819b-4d32-ae83-95ef468e65fd": {
+        "category": "Woodwinds",
+        "name": "Koncovka Alto Flute",
+        "sound_id": "wind.flutes.koncovka.alto"
+    },
+    "78e799d1-9c1f-42fc-86d3-0a518050ec81": {
+        "category": "Strings",
+        "name": "Kora",
+        "sound_id": "strings.viola"
+    },
+    "c2210b7e-418a-4a0a-a3eb-b8484a1a58e2": {
+        "category": "Plucked Strings",
+        "name": "Koto",
+        "sound_id": "pluck.koto"
+    },
+    "280914ad-66c8-4f22-86e1-f471a13ac008": {
+        "category": "Woodwinds",
+        "name": "Koudi",
+        "sound_id": "wind.flutes.koudi"
+    },
+    "6288a051-dd88-4ff2-aafd-7871d9665b22": {
+        "category": "Percussion",
+        "name": "Kpoko Kpoko",
+        "sound_id": "rattle.kpoko-kpoko"
+    },
+    "1a47d8b9-5f4d-4f0e-81b0-670bc3c02113": {
+        "category": "Percussion",
+        "name": "Krin Slit Drum",
+        "sound_id": "drum.slit-drum.krin"
+    },
+    "b02c5df1-7cc5-4db7-985c-24924ce2d5c7": {
+        "category": "Pitched Percussion",
+        "name": "Kubing",
+        "sound_id": "pitched-percussion.kulintang"
+    },
+    "cb1022f0-6fcd-4817-aae7-84619b198700": {
+        "category": "Drums",
+        "name": "Kudum",
+        "sound_id": "drum.kudum"
+    },
+    "e4a0f210-feda-42ee-b97d-571822ac9a1c": {
+        "category": "Brass",
+        "name": "Kuhlohorn",
+        "sound_id": "brass.kuhlohorn"
+    },
+    "5fbbb49e-0478-4793-8a1e-2dc0c225437b": {
+        "category": "Pitched Percussion",
+        "name": "Kulintang",
+        "sound_id": "pitched-percussion.kulintang"
+    },
+    "a27276b5-7273-4419-a2c2-2fbb3755e37b": {
+        "category": "Pitched Percussion",
+        "name": "Kulintang A Kayo",
+        "sound_id": "pitched-percussion.kulintang-a-kayo"
+    },
+    "dc558a38-0e81-45f6-9b51-4473fc10ac0e": {
+        "category": "Pitched Percussion",
+        "name": "Kulintang A Tiniok",
+        "sound_id": "pitched-percussion.kulintang-a-tiniok"
+    },
+    "b1a16de0-c6f8-4d0c-96d8-63fa7e89113e": {
+        "category": "Plucked Strings",
+        "name": "Kutiyapi",
+        "sound_id": "pluck.kutiyapi"
+    },
+    "89ce68fc-0c7d-4068-bd45-9fb8ce7cffa5": {
+        "category": "Drums",
+        "name": "Lambeg Drum",
+        "sound_id": "drum.lambeg"
+    },
+    "18e78c98-da85-4cd4-8729-c1b2e1b0a3cd": {
+        "category": "Pitched Percussion",
+        "name": "Lamellaphone",
+        "sound_id": "pitched-percussion.metallophone"
+    },
+    "55bad0bb-daf1-4dad-bd36-ea3245fb0055": {
+        "category": "Plucked Strings",
+        "name": "Langeleik",
+        "sound_id": "pluck.langeleik"
+    },
+    "517fac0f-760c-4cdb-aae8-8a29625db520": {
+        "category": "Strings",
+        "name": "Laruan",
+        "sound_id": "strings.laruan"
+    },
+    "2f5cac27-b724-466e-904e-af3ecd5e64d6": {
+        "category": "Woodwinds",
+        "name": "Launeddas",
+        "sound_id": "wind.reed.launeddas"
+    },
+    "e234cf01-adce-46b3-8ea2-3bbaad459953": {
+        "category": "Percussion",
+        "name": "Lava Stones",
+        "sound_id": "rattle.lava-stones"
+    },
+    "eacec010-a733-439e-ab56-5ed48f16aa31": {
+        "category": "Strings",
+        "name": "Leiqin",
+        "sound_id": "strings.leiqin"
+    },
+    "ba6ba1e7-c821-4f93-9eff-dbcf57a95529": {
+        "category": "Pitched Percussion",
+        "name": "Likembe",
+        "sound_id": "pitched-percussion.likembe"
+    },
+    "1092088e-ba6b-4147-883d-a39b2f4b0d9a": {
+        "category": "Strings",
+        "name": "Lirone",
+        "sound_id": "strings.lirone"
+    },
+    "a7a408f6-fd99-4aba-b1be-51cd87fa9cb1": {
+        "category": "Drums",
+        "name": "Logdrum",
+        "sound_id": "drum.log-drum"
+    },
+    "dd31d2dc-cca6-489e-98ae-7447584b7ce9": {
+        "category": "Woodwinds",
+        "name": "Low Irish Whistle",
+        "sound_id": "wind.flutes.whistle.low-irish"
+    },
+    "add2f782-01f9-4d35-b430-2de82a21768c": {
+        "category": "Pitched Percussion",
+        "name": "Luntang",
+        "sound_id": "pitched-percussion.luntang"
+    },
+    "3585b4c8-bac9-452a-b5a4-cb8bd8ce887f": {
+        "category": "Percussion",
+        "name": "Luo Gong",
+        "sound_id": "metal.gong.luo"
+    },
+    "c146d259-6033-4c37-98d0-74cbd0d857c0": {
+        "category": "Plucked Strings",
+        "name": "Lute",
+        "sound_id": "pluck.lute"
+    },
+    "7a4be7a3-4459-4a5a-8f7e-629862899201": {
+        "category": "Plucked Strings",
+        "name": "Lyre",
+        "sound_id": "pluck.lyre"
+    },
+    "b2daf4d9-c920-4411-93af-c31624e2f394": {
+        "category": "Drums",
+        "name": "Madal",
+        "sound_id": "drum.madal"
+    },
+    "5ac13e97-cbd2-46f7-9845-7c01a33488c5": {
+        "category": "Drums",
+        "name": "Maddale",
+        "sound_id": "drum.maddale"
+    },
+    "e12063bf-b309-43c7-93d9-93917e2ccb1b": {
+        "category": "Pitched Percussion",
+        "name": "Mallets",
+        "sound_id": "pitched-percussion.bells"
+    },
+    "e9449009-3c29-42cd-8fe8-d371783848ef": {
+        "category": "Plucked Strings",
+        "name": "Mandobass",
+        "sound_id": "pluck.mandobass"
+    },
+    "30cd8f9b-cce9-43a5-a77f-367955751852": {
+        "category": "Plucked Strings",
+        "name": "Mandocello",
+        "sound_id": "pluck.mandocello"
+    },
+    "77e3b455-1d03-4aea-a0de-4ab2d6725f33": {
+        "category": "Plucked Strings",
+        "name": "Mandola",
+        "sound_id": "pluck.mandola"
+    },
+    "07c18c13-4e71-40bb-932b-1f4433da67a7": {
+        "category": "Plucked Strings",
+        "name": "Mandolin",
+        "sound_id": "pluck.mandolin"
+    },
+    "f8455a48-3451-462e-83fc-8955d825c00c": {
+        "category": "Plucked Strings",
+        "name": "Mandora",
+        "sound_id": "pluck.mandora"
+    },
+    "634158ef-0081-4bec-b5fa-45514a676eb5": {
+        "category": "Plucked Strings",
+        "name": "Mandore",
+        "sound_id": "pluck.mandore"
+    },
+    "0f229fac-4115-49ff-8552-5329f35fe06c": {
+        "category": "Plucked Strings",
+        "name": "Mangbetu",
+        "sound_id": ""
+    },
+    "5eea74d5-bc25-4257-911c-ca0c2b432aa8": {
+        "category": "Percussion",
+        "name": "Manjeera",
+        "sound_id": "metal.cymbal.manjeera"
+    },
+    "a6140a3d-2ccb-494c-b96d-005d6abc2a6b": {
+        "category": "Woodwinds",
+        "name": "Maqrunah",
+        "sound_id": "wind.reed.maqrunah"
+    },
+    "e0d6ae08-7634-47dc-831c-40a559673d3b": {
+        "category": "Percussion",
+        "name": "Maracas",
+        "sound_id": "rattle.maraca"
+    },
+    "f55049de-c37e-42bd-a081-55abe1b6bfea": {
+        "category": "Pitched Percussion",
+        "name": "Marimba",
+        "sound_id": "pitched-percussion.marimba"
+    },
+    "ce1b61fd-dbe1-482f-8277-40d734798f44": {
+        "category": "Pitched Percussion",
+        "name": "Marimba [Treble Clef]",
+        "sound_id": "pitched-percussion.marimba"
+    },
+    "3054ec0a-5556-4d6d-8f2d-fe82728526a1": {
+        "category": "Plucked Strings",
+        "name": "Marovany",
+        "sound_id": "pluck.marovany"
+    },
+    "d46210c3-2cb9-4e61-b953-d1f4664e4b86": {
+        "category": "Pitched Percussion",
+        "name": "Mbira",
+        "sound_id": "pitched-percussion.mbira"
+    },
+    "507496e3-b714-4eaf-a882-522f0f25c137": {
+        "category": "Brass",
+        "name": "Mellophone",
+        "sound_id": "brass.mellophone"
+    },
+    "a41f4a27-6e41-47f1-973f-2c7fc66b3e68": {
+        "category": "Keyboards",
+        "name": "Melodica",
+        "sound_id": "wind.reed.melodica"
+    },
+    "aefe6f0b-3ccc-41f8-b421-d94c9e7a167d": {
+        "category": "Woodwinds",
+        "name": "Mezzo-Soprano Sax",
+        "sound_id": "voice.mezzo-soprano"
+    },
+    "9b62dc60-4b05-41e1-9b4d-d8b7d19553d0": {
+        "category": "Voices",
+        "name": "Mezzo-Soprano Voice",
+        "sound_id": "voice.mezzo-soprano"
+    },
+    "55b4d551-ed21-4705-af1a-dcd986fd08ef": {
+        "category": "Woodwinds",
+        "name": "Mijwiz",
+        "sound_id": "wind.reed.mijwiz"
+    },
+    "0f976aa0-7c54-45f8-a1a9-451125809ea8": {
+        "category": "Woodwinds",
+        "name": "Mizmar",
+        "sound_id": "wind.reed.mizmar"
+    },
+    "0545a1b4-452a-40dc-a4df-3e4746966614": {
+        "category": "Woodwinds",
+        "name": "Modern Tárogató",
+        "sound_id": "wind.reed.tarogato"
+    },
+    "63e731c1-0986-4b71-8e4e-b59a190b3e08": {
+        "category": "Plucked Strings",
+        "name": "Mohan Veena",
+        "sound_id": "pluck.veena.mohan"
+    },
+    "1105b17e-2a54-4965-9a4d-94053d89974c": {
+        "category": "Plucked Strings",
+        "name": "Moodswinger",
+        "sound_id": ""
+    },
+    "32ec0199-96ef-49a5-ad89-fb180f7a3a2a": {
+        "category": "Strings",
+        "name": "Morin Khuur",
+        "sound_id": "strings.morin-khuur"
+    },
+    "b483e260-743f-481b-b04f-d5987b8752ca": {
+        "category": "Drums",
+        "name": "Morocco Drum",
+        "sound_id": ""
+    },
+    "789b259d-0dc1-49ba-bf44-cb8442301b66": {
+        "category": "Drums",
+        "name": "Mridangam",
+        "sound_id": "drum.mridangam"
+    },
+    "eb36788a-e84c-4be3-ac32-13a901f7beca": {
+        "category": "Pitched Percussion",
+        "name": "Murchang",
+        "sound_id": "pitched-percussion.luntang"
+    },
+    "94a39c66-ad56-4b73-8fba-f1e757a95775": {
+        "category": "Plucked Strings",
+        "name": "Musical Bow",
+        "sound_id": "pluck.musical-bow"
+    },
+    "a664f74c-a766-4407-8d1e-c84cd08390a6": {
+        "category": "Pitched Percussion",
+        "name": "Musical Saw",
+        "sound_id": "metal.musical-saw"
+    },
+    "bd072d15-7ed4-4b85-a4fd-e485bab60d7f": {
+        "category": "Drums",
+        "name": "Naal",
+        "sound_id": "drum.naal"
+    },
+    "8089cf04-f4a9-4c33-8327-3989757b825b": {
+        "category": "Woodwinds",
+        "name": "Nadaswaram",
+        "sound_id": "wind.reed.nadaswaram"
+    },
+    "22d29405-9698-4d6f-bd62-31bc26d5f259": {
+        "category": "Drums",
+        "name": "Nagado-daiko",
+        "sound_id": "drum.nagado-daiko"
+    },
+    "f991df10-d51a-430c-8563-b591ddbf2e16": {
+        "category": "Drums",
+        "name": "Nagara",
+        "sound_id": "drum.nagara"
+    },
+    "866a6708-bd82-4bf2-89da-ca5aa2528e02": {
+        "category": "Drums",
+        "name": "Naqara",
+        "sound_id": "drum.naqara"
+    },
+    "cf3dcc82-78fd-4f74-95b9-22ae6a6c299b": {
+        "category": "Drums",
+        "name": "Native Log Drum",
+        "sound_id": "drum.log-drum.native"
+    },
+    "a21f447b-7fa8-49de-8c0e-3b9954ad986a": {
+        "category": "Woodwinds",
+        "name": "Ney",
+        "sound_id": "wind.flutes.ney"
+    },
+    "df8299ea-814a-4fe1-b3d3-1c284b061445": {
+        "category": "Plucked Strings",
+        "name": "Ngoni",
+        "sound_id": "pluck.ngoni"
+    },
+    "034833e2-ac82-4500-a66d-3091ad5afa18": {
+        "category": "Drums",
+        "name": "Nigerian Log Drum",
+        "sound_id": "drum.log-drum.nigerian"
+    },
+    "8708a296-2db3-452a-b654-daadc164d0a9": {
+        "category": "Woodwinds",
+        "name": "Nohkan",
+        "sound_id": "wind.flutes.nohkan"
+    },
+    "3dcf456a-b87a-46fb-ba6c-90d3a11c0e22": {
+        "category": "Woodwinds",
+        "name": "Nose Flute",
+        "sound_id": "wind.flutes.nose"
+    },
+    "77bc62ef-8724-4ffd-83af-4fcfcbb65b12": {
+        "category": "Strings",
+        "name": "Nyckelharpa",
+        "sound_id": "strings.nyckelharpa"
+    },
+    "172a455a-d1b9-4a03-aa80-c863d587f209": {
+        "category": "Woodwinds",
+        "name": "Oboe",
+        "sound_id": "wind.reed.oboe"
+    },
+    "d228748f-7e5c-4646-9316-f7a2a85e4c31": {
+        "category": "Woodwinds",
+        "name": "Oboe Da Caccia",
+        "sound_id": "wind.reed.oboe-da-caccia"
+    },
+    "b70397fa-18ef-4841-8ccb-d5a9602e457d": {
+        "category": "Woodwinds",
+        "name": "Oboe d'Amore",
+        "sound_id": "wind.reed.oboe-damore"
+    },
+    "b0330079-36e9-4f3a-8b2e-e1e3432292fe": {
+        "category": "Woodwinds",
+        "name": "Ocarina",
+        "sound_id": "wind.flutes.ocarina"
+    },
+    "23992001-3e74-4785-aa5c-f04423daa791": {
+        "category": "Plucked Strings",
+        "name": "Octave Mandolin",
+        "sound_id": "pluck.mandolin.octave"
+    },
+    "ee6e58a7-20f5-474e-b541-9fb456de6904": {
+        "category": "Woodwinds",
+        "name": "Octavin",
+        "sound_id": "wind.reed.octavin"
+    },
+    "22b93602-f5a2-4aa3-a581-99dc3ac3aac6": {
+        "category": "Strings",
+        "name": "Octobass",
+        "sound_id": "strings.octobass"
+    },
+    "bb4301b2-10b0-4cbb-b393-1c89ddfb75b3": {
+        "category": "Drums",
+        "name": "O-daiko",
+        "sound_id": "drum.o-daiko"
+    },
+    "7356b2c6-43a7-4b30-9f72-4d7a91b38d89": {
+        "category": "Drums",
+        "name": "Okawa",
+        "sound_id": "drum.okawa"
+    },
+    "c7cd62b7-fad9-40f7-adf2-42e26cd65fd5": {
+        "category": "Drums",
+        "name": "Okedo-daiko",
+        "sound_id": "drum.okedo-daiko"
+    },
+    "8fae711b-6eb2-4e99-9216-9248a25a4d3c": {
+        "category": "Keyboards",
+        "name": "Ondes Martenot",
+        "sound_id": "keyboard.ondes-martenot"
+    },
+    "2dfbd615-2b8e-4a89-83a1-1f494bf71930": {
+        "category": "Brass",
+        "name": "Ophicleide",
+        "sound_id": "brass.ophicleide"
+    },
+    "723972d2-a005-492a-b92c-2cb1a6b3f21d": {
+        "category": "Keyboards",
+        "name": "Organ",
+        "sound_id": "keyboard.organ"
+    },
+    "ab39d5e6-a742-4af3-a0a6-269422e21ec3": {
+        "category": "Keyboards",
+        "name": "Organ (2-staff)",
+        "sound_id": "keyboard.organ"
+    },
+    "6b90cca6-bcf2-4b69-9807-0dde1c21e64b": {
+        "category": "Plucked Strings",
+        "name": "Oud",
+        "sound_id": "pluck.oud"
+    },
+    "0017bb28-b244-4d59-b2ae-31045c21e049": {
+        "category": "Drums",
+        "name": "Pahu Hula",
+        "sound_id": "drum.pahu-hula"
+    },
+    "d73561df-e770-46e7-975d-d13def5a6183": {
+        "category": "Drums",
+        "name": "Pakhavaj",
+        "sound_id": "drum.pakhawaj"
+    },
+    "6fd5d411-2f73-427b-a278-a129381c6a1d": {
+        "category": "Woodwinds",
+        "name": "Palendag",
+        "sound_id": "wind.flutes.palendag"
+    },
+    "1ed902ac-d3d2-4f1f-a961-237400996ea8": {
+        "category": "Percussion",
+        "name": "Pan Clappers",
+        "sound_id": "wood.pan-clappers"
+    },
+    "4105acdd-2b76-40fa-9122-002781dc05ca": {
+        "category": "Drums",
+        "name": "Pandero",
+        "sound_id": "drum.pandero"
+    },
+    "a8bd8c3b-577d-4812-b500-f76b3cf9ab2b": {
+        "category": "Woodwinds",
+        "name": "Panpipes",
+        "sound_id": "wind.flutes.panpipes"
+    },
+    "25034241-d9b2-4c08-96d4-fdf267f217c5": {
+        "category": "Percussion",
+        "name": "Pat (Patschen)",
+        "sound_id": ""
+    },
+    "ab271a46-4dd6-46fc-b0f7-c226fd346af9": {
+        "category": "Pitched Percussion",
+        "name": "Pelog Panerus (Gamelan)",
+        "sound_id": "pitched-percussion.pelog-panerus"
+    },
+    "e501c949-c877-43b7-8b68-2fdf420ec3c3": {
+        "category": "Pitched Percussion",
+        "name": "Pemade (Gamelan)",
+        "sound_id": "pitched-percussion.pemade"
+    },
+    "37bb50bc-04fb-494c-8d52-942149b0e757": {
+        "category": "Woodwinds",
+        "name": "Pennywhistle",
+        "sound_id": "wind.flutes.whistle.tin"
+    },
+    "54b39327-75aa-417b-a4d3-70bd5be2be9c": {
+        "category": "Woodwinds",
+        "name": "Pennywhistle in D",
+        "sound_id": "wind.flutes.whistle.tin.d"
+    },
+    "c94c25b2-83fa-44c3-8ba6-a218d6e12eca": {
+        "category": "Woodwinds",
+        "name": "Pennywhistle in G",
+        "sound_id": "wind.flutes.whistle.tin"
+    },
+    "489a47f8-38d0-4c36-a07e-84df6e890641": {
+        "category": "Pitched Percussion",
+        "name": "Penyacah (Gamelan)",
+        "sound_id": "pitched-percussion.penyacah"
+    },
+    "cf3f01a2-c549-4e4b-b00c-c99ab1634c78": {
+        "category": "Percussion",
+        "name": "Accessories",
+        "sound_id": "drum.group"
+    },
+    "65e80359-f9ee-4afc-8ba5-213187a1b5a4": {
+        "category": "Percussion",
+        "name": "Percussion",
+        "sound_id": "voice.percussion"
+    },
+    "7471f961-590b-4382-b4a6-d05069cd19ae": {
+        "category": "Woodwinds",
+        "name": "Pi",
+        "sound_id": "wind.reed.pi"
+    },
+    "776a2734-3f38-4cac-8fa2-90e62b368ec1": {
+        "category": "Keyboards",
+        "name": "Piano",
+        "sound_id": "keyboard.piano"
+    },
+    "38cd3cd9-3160-4baa-9bfd-c2d9f353dafd": {
+        "category": "Keyboards",
+        "name": "Piano (No Staff Name)",
+        "sound_id": "keyboard.piano"
+    },
+    "079610c3-1203-4dff-b231-af31f1fce20c": {
+        "category": "Woodwinds",
+        "name": "Pibgorn",
+        "sound_id": "wind.reed.pibgorn"
+    },
+    "7423e6af-ab6f-41a4-832f-ffc6453c6bb5": {
+        "category": "Woodwinds",
+        "name": "Piccolo",
+        "sound_id": "wind.flutes.flute.piccolo"
+    },
+    "00b0b3a3-8906-46a1-9bc5-c5801f307a73": {
+        "category": "Woodwinds",
+        "name": "Piccolo Clarinet",
+        "sound_id": "wind.reed.clarinet.piccolo"
+    },
+    "9b97fd4a-5e7d-45ec-a85f-00304efa6fd3": {
+        "category": "Woodwinds",
+        "name": "Piccolo Heckelphone",
+        "sound_id": "wind.reed.heckelphone.piccolo"
+    },
+    "f5424bcc-295a-4763-9c4c-52cbaa5356ea": {
+        "category": "Woodwinds",
+        "name": "Piccolo Oboe",
+        "sound_id": "wind.reed.oboe.piccolo"
+    },
+    "d6b0af68-eafd-4ed0-a718-f8ea347f5dba": {
+        "category": "Brass",
+        "name": "Piccolo Trumpet in A",
+        "sound_id": "brass.trumpet.piccolo"
+    },
+    "5ee30cb6-2dde-438f-bd9a-6b88c64ce909": {
+        "category": "Plucked Strings",
+        "name": "Pipa",
+        "sound_id": "pluck.pipa"
+    },
+    "54ed0ce3-2d02-4aab-985e-8b1af576a294": {
+        "category": "Woodwinds",
+        "name": "Piri",
+        "sound_id": "wind.reed.piri"
+    },
+    "aa29ecf9-c068-44d2-8736-099ab1728332": {
+        "category": "Brass",
+        "name": "Pocket Trumpet",
+        "sound_id": "brass.trumpet.pocket"
+    },
+    "35da6ce6-fec8-48c2-80ce-3412fec2222e": {
+        "category": "Percussion",
+        "name": "Police Whistle",
+        "sound_id": "effect.whistle.police"
+    },
+    "2587560e-5c35-4de2-a76e-871f23f98715": {
+        "category": "Plucked Strings",
+        "name": "Portuguese Guitar",
+        "sound_id": "pluck.guitar.portuguese"
+    },
+    "bdbfbc27-0255-4e3c-94e0-b03f13ab8f14": {
+        "category": "Brass",
+        "name": "Post Horn",
+        "sound_id": "brass.posthorn"
+    },
+    "c80a7d1e-c639-4f9c-b890-e5e7c1d78508": {
+        "category": "Drums",
+        "name": "Powwow Drum",
+        "sound_id": "drum.powwow"
+    },
+    "d5b4d123-3fc9-45bb-8d51-9dd982192ec9": {
+        "category": "Plucked Strings",
+        "name": "Psaltery",
+        "sound_id": "pluck.psaltery"
+    },
+    "53686ef3-755e-442d-b263-38d78e25ed46": {
+        "category": "Drums",
+        "name": "Pueblo Drum",
+        "sound_id": "drum.pueblo"
+    },
+    "25b468b4-ff45-4689-8774-ad13eb7b32c1": {
+        "category": "Woodwinds",
+        "name": "Pungi Snake Charmer",
+        "sound_id": "wind.pungi"
+    },
+    "1c40f41e-8fe4-4e12-a876-7a9474a98177": {
+        "category": "Drums",
+        "name": "Quad Toms",
+        "sound_id": ""
+    },
+    "f92e2b02-3e6f-4267-9242-415cf95a9cf8": {
+        "category": "Woodwinds",
+        "name": "Quena",
+        "sound_id": "wind.flutes.quena"
+    },
+    "0f37103b-0861-45cd-b13d-1a42cb4bfef0": {
+        "category": "Drums",
+        "name": "Quint Toms",
+        "sound_id": ""
+    },
+    "ec8aad53-c0ae-471d-99f4-86eec9897f1b": {
+        "category": "Woodwinds",
+        "name": "Rackett",
+        "sound_id": "wind.reed.rackett"
+    },
+    "7b06c899-ddbb-4d30-a999-89d4876527d4": {
+        "category": "Percussion",
+        "name": "Rain Stick",
+        "sound_id": "rattle.rain-stick"
+    },
+    "24ac9973-a646-4135-b9d9-38e60d4f71bd": {
+        "category": "Pitched Percussion",
+        "name": "Ranat Ek Lek",
+        "sound_id": "pitched-percussion.ranat.ek-lek"
+    },
+    "6cfb36b6-f39c-4022-8f02-3b6a732e6f18": {
+        "category": "Pitched Percussion",
+        "name": "Ranat Thum Lek",
+        "sound_id": "pitched-percussion.ranat.thum-lek"
+    },
+    "b2ece664-e51d-4dd0-8553-8bc2e4b24d5b": {
+        "category": "Percussion",
+        "name": "Ratchet",
+        "sound_id": "rattle.ratchet"
+    },
+    "d8a4b676-1fd8-4628-9847-3b48f9930671": {
+        "category": "Percussion",
+        "name": "Rattle",
+        "sound_id": "rattle.rattle"
+    },
+    "d25d39ea-5c5b-4785-85fc-61c6c6359ac3": {
+        "category": "Percussion",
+        "name": "Rattle Cog",
+        "sound_id": "rattle.cog"
+    },
+    "f454c420-f6af-45e7-bb73-5e4031b27918": {
+        "category": "Woodwinds",
+        "name": "Rauschpfeife",
+        "sound_id": "wind.reed.rauschpfeife"
+    },
+    "ba835d76-ee03-4d68-92cf-37c47aa774e4": {
+        "category": "Strings",
+        "name": "Rebab",
+        "sound_id": "strings.rebab"
+    },
+    "252f3cc6-4cc4-4b31-ba9d-4b0f1a7a729a": {
+        "category": "Strings",
+        "name": "Rebec",
+        "sound_id": "strings.rebec"
+    },
+    "28848103-882e-4f21-aa56-e99b3fc107d0": {
+        "category": "Woodwinds",
+        "name": "Reed Contrabass",
+        "sound_id": "wind.reed.contrabass"
+    },
+    "9fe1ff80-09a6-4f0e-80cd-d8a86e62bc45": {
+        "category": "Drums",
+        "name": "Repinique",
+        "sound_id": "drum.repinique"
+    },
+    "2f035a28-e94e-4be7-a1eb-e9ac93eca7d4": {
+        "category": "Plucked Strings",
+        "name": "Requinto Guitar",
+        "sound_id": "pluck.guitar.requinto"
+    },
+    "a16d527d-7ee4-4463-a4f9-e1330cf215cd": {
+        "category": "Percussion",
+        "name": "Reyong (Gamelan)",
+        "sound_id": "pitched-percussion.reyong"
+    },
+    "c308dfcd-8e56-48a3-b008-d2b0cc30c161": {
+        "category": "Woodwinds",
+        "name": "Rhaita",
+        "sound_id": "wind.reed.rhaita"
+    },
+    "7c74b642-641d-40e7-a959-e18d3122629f": {
+        "category": "Percussion",
+        "name": "Ride Cymbal",
+        "sound_id": "metal.cymbal.ride"
+    },
+    "1b88998b-88f1-4523-baaa-cc632a35dbdc": {
+        "category": "Percussion",
+        "name": "Riq",
+        "sound_id": "drum.riq"
+    },
+    "01ba3b66-731b-4980-b994-89b481b5565b": {
+        "category": "Woodwinds",
+        "name": "Rothphone",
+        "sound_id": "wind.reed.rothphone"
+    },
+    "6fa41b52-e308-42d0-8b17-e4f866e8b369": {
+        "category": "Drums",
+        "name": "Roto Toms",
+        "sound_id": "drum.rototom"
+    },
+    "e62e226a-a19f-4236-ba74-66a423577504": {
+        "category": "Plucked Strings",
+        "name": "Ruan",
+        "sound_id": "pluck.ruan"
+    },
+    "837b5fd2-24a9-4b5f-8616-293b7a3eb7b5": {
+        "category": "Plucked Strings",
+        "name": "Rudra Veena",
+        "sound_id": "pluck.veena.rudra"
+    },
+    "52e2cabb-0314-402e-8bbe-997e98a65f4b": {
+        "category": "Woodwinds",
+        "name": "Ryūteki",
+        "sound_id": "wind.flutes.ryuteki"
+    },
+    "ee2c6c38-dc3b-41bf-931f-f763dbf52ce3": {
+        "category": "Drums",
+        "name": "Sabar",
+        "sound_id": "drum.sabar"
+    },
+    "6e014e35-0653-4b2b-88bd-54b9ec3bf385": {
+        "category": "Brass",
+        "name": "Sackbut",
+        "sound_id": "brass.sackbutt"
+    },
+    "5aae4277-3a7c-452b-a432-5ac64d266f30": {
+        "category": "Drums",
+        "name": "Sakara",
+        "sound_id": "drum.sakara"
+    },
+    "7bb8270e-8fc4-4606-8ee6-e24e3d11fa2a": {
+        "category": "Plucked Strings",
+        "name": "Sallaneh",
+        "sound_id": "pluck.sallaneh"
+    },
+    "3b9bb009-b5a1-4239-b131-5dd0b0c657b5": {
+        "category": "Drums",
+        "name": "Sampho",
+        "sound_id": "drum.sampho"
+    },
+    "3fee7454-6d20-435b-964f-cda2e76d9ce6": {
+        "category": "Percussion",
+        "name": "Sand Block",
+        "sound_id": "wood.sand-block"
+    },
+    "84ba4f16-b396-466d-8e6e-12594127585a": {
+        "category": "Drums",
+        "name": "Sangban",
+        "sound_id": "drum.sangban"
+    },
+    "2999d9bc-d3df-4957-8f6f-973a4ab88362": {
+        "category": "Plucked Strings",
+        "name": "Sanshin",
+        "sound_id": "pluck.sanshin"
+    },
+    "9a9a9ec8-5b55-4108-9473-58d16822ac56": {
+        "category": "Plucked Strings",
+        "name": "Santoor",
+        "sound_id": "pluck.santoor"
+    },
+    "b75bbe9b-12e5-4e58-ae99-d644d2e7a8ea": {
+        "category": "Plucked Strings",
+        "name": "Sanxian",
+        "sound_id": "pluck.sanxian"
+    },
+    "6de2b8f5-e9d8-4635-9593-a45281fb54bf": {
+        "category": "Pitched Percussion",
+        "name": "Sanza",
+        "sound_id": "pitched-percussion.sanza"
+    },
+    "37021f3f-2acd-4c00-b2e0-71bb0f07ae7e": {
+        "category": "Strings",
+        "name": "Sarangi",
+        "sound_id": "strings.sarangi"
+    },
+    "341ba385-fda1-473b-afa9-8bfd0d576f7f": {
+        "category": "Strings",
+        "name": "Sarangi Drone",
+        "sound_id": "strings.sarangi"
+    },
+    "ba9a0e30-9e87-4509-b010-8dae956b7540": {
+        "category": "Plucked Strings",
+        "name": "Sarod",
+        "sound_id": "pluck.sarod"
+    },
+    "11ac281a-f06b-4abf-9461-577a0bf0ce9a": {
+        "category": "Pitched Percussion",
+        "name": "Saron Barung (Gamelan)",
+        "sound_id": "pitched-percussion.saron-barung"
+    },
+    "f0fed892-b7f6-439a-b4f4-5882846c7e0a": {
+        "category": "Pitched Percussion",
+        "name": "Saron Demong (Gamelan)",
+        "sound_id": "pitched-percussion.saron-demong"
+    },
+    "f66a16d0-6afe-4737-9f9f-dbf4399d108d": {
+        "category": "Pitched Percussion",
+        "name": "Saron Panerus (Gamelan)",
+        "sound_id": "pitched-percussion.saron-panerus"
+    },
+    "8b6d9de3-7100-4926-8405-18d32a046fa8": {
+        "category": "Woodwinds",
+        "name": "Sarrusophone",
+        "sound_id": "wind.reed.sarrusaphone"
+    },
+    "13061289-4b82-42f6-a729-90b94c9a5c06": {
+        "category": "Plucked Strings",
+        "name": "Saung",
+        "sound_id": "pluck.saung"
+    },
+    "91bc1c7a-2d04-4aac-9fa3-6f3a2b190f70": {
+        "category": "Brass",
+        "name": "Saxhorn",
+        "sound_id": "brass.saxhorn"
+    },
+    "ee4bfc3d-e50a-41c4-984a-0b5c6a002cb8": {
+        "category": "Woodwinds",
+        "name": "Saxonette",
+        "sound_id": "wind.reed.saxonette"
+    },
+    "41316f9f-a390-4520-a944-c6102ce55176": {
+        "category": "Plucked Strings",
+        "name": "Saz",
+        "sound_id": "pluck.saz"
+    },
+    "8c8be72e-741c-4b8b-94d3-4770bf52666d": {
+        "category": "Plucked Strings",
+        "name": "Se",
+        "sound_id": "pluck.se"
+    },
+    "12350edd-00d5-473b-9d3f-269dead4d10d": {
+        "category": "Brass",
+        "name": "Serpent",
+        "sound_id": "brass.serpent"
+    },
+    "c28f39a9-8727-43f5-961d-3e53efaa7078": {
+        "category": "Plucked Strings",
+        "name": "Setar",
+        "sound_id": "pluck.setar"
+    },
+    "92b2fb6f-9473-4631-8382-2879bf8fee92": {
+        "category": "Percussion",
+        "name": "Shakers",
+        "sound_id": "rattle.shaker"
+    },
+    "9259887f-83a7-4e91-b0cb-03d3bed5886c": {
+        "category": "Woodwinds",
+        "name": "Shakuhachi",
+        "sound_id": "wind.flutes.shakuhachi"
+    },
+    "01427e5f-7c1b-4465-8cb3-19fe6514dda4": {
+        "category": "Plucked Strings",
+        "name": "Shamisen",
+        "sound_id": "pluck.shamisen"
+    },
+    "654efca8-6eb3-460e-880b-c0193285887f": {
+        "category": "Woodwinds",
+        "name": "Shawm",
+        "sound_id": "wind.reed.shawm"
+    },
+    "416debd0-939a-4241-8ce4-f1c9beaf7be6": {
+        "category": "Woodwinds",
+        "name": "Shehnai",
+        "sound_id": "wind.reed.shenai"
+    },
+    "15281c38-e3a9-4087-b674-a448e20b2600": {
+        "category": "Percussion",
+        "name": "Shekere",
+        "sound_id": "rattle.shekere"
+    },
+    "d24f2747-9faf-416b-bf48-1f4143594ee1": {
+        "category": "Woodwinds",
+        "name": "Sheng",
+        "sound_id": "wind.reed.sheng"
+    },
+    "4c8ad2dd-c863-4272-a317-6e33194969db": {
+        "category": "Woodwinds",
+        "name": "Shepherds Pipe",
+        "sound_id": "wind.flutes.shepherds-pipe"
+    },
+    "e540abc3-3a14-47e1-b314-4a1fb1bf6359": {
+        "category": "Drums",
+        "name": "Shime-daiko",
+        "sound_id": "drum.shime-daiko"
+    },
+    "0dc9af9e-4a7a-44d9-9ede-a092a3e0fdf6": {
+        "category": "Woodwinds",
+        "name": "Shinobue",
+        "sound_id": "wind.flutes.shinobue"
+    },
+    "0a0c1873-83fe-4bc7-bdb8-5e68e6bd09db": {
+        "category": "Woodwinds",
+        "name": "Shiva Whistle",
+        "sound_id": "wind.flutes.whistle.shiva"
+    },
+    "7fc7590e-d6f8-4d60-98ea-72cb39d0f0cf": {
+        "category": "Brass",
+        "name": "Shofar",
+        "sound_id": "brass.shofar"
+    },
+    "a788598c-02a8-42ff-a1c5-f575d5c8610c": {
+        "category": "Woodwinds",
+        "name": "Shvi",
+        "sound_id": "wind.flutes.shvi"
+    },
+    "b379e5e9-44d5-4ca3-b039-3feea42ccd55": {
+        "category": "Woodwinds",
+        "name": "Sipsi",
+        "sound_id": "wind.reed.sipsi"
+    },
+    "6f823de8-b971-4ffd-8869-2fdfc2391860": {
+        "category": "Percussion",
+        "name": "Sistre",
+        "sound_id": "rattle.sistre"
+    },
+    "6968b0bd-2f1b-4d33-b365-b95d2e76a4cf": {
+        "category": "Percussion",
+        "name": "Sistrum",
+        "sound_id": "metal.bells.sistrum"
+    },
+    "c9d107fd-9f29-4d5b-8318-0448dca37062": {
+        "category": "Plucked Strings",
+        "name": "Sitar",
+        "sound_id": "pluck.sitar"
+    },
+    "898967b2-b7c2-414f-87c6-643f89e47cb2": {
+        "category": "Pitched Percussion",
+        "name": "Slendro Panerus (Gamelan)",
+        "sound_id": "pitched-percussion.slendro-panerus"
+    },
+    "b43f7d64-6923-409a-9a8c-d93d90d72d25": {
+        "category": "Pitched Percussion",
+        "name": "Slenthems (Gamelan)",
+        "sound_id": ""
+    },
+    "ceb7f1b0-3841-40e2-887e-bb7102b2eb8c": {
+        "category": "Brass",
+        "name": "Slide Trumpet",
+        "sound_id": "brass.trumpet"
+    },
+    "69edf04f-9d9f-4cb0-ac8d-611a32fa69c8": {
+        "category": "Pitched Percussion",
+        "name": "Slide Whistle",
+        "sound_id": "wind.flutes.whistle.slide"
+    },
+    "e0e54746-94f8-4daf-a97d-d0c83f60ee22": {
+        "category": "Percussion",
+        "name": "Slide Whistle [Percussion Clef]",
+        "sound_id": "effect.whistle.slide"
+    },
+    "92251af7-b395-44c3-a1f8-67d6b81b1e48": {
+        "category": "Percussion",
+        "name": "Slit Drum",
+        "sound_id": "drum.slit-drum"
+    },
+    "354bd88b-0ddd-42d3-a451-1b2741a2631c": {
+        "category": "Percussion",
+        "name": "Snap",
+        "sound_id": "effect.snap"
+    },
+    "cace4f8a-4c37-4b5a-b270-6f9a2edc65af": {
+        "category": "Drums",
+        "name": "Snare Drum",
+        "sound_id": "drum.snare-drum"
+    },
+    "f733401d-2494-4a1d-8f55-ddc0294cbfaa": {
+        "category": "Drums",
+        "name": "Snareline",
+        "sound_id": "drum.snare-drum"
+    },
+    "3fbb3534-6714-4d41-8f65-1bec853cf688": {
+        "category": "Woodwinds",
+        "name": "Sopila",
+        "sound_id": "wind.reed.sopila"
+    },
+    "52559fd3-bb96-403f-97d3-b1f2c5c2f468": {
+        "category": "Woodwinds",
+        "name": "Sopranino Recorder",
+        "sound_id": "wind.flutes.recorder.sopranino"
+    },
+    "1ac144c7-73e3-4c96-9c3d-4f8a7324f2a0": {
+        "category": "Woodwinds",
+        "name": "Sopranino Sax",
+        "sound_id": "wind.reed.saxophone.sopranino"
+    },
+    "7a8b5632-c730-4e88-add6-2526f0801ba3": {
+        "category": "Pitched Percussion",
+        "name": "Soprano Glockenspiel",
+        "sound_id": "pitched-percussion.glockenspiel"
+    },
+    "2d1de6b0-1fed-4a47-9ab8-2aaea0f19a1f": {
+        "category": "Pitched Percussion",
+        "name": "Soprano Metallophone",
+        "sound_id": "pitched-percussion.metallophone"
+    },
+    "0057fd7f-aba1-4149-97b5-98fe8ca28993": {
+        "category": "Woodwinds",
+        "name": "Soprano Recorder",
+        "sound_id": "wind.flutes.recorder.soprano"
+    },
+    "ef0f2594-d57b-4cac-b351-f2f906538424": {
+        "category": "Woodwinds",
+        "name": "Soprano Sax",
+        "sound_id": "saxophone.soprano"
+    },
+    "b35a14d8-c981-4b8a-a7e4-9a2f8f6be99a": {
+        "category": "Voices",
+        "name": "Soprano Voice",
+        "sound_id": "voice.soprano"
+    },
+    "67feda51-a2c9-415b-b069-b218f7629886": {
+        "category": "Pitched Percussion",
+        "name": "Soprano Xylophone",
+        "sound_id": "pitched-percussion.xylophone"
+    },
+    "977e30e3-9333-4973-8342-24190390238d": {
+        "category": "Woodwinds",
+        "name": "Soprillo",
+        "sound_id": ""
+    },
+    "e7d11adf-252f-4d95-a3ff-3fce49e798ba": {
+        "category": "Woodwinds",
+        "name": "Sorna",
+        "sound_id": "wind.reed.sorna"
+    },
+    "654cb42c-6127-4c60-bdb9-6b2accf66f22": {
+        "category": "Keyboards",
+        "name": "Sound FX",
+        "sound_id": "synth.effects"
+    },
+    "6420d23b-d0fd-4f6a-92c3-d572cdd98943": {
+        "category": "Brass",
+        "name": "Sousaphone",
+        "sound_id": "brass.sousaphone"
+    },
+    "0f0cf493-9257-4699-8010-66d0107600b2": {
+        "category": "Percussion",
+        "name": "Splash Cymbal",
+        "sound_id": "metal.cymbal.splash"
+    },
+    "e74a6ffa-aa6e-4712-bb85-b755352b8ab5": {
+        "category": "Percussion",
+        "name": "Spoons",
+        "sound_id": "metal.spoons"
+    },
+    "ee80b114-9697-4edb-ba40-57930ec6ab03": {
+        "category": "Woodwinds",
+        "name": "Sralai",
+        "sound_id": "wind.reed.sralai"
+    },
+    "72299f8e-8ad3-4ec8-9ca4-b33d1632fe3f": {
+        "category": "Percussion",
+        "name": "Stamp",
+        "sound_id": "effect.stamp"
+    },
+    "799fdd4c-d3d2-4145-9bb0-017e0d519264": {
+        "category": "Pitched Percussion",
+        "name": "Steel Drums (Bass clef)",
+        "sound_id": "metal.steel-drums"
+    },
+    "416066f9-4930-47b7-b226-807413a41dc1": {
+        "category": "Pitched Percussion",
+        "name": "Steel Drums (Treble clef)",
+        "sound_id": "metal.steel-drums"
+    },
+    "1f87dbe7-1d85-4ea0-a5e4-e556bf3fb51c": {
+        "category": "Plucked Strings",
+        "name": "Steel Guitar",
+        "sound_id": "pluck.guitar.steel-string"
+    },
+    "39a19cd7-59f4-44db-8491-f2faebcf5891": {
+        "category": "Percussion",
+        "name": "Stir Drum",
+        "sound_id": "wood.stir-drum"
+    },
+    "3dd79e8b-13a2-475f-a55d-d3221183f7f6": {
+        "category": "Plucked Strings",
+        "name": "String Bass",
+        "sound_id": "pluck.bass"
+    },
+    "d73cf404-a025-4395-a7d1-10d10e8e3b4c": {
+        "category": "Strings",
+        "name": "String Ensemble",
+        "sound_id": "strings.group"
+    },
+    "013f1005-058e-4270-97b6-89fe25d11979": {
+        "category": "Strings",
+        "name": "Stroh Violin",
+        "sound_id": "strings.stroh-violin"
+    },
+    "dfd0e0dc-c1b2-4f6a-b85f-41a1c59b3976": {
+        "category": "Woodwinds",
+        "name": "Subcontrabass Sax",
+        "sound_id": "wind.flutes.flute.subcontrabass"
+    },
+    "59cd4117-e26f-465e-b04b-6b46012afbbe": {
+        "category": "Brass",
+        "name": "Subcontrabass Tuba",
+        "sound_id": "brass.tuba.subcontrabass"
+    },
+    "33b4ae63-2222-4d2d-b37c-b138bf383428": {
+        "category": "Woodwinds",
+        "name": "Suling",
+        "sound_id": "wind.flutes.suling"
+    },
+    "2e0cbdf7-bed5-4ac9-9d30-f7bc8044cdee": {
+        "category": "Woodwinds",
+        "name": "Suona",
+        "sound_id": "wind.reed.suona"
+    },
+    "4cdbf6eb-968b-48bf-b200-7f8418c97cec": {
+        "category": "Drums",
+        "name": "Surdo",
+        "sound_id": "drum.surdo"
+    },
+    "2d9c16cf-72c4-4a00-bb91-a6a8ab0b32a0": {
+        "category": "Woodwinds",
+        "name": "Surnay",
+        "sound_id": "wind.reed.surnai"
+    },
+    "e15cdc19-cb49-4f00-8ee4-7555af7c7759": {
+        "category": "Keyboards",
+        "name": "Synth Brass",
+        "sound_id": "brass.group.synth"
+    },
+    "de90a22f-c65d-4e20-8aff-9f4bcbf2ae4f": {
+        "category": "Keyboards",
+        "name": "Synth Lead",
+        "sound_id": "synth.tone.sawtooth"
+    },
+    "962083d1-baf2-4904-a6f2-5c7e8f91de66": {
+        "category": "Keyboards",
+        "name": "Synth Pad",
+        "sound_id": "synth.pad"
+    },
+    "55248216-3918-474d-b5e4-3349f253392d": {
+        "category": "Keyboards",
+        "name": "Synth Soundtrack",
+        "sound_id": "synth.pad"
+    },
+    "d72f5e09-01c4-4ecf-bcf4-e7803130a409": {
+        "category": "Tablature",
+        "name": "Banjo - C Tuning [TAB]",
+        "sound_id": "pluck.banjo"
+    },
+    "d8af78ea-2190-4583-a96a-f180a29001c6": {
+        "category": "Tablature",
+        "name": "Banjo - D Tuning [TAB]",
+        "sound_id": "pluck.banjo"
+    },
+    "e5a37032-991d-42e3-a91e-dea85e6bb9fd": {
+        "category": "Tablature",
+        "name": "Banjo - Double C [TAB]",
+        "sound_id": "pluck.banjo"
+    },
+    "c85a9fc2-4976-4011-8fe4-4d973ea67686": {
+        "category": "Tablature",
+        "name": "Banjo - G Tuning [TAB]",
+        "sound_id": "pluck.banjo"
+    },
+    "9fb76bbc-7106-4e99-860c-21b75f88a456": {
+        "category": "Tablature",
+        "name": "Banjo - G Modal [TAB]",
+        "sound_id": "pluck.banjo"
+    },
+    "cd980dc7-29e5-4313-b7ad-ccd864530476": {
+        "category": "Tablature",
+        "name": "Banjo - Plectrum [TAB]",
+        "sound_id": "pluck.banjo"
+    },
+    "c8bbb804-c633-467a-9b5c-4a3fed76f90e": {
+        "category": "Tablature",
+        "name": "4 String Bass [TAB]",
+        "sound_id": "pluck.bass"
+    },
+    "a09138dc-5f8a-48cc-b7bb-c27b4a633e94": {
+        "category": "Tablature",
+        "name": "5 String Bass [TAB]",
+        "sound_id": "pluck.bass"
+    },
+    "d80c4fdf-510a-4cd3-b77a-c3de6027b935": {
+        "category": "Tablature",
+        "name": "6 String Bass [TAB]",
+        "sound_id": "pluck.bass"
+    },
+    "894d34b0-641a-427c-8996-a686276b738e": {
+        "category": "Tablature",
+        "name": "Dulcimer TAB - DAA Tuning",
+        "sound_id": "pluck.dulcimer"
+    },
+    "6108f9aa-c771-49c0-90e3-a01c55153e7a": {
+        "category": "Tablature",
+        "name": "Dulcimer TAB - DAA Unison A's",
+        "sound_id": "pluck.dulcimer"
+    },
+    "568784ef-3ff6-4462-b8e9-4698a8b4f17a": {
+        "category": "Tablature",
+        "name": "Dulcimer TAB - DAD Tuning",
+        "sound_id": "pluck.dulcimer"
+    },
+    "565d72c0-c392-4494-957d-938b84a9c7a9": {
+        "category": "Tablature",
+        "name": "Gamba [TAB]",
+        "sound_id": ""
+    },
+    "1e1303c5-779b-4b96-ae9a-a15319434056": {
+        "category": "Tablature",
+        "name": "Guitar [TAB]",
+        "sound_id": "pluck.guitar"
+    },
+    "19ccf200-b2d3-4349-979a-484aaa88b33b": {
+        "category": "Tablature",
+        "name": "7 String Guitar [TAB]",
+        "sound_id": "pluck.guitar"
+    },
+    "c9a426f6-247b-49e6-a523-55556f7d3686": {
+        "category": "Tablature",
+        "name": "Guitar - D Tuning [TAB]",
+        "sound_id": "pluck.guitar"
+    },
+    "73d32671-80df-491f-aac4-f06d00710426": {
+        "category": "Tablature",
+        "name": "Guitar - DADGAD Tuning [TAB",
+        "sound_id": "pluck.guitar"
+    },
+    "edc80d6f-2e65-4961-abf9-f306141fa6b2": {
+        "category": "Tablature",
+        "name": "Guitar - Double D Tuning [TAB]",
+        "sound_id": "pluck.guitar"
+    },
+    "44130e18-c544-47a9-8431-84836ae79933": {
+        "category": "Tablature",
+        "name": "Guitar - Drop D Tuning [TAB]",
+        "sound_id": "pluck.guitar"
+    },
+    "5fa90804-6602-45f0-8195-a5ca679ece0c": {
+        "category": "Tablature",
+        "name": "Guitar - G Tuning [TAB",
+        "sound_id": "pluck.guitar"
+    },
+    "8beb5203-f4fd-4f88-8654-46591cc1ef23": {
+        "category": "Tablature",
+        "name": "Guitar [TAB - No Staff Name]",
+        "sound_id": "pluck.guitar"
+    },
+    "e151fc38-e42d-4ac1-9e4a-e4ae8502361c": {
+        "category": "Tablature",
+        "name": "Guitar [TAB With Stems]",
+        "sound_id": "pluck.guitar"
+    },
+    "2f55c97b-30c0-4247-9d89-a8c93c53b87c": {
+        "category": "Tablature",
+        "name": "Lute - Italian [TAB]",
+        "sound_id": "pluck.lute"
+    },
+    "332210a0-51f6-4374-ab06-3f9785deca08": {
+        "category": "Tablature",
+        "name": "Lute with Letters [TAB]",
+        "sound_id": "pluck.lute"
+    },
+    "e4e9c868-2dbc-47b0-942b-1b274a1eabfe": {
+        "category": "Tablature",
+        "name": "Mandolin [TAB]",
+        "sound_id": "pluck.mandolin"
+    },
+    "655baa53-13fa-4b91-a31c-606be7c801ba": {
+        "category": "Tablature",
+        "name": "Requinto [TAB]",
+        "sound_id": "pluck.guitar.requinto"
+    },
+    "1b3868cd-1032-4bb4-9c4f-5c34aa499cb4": {
+        "category": "Tablature",
+        "name": "Sitar - Vilayat Khan [TAB]",
+        "sound_id": "pluck.sitar"
+    },
+    "ce20e367-eb1f-4a61-95de-f52536d9fa0c": {
+        "category": "Tablature",
+        "name": "Sitar - Ravi Shankar [TAB]",
+        "sound_id": "luck.sitar"
+    },
+    "6f3b6996-a8d9-4432-bc0e-23b951d5fecb": {
+        "category": "Tablature",
+        "name": "Tenor Banjo (4 String) [TAB]",
+        "sound_id": "pluck.banjo.tenor"
+    },
+    "6059c5a2-4064-423a-9092-f329762aa9e1": {
+        "category": "Tablature",
+        "name": "Ukulele [TAB]",
+        "sound_id": "pluck.ukulele"
+    },
+    "2e0c99c7-14ec-4a16-acc5-46b92f8acdc5": {
+        "category": "Tablature",
+        "name": "Vihuela [TAB]",
+        "sound_id": "pluck.vihuela"
+    },
+    "712be16e-e676-4216-aab7-aa3cec89016a": {
+        "category": "Drums",
+        "name": "Tablas",
+        "sound_id": "drum.tabla"
+    },
+    "bdf82e47-6a76-4994-ac47-4f52f0111ddc": {
+        "category": "Woodwinds",
+        "name": "Taepyeongso",
+        "sound_id": "wind.reed.taepyeongso"
+    },
+    "d2621b4c-90ac-4957-8786-9986b95fb841": {
+        "category": "Pitched Percussion",
+        "name": "Taiko Drums",
+        "sound_id": "drum.taiko"
+    },
+    "465cb9eb-e1a3-4573-8572-7cc1096075db": {
+        "category": "Voices",
+        "name": "Talkbox",
+        "sound_id": "voice.talk-box"
+    },
+    "fa2b1ec8-6e76-4ade-aeb3-39d21a789e67": {
+        "category": "Drums",
+        "name": "Talking Drum",
+        "sound_id": "drum.talking"
+    },
+    "1d5a7dad-659e-40bd-8f53-0c97ceb427d1": {
+        "category": "Drums",
+        "name": "Tama",
+        "sound_id": "drum.tama"
+    },
+    "b4f5cd6f-9cb5-4274-885e-d7ad4cf516ae": {
+        "category": "Drums",
+        "name": "Tamborita",
+        "sound_id": "drum.tamborita"
+    },
+    "9579d8ec-cd47-4486-8129-3e3d938ddfd9": {
+        "category": "Percussion",
+        "name": "Tambourine",
+        "sound_id": "drum.tambourine"
+    },
+    "04a8c649-9df4-43bd-ab55-a55a3a16a81a": {
+        "category": "Plucked Strings",
+        "name": "Tambura",
+        "sound_id": "pluck.tambura"
+    },
+    "48f24f7c-d774-4765-bee1-b4566b3ef69b": {
+        "category": "Percussion",
+        "name": "Tamtam",
+        "sound_id": "metal.tamtam"
+    },
+    "30e805cc-c5bd-4226-add0-43456bc9bb9e": {
+        "category": "Drums",
+        "name": "Tamte",
+        "sound_id": "drum.tamte"
+    },
+    "9b166d41-a2c8-4cfb-b4f8-b2382f6ed349": {
+        "category": "Drums",
+        "name": "Tangku",
+        "sound_id": "drum.tangku"
+    },
+    "b259b96a-9e5d-41ea-8625-ed2d47861e75": {
+        "category": "Drums",
+        "name": "Tan-Tan",
+        "sound_id": "drum.tan-tan"
+    },
+    "d64f7a4f-feb3-47d2-a1a8-03b69f241e5c": {
+        "category": "Drums",
+        "name": "Taphon",
+        "sound_id": "drum.taphon"
+    },
+    "bb29a061-f1d4-405d-b1dc-e7a456637861": {
+        "category": "Plucked Strings",
+        "name": "Tar",
+        "sound_id": "pluck.tar"
+    },
+    "cc9c2aa8-4fd7-457d-9aa7-567a71479312": {
+        "category": "Drums",
+        "name": "Tar",
+        "sound_id": "drum.tar"
+    },
+    "c19c42f1-42cf-417c-a362-77b3f4522d44": {
+        "category": "Woodwinds",
+        "name": "Tarka",
+        "sound_id": "wind.flutes.tarka"
+    },
+    "b81b323c-e305-42ab-85ab-a5a70c5b99d9": {
+        "category": "Drums",
+        "name": "Tasha",
+        "sound_id": "drum.tasha"
+    },
+    "f2fa4052-1ec9-4095-8152-267e468f8f8a": {
+        "category": "Percussion",
+        "name": "Tebyoshi",
+        "sound_id": "metal.cymbal.tebyoshi"
+    },
+    "6d226f46-3a93-4926-87c5-fb721b7b36df": {
+        "category": "Percussion",
+        "name": "Televi",
+        "sound_id": "rattle.televi"
+    },
+    "f2465111-1c50-4d4a-ae2f-279079a638f5": {
+        "category": "Pitched Percussion",
+        "name": "Temple Bells",
+        "sound_id": "pitched-percussion.bells"
+    },
+    "d27e81b7-3473-4c04-9383-23d6bc716843": {
+        "category": "Percussion",
+        "name": "Temple Blocks",
+        "sound_id": "wood.temple-block"
+    },
+    "a60e9727-5e50-4c79-a050-be5afd980e1e": {
+        "category": "Plucked Strings",
+        "name": "Tenor Banjo",
+        "sound_id": "pluck.banjo.tenor"
+    },
+    "48fa8484-5bc0-4d60-b632-c11c668f5143": {
+        "category": "Woodwinds",
+        "name": "Tenor Crumhorn",
+        "sound_id": "wind.reed.crumhorn.tenor"
+    },
+    "3da90c0a-07ce-4ee3-813f-e3db44799458": {
+        "category": "Drums",
+        "name": "Tenor Drum",
+        "sound_id": "drum.tenor-drum"
+    },
+    "b4fdc782-a05f-49f3-8cb1-991bb2cf01a4": {
+        "category": "Drums",
+        "name": "Tenorline",
+        "sound_id": ""
+    },
+    "7ec8bc7c-76de-4473-946a-336df9312f68": {
+        "category": "Woodwinds",
+        "name": "Tenor Overtone Flute",
+        "sound_id": "wind.flutes.overtone.tenor"
+    },
+    "7c64b00d-cbd1-45a4-9969-77335de7f99c": {
+        "category": "Woodwinds",
+        "name": "Tenor Recorder",
+        "sound_id": "wind.flutes.recorder.tenor"
+    },
+    "7093ddd4-385c-481d-ab3d-39f03bc03b19": {
+        "category": "Woodwinds",
+        "name": "Tenor Sax",
+        "sound_id": "wind.reed.saxophone.tenor"
+    },
+    "97284c36-deb2-4e77-9600-14d3081a31cd": {
+        "category": "Brass",
+        "name": "Tenor Trombone",
+        "sound_id": "brass.trombone"
+    },
+    "6e5c27c1-5f93-480e-a9ab-ad4f505324c7": {
+        "category": "Plucked Strings",
+        "name": "Tenor Ukulele",
+        "sound_id": "pluck.ukulele.tenor"
+    },
+    "03844f81-9f10-431d-813c-659d7533b794": {
+        "category": "Voices",
+        "name": "Tenor Voice",
+        "sound_id": "voice.tenor"
+    },
+    "78d475c3-fe32-4bcf-9f5b-a2e43a5aa107": {
+        "category": "Percussion",
+        "name": "Teponaxtli",
+        "sound_id": "drum.teponaxtli"
+    },
+    "e16a3a94-a372-4b9d-8eef-90fe388697cb": {
+        "category": "Percussion",
+        "name": "Thai Gong",
+        "sound_id": "metal.gong.thai"
+    },
+    "696e0f8b-523c-4116-961c-24d9089e0adf": {
+        "category": "Drums",
+        "name": "Thavil",
+        "sound_id": "drum.thavil"
+    },
+    "7050c155-f481-4799-876c-6c3d9a1509cf": {
+        "category": "Plucked Strings",
+        "name": "Theorbo",
+        "sound_id": "pluck.theorbo"
+    },
+    "39515883-5827-44f6-bc14-99e5a4976237": {
+        "category": "Keyboards",
+        "name": "Theremin",
+        "sound_id": "synth.theremin"
+    },
+    "2bbe6086-285d-4bbf-b0f7-3f8300e25c9d": {
+        "category": "Pitched Percussion",
+        "name": "Tibetan Bells",
+        "sound_id": "pitched-percussion.handbells"
+    },
+    "e010f505-dedf-4e73-915c-4b414998fd1b": {
+        "category": "Percussion",
+        "name": "Tibetan Cymbals",
+        "sound_id": "metal.cymbal.tibetan"
+    },
+    "900fa34c-c29f-4e26-b2f9-9df5a457f21e": {
+        "category": "Pitched Percussion",
+        "name": "Tibetan Singing Bowls",
+        "sound_id": "metal.singing-bowl"
+    },
+    "f2d76def-ecd6-4835-8061-11af1fa42d28": {
+        "category": "Percussion",
+        "name": "Tic-Toc Block",
+        "sound_id": "wood.tic-toc-block"
+    },
+    "2c13efbd-a8dd-4cfe-a064-fb7060a2d983": {
+        "category": "Percussion",
+        "name": "Timbale Bell",
+        "sound_id": "drum.timbale"
+    },
+    "b65c3cd6-8542-4893-b651-b8c135d0325c": {
+        "category": "Drums",
+        "name": "Timbales",
+        "sound_id": "drum.timbale"
+    },
+    "059784fb-9d88-4a78-bd2d-09fe393496e5": {
+        "category": "Pitched Percussion",
+        "name": "Timpani",
+        "sound_id": "pitched-percussion.bianqing"
+    },
+    "10eb4aa9-8ca4-4acf-888f-4a9e07cdb4f4": {
+        "category": "Plucked Strings",
+        "name": "Timple",
+        "sound_id": "pluck.timple"
+    },
+    "e6a5d781-821e-48aa-aeae-26ea8427580e": {
+        "category": "Percussion",
+        "name": "Tinaja",
+        "sound_id": "drum.tinaja"
+    },
+    "71165815-e46a-479d-a0db-38d1b9dcf0af": {
+        "category": "Percussion",
+        "name": "Tingsha",
+        "sound_id": "metal.cymbal.tingsha"
+    },
+    "c2853206-ce69-4670-94e6-095278d7eca9": {
+        "category": "Woodwinds",
+        "name": "Tin Whistle in B flat",
+        "sound_id": "wind.flutes.whistle.tin.bflat"
+    },
+    "824793c3-fd68-41b7-9dc7-b21e27abdb75": {
+        "category": "Percussion",
+        "name": "Toere",
+        "sound_id": "drum.toere"
+    },
+    "102d9c32-7afe-4b66-be85-2b10831a9bd0": {
+        "category": "Drums",
+        "name": "Tombak",
+        "sound_id": "drum.tombak"
+    },
+    "85076645-1553-4b7e-9a5f-c20d1d48323b": {
+        "category": "Percussion",
+        "name": "Tonetang",
+        "sound_id": "wood.tonetang"
+    },
+    "d59043ec-e291-40aa-80b0-33f615fe305a": {
+        "category": "Plucked Strings",
+        "name": "Tres",
+        "sound_id": "pluck.tres"
+    },
+    "6544e314-f956-4a20-b7bb-44635a06b7e0": {
+        "category": "Percussion",
+        "name": "Triangle",
+        "sound_id": "metal.triangle"
+    },
+    "71822c45-e84e-44ce-8031-46092e74dc5e": {
+        "category": "Strings",
+        "name": "Tromba Marina",
+        "sound_id": "strings.tromba-marina"
+    },
+    "157d105d-c3a4-49ab-98ab-2b46102aa3dc": {
+        "category": "Brass",
+        "name": "Trombone",
+        "sound_id": "brass.trombone"
+    },
+    "cc2a08c1-7e44-4495-bc79-bdb963358bed": {
+        "category": "Woodwinds",
+        "name": "Trompeta china",
+        "sound_id": "wind.reed.trompeta-china"
+    },
+    "268be9c2-f92e-4d9f-bf1d-990a9a7414c0": {
+        "category": "Plucked Strings",
+        "name": "Troubador Harp",
+        "sound_id": ""
+    },
+    "69e76d62-3913-4e4a-bb6f-6c05be22abf8": {
+        "category": "Brass",
+        "name": "Trumpet in B flat",
+        "sound_id": "brass.trumpet.bflat"
+    },
+    "f0458710-e401-4a33-a9a7-bff5b24006df": {
+        "category": "Brass",
+        "name": "Trumpet in C",
+        "sound_id": "brass.trumpet.c"
+    },
+    "04f55e2f-8a18-4f89-8338-0525605dedf2": {
+        "category": "Brass",
+        "name": "Trumpet in D",
+        "sound_id": "brass.trumpet.d"
+    },
+    "0f664fec-fc69-4638-aea7-850ebde17591": {
+        "category": "Percussion",
+        "name": "Trychel",
+        "sound_id": "metal.bells.trychel"
+    },
+    "d728af65-9139-4a73-971c-69d002d2776b": {
+        "category": "Drums",
+        "name": "Tsuzumi",
+        "sound_id": "drum.tsuzumi"
+    },
+    "43218322-0707-4c3f-b94c-f9e70b3d51a2": {
+        "category": "Plucked Strings",
+        "name": "Tsymbaly",
+        "sound_id": "pitched-percussion.tsymbaly"
+    },
+    "9b2b7b02-f914-4e75-82d5-6fcc18843516": {
+        "category": "Brass",
+        "name": "Tuba",
+        "sound_id": "brass.tuba"
+    },
+    "99c073a3-70b4-4418-9380-09f2f550e15c": {
+        "category": "Woodwinds",
+        "name": "Tubax",
+        "sound_id": "wind.reed.tubax"
+    },
+    "ad1c30a7-bd96-420a-82a4-d45bad1cf265": {
+        "category": "Pitched Percussion",
+        "name": "Tubular Bells",
+        "sound_id": "pitched-percussion.tubular-bells"
+    },
+    "b46257d2-47ad-49e5-bd7d-468d51e1fcd0": {
+        "category": "Drums",
+        "name": "Tumbak",
+        "sound_id": "drum.tumbak"
+    },
+    "f3050b4d-1a0e-4d00-9e34-3caedbb3ac5b": {
+        "category": "Woodwinds",
+        "name": "Tumpong",
+        "sound_id": "wind.flutes.tumpong"
+    },
+    "03862bef-a853-4ba0-b212-c25355d4f506": {
+        "category": "Drums",
+        "name": "Uchiwa-daiko",
+        "sound_id": "drum.uchiwa-daiko"
+    },
+    "3b4c37ec-402f-4d25-9429-47bc1ac53624": {
+        "category": "Drums",
+        "name": "Udaku",
+        "sound_id": "drum.udaku"
+    },
+    "c6c172fe-b04f-4d5e-bd02-0d98b8b00bab": {
+        "category": "Percussion",
+        "name": "Udu",
+        "sound_id": "drum.udu"
+    },
+    "62a9c9ce-4379-4a58-9f80-2818b66774b4": {
+        "category": "Woodwinds",
+        "name": "Uilleann Pipes",
+        "sound_id": "wind.pipes.uilleann"
+    },
+    "f78a8e99-4497-4318-9e68-861c3a5633e1": {
+        "category": "Plucked Strings",
+        "name": "Ukulele",
+        "sound_id": "pluck.ukulele"
+    },
+    "a925648a-abc9-4dc7-a619-a6ce355ad33c": {
+        "category": "",
+        "name": "",
+        "sound_id": ""
+    },
+    "c6adc3f9-3411-4164-9ffd-ef94f0074d7d": {
+        "category": "Plucked Strings",
+        "name": "Valiha",
+        "sound_id": "pluck.valiha"
+    },
+    "8b3a95b3-ca49-428c-a24a-728cfbfee32c": {
+        "category": "Plucked Strings",
+        "name": "Veena",
+        "sound_id": "pluck.veena"
+    },
+    "91139f31-7457-4d12-b5d2-b7742178f4c2": {
+        "category": "Woodwinds",
+        "name": "Venu",
+        "sound_id": "wind.flutes.venu"
+    },
+    "42cdb691-a98e-46ea-a32b-4008734bc10f": {
+        "category": "Pitched Percussion",
+        "name": "Vibraphone",
+        "sound_id": "pitched-percussion.vibraphone"
+    },
+    "65827c10-4d1c-4e24-9d60-3ace52b70109": {
+        "category": "Percussion",
+        "name": "VibraSlap",
+        "sound_id": "rattle.vibraslap"
+    },
+    "4cf3542c-c9ae-4078-952b-c7a6ab7d8b30": {
+        "category": "Plucked Strings",
+        "name": "Vichitra Veena",
+        "sound_id": "pluck.veena.vichitra"
+    },
+    "7b07fc24-0b7a-484a-a1bf-abaab3d97411": {
+        "category": "Strings",
+        "name": "Vielle",
+        "sound_id": "strings.vielle"
+    },
+    "cb1db6d4-6c0c-46f3-9379-7bd28a51331b": {
+        "category": "Brass",
+        "name": "Vienna Horn",
+        "sound_id": "brass.vienna-horn"
+    },
+    "bc5943c2-95d7-488c-8d35-cc66df985c35": {
+        "category": "Plucked Strings",
+        "name": "Vihuela (Mexico)",
+        "sound_id": "pluck.vihuela.mexican"
+    },
+    "d6406af5-1ecc-4f2e-b9c0-18d398ea7043": {
+        "category": "Plucked Strings",
+        "name": "Vihuela (Spain)",
+        "sound_id": "pluck.vihuela"
+    },
+    "6fed40b7-1524-429b-8560-bb3f08209a99": {
+        "category": "Strings",
+        "name": "Viol",
+        "sound_id": "strings.viol"
+    },
+    "992dcb2b-64a2-454b-b043-2a530d24fc18": {
+        "category": "Strings",
+        "name": "Viola",
+        "sound_id": "strings.viola"
+    },
+    "37fad7f4-b52f-4af5-b75a-ab214d9e3a5a": {
+        "category": "Strings",
+        "name": "Viola da Gamba",
+        "sound_id": "strings.viol.bass"
+    },
+    "7e264095-22f9-4cea-98ce-cfde9f1588b6": {
+        "category": "Strings",
+        "name": "Viola d'Amore",
+        "sound_id": "strings.viola-damore"
+    },
+    "5a55eca7-40f5-454b-b920-c8879fa03bcc": {
+        "category": "Strings",
+        "name": "Viola Section",
+        "sound_id": "strings.violin"
+    },
+    "29d81c10-dfed-42e4-8d93-64af7d6d5689": {
+        "category": "Strings",
+        "name": "Violin",
+        "sound_id": "strings.violin"
+    },
+    "ae4668c7-0766-4dfd-92c3-cd16a487ff83": {
+        "category": "Strings",
+        "name": "Violino Piccolo",
+        "sound_id": "strings.violono.piccolo"
+    },
+    "5bab3582-2dbd-4864-baa9-b022efd075ad": {
+        "category": "Strings",
+        "name": "Violin Section",
+        "sound_id": "strings.violin"
+    },
+    "121fb3dd-37d9-4fd0-bbaf-8074ba143f03": {
+        "category": "Strings",
+        "name": "Violoncello Piccolo",
+        "sound_id": "strings.violono.piccolo"
+    },
+    "df0e2c08-adcf-4095-a3c1-dd355216bedd": {
+        "category": "Strings",
+        "name": "Violoncello Section",
+        "sound_id": "strings.cello"
+    },
+    "baad2449-f875-4360-9585-b7f3d8ceed1c": {
+        "category": "Strings",
+        "name": "Violotta",
+        "sound_id": "strings.violotta"
+    },
+    "88eb2453-6649-4f3f-b98c-af2226bb4099": {
+        "category": "Keyboards",
+        "name": "Virginal",
+        "sound_id": "keyboard.virginal"
+    },
+    "c4843056-dd9e-45b2-a3af-eca60fdb97ab": {
+        "category": "Voices",
+        "name": "Vocal Percussion",
+        "sound_id": "voice.percussion"
+    },
+    "a253b03e-dc1e-43e3-a252-534c618fe473": {
+        "category": "Voices",
+        "name": "Vocals",
+        "sound_id": "voice.vocals"
+    },
+    "3a3622cc-fc9a-42e0-a743-6b200dd8ce88": {
+        "category": "Voices",
+        "name": "Voice",
+        "sound_id": "voice.vocals"
+    },
+    "07639481-d9a4-4c3a-b754-f454002bb742": {
+        "category": "Voices",
+        "name": "Voice (No Staff Name)",
+        "sound_id": "voice.vocals"
+    },
+    "64bb1d2c-17f3-473f-b8de-a9a80936ef06": {
+        "category": "Brass",
+        "name": "Vuvuzela",
+        "sound_id": "brass.vuvuzela"
+    },
+    "4145e0e8-9b50-491b-b44b-929f83992656": {
+        "category": "Brass",
+        "name": "Wagner Tuba",
+        "sound_id": "brass.wagner-tuba"
+    },
+    "e018a8b2-3734-4d87-970c-8906c195e97e": {
+        "category": "Percussion",
+        "name": "Washboard",
+        "sound_id": "metal.washboard"
+    },
+    "ba6436af-0752-4d8b-9c80-197c1077a7f9": {
+        "category": "Plucked Strings",
+        "name": "Washtub Bass",
+        "sound_id": "pluck.bass.washtub"
+    },
+    "17588941-6af2-4edf-af11-28d63b1351fc": {
+        "category": "Plucked Strings",
+        "name": "Whamola",
+        "sound_id": "pluck.bass.whamola"
+    },
+    "ac55ce39-2c07-400e-b2d6-8b45d5488a0f": {
+        "category": "Percussion",
+        "name": "Whip",
+        "sound_id": "effect.whip"
+    },
+    "8f625984-6f3b-43f0-8323-d84aeffa9796": {
+        "category": "Percussion",
+        "name": "Wind Chimes",
+        "sound_id": "metal.bells.wind-chimes"
+    },
+    "ebee9d97-92e9-4b2d-87c3-cce779fe0a49": {
+        "category": "Percussion",
+        "name": "Wind Machine",
+        "sound_id": ""
+    },
+    "0a798583-8a07-42c3-a6c1-c0e6c5cc622b": {
+        "category": "Woodwinds",
+        "name": "Wind Section",
+        "sound_id": "wind.group"
+    },
+    "09c4b5a0-5f4c-4bde-8060-fad1e8759aa6": {
+        "category": "Percussion",
+        "name": "Wood Blocks",
+        "sound_id": "wood.wood-block"
+    },
+    "e50db20d-e135-4825-a5aa-91bc1f7a3123": {
+        "category": "Plucked Strings",
+        "name": "Xalam",
+        "sound_id": "pluck.xalam"
+    },
+    "5be7a8a7-99e6-45a7-b625-3561788e585e": {
+        "category": "Woodwinds",
+        "name": "Xaphoon",
+        "sound_id": "wind.reed.xaphoon"
+    },
+    "dcb76d8d-16bc-4034-9571-27aa999634c3": {
+        "category": "Woodwinds",
+        "name": "Xiao",
+        "sound_id": "wind.flutes.xiao"
+    },
+    "6bd9746f-aec7-4e09-bcf0-6b85ebac1ddd": {
+        "category": "Woodwinds",
+        "name": "Xun",
+        "sound_id": "wind.flutes.xun"
+    },
+    "7a92b859-e308-42da-b919-1ee2d74d1adb": {
+        "category": "Pitched Percussion",
+        "name": "Xylophone",
+        "sound_id": "pitched-percussion.xylophone"
+    },
+    "537714a3-ff03-499b-ae95-e7acba78b617": {
+        "category": "Pitched Percussion",
+        "name": "Xylorimba",
+        "sound_id": "pitched-percussion.xylorimba"
+    },
+    "2bd8716e-3284-4f4c-8ddf-30e291ec1355": {
+        "category": "Plucked Strings",
+        "name": "Yangqin",
+        "sound_id": "pitched-percussion.yangqin"
+    },
+    "23d3a4d7-982d-4980-a6ec-7b3836046418": {
+        "category": "Plucked Strings",
+        "name": "Yazheng",
+        "sound_id": "strings.yazheng"
+    },
+    "d7373ec2-d4ad-4ce8-84e7-ae9c5f216db6": {
+        "category": "Voices",
+        "name": "Yodel",
+        "sound_id": "voice.vocals"
+    },
+    "09d5cc2b-ca6d-4669-b3e7-1edf566e3de7": {
+        "category": "Plucked Strings",
+        "name": "Yueqin",
+        "sound_id": "pluck.yueqin"
+    },
+    "c9a830f2-220b-4ba3-a9c8-907c6a3014f1": {
+        "category": "Drums",
+        "name": "Zarb",
+        "sound_id": "drum.zarb"
+    },
+    "101e2231-696e-49fb-955d-500b3ce3ac31": {
+        "category": "Woodwinds",
+        "name": "Zhaleika",
+        "sound_id": "wind.reed.zhaleika"
+    },
+    "08e9eb3f-42d8-4e64-8b51-1b30afcb76dc": {
+        "category": "Strings",
+        "name": "Zhonghu",
+        "sound_id": "strings.zhonghu"
+    },
+    "3150178c-160e-43d6-b55c-d0ac6da44c6d": {
+        "category": "Percussion",
+        "name": "Zills",
+        "sound_id": "metal.bells.zills"
+    },
+    "5a5f6c9e-19eb-4666-855a-fb8fb43ea3f5": {
+        "category": "Plucked Strings",
+        "name": "Zither",
+        "sound_id": "pluck.zither"
+    },
+    "e24cf1f3-d12d-4e9b-919c-ea4d4fa4d836": {
+        "category": "Woodwinds",
+        "name": "Zurla",
+        "sound_id": "wind.reed.zurla"
+    },
+    "b7cf7c1e-6b2f-4ca7-a188-b80b8380cd4a": {
+        "category": "Woodwinds",
+        "name": "Zurna",
+        "sound_id": "wind.reed.zurna"
+    }
+}

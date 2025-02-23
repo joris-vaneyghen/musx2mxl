@@ -1,3 +1,4 @@
+import json
 import re
 
 SHARPS_AND_FLATS = ['F', 'C', 'G', 'D', 'A', 'E', 'B']
@@ -28,9 +29,9 @@ ENGRAVER_CHAR_MAP_ARTICUALTIONS = {
     95: ('tenuto', None),
     248: ('detached-legato', None),
     224: ('staccatissimo', None),
-    -1: ('spiccato', None),# check correct char
+    -1: ('spiccato', None),  # check correct char
     -2: ('scoop', None),
-    103: ('plop', None), # check correct char
+    103: ('plop', None),  # check correct char
     -5: ('doit', None),
     -4: ('falloff', None),
     44: ('breath-mark', None),
@@ -68,8 +69,10 @@ ENGRAVER_CHAR_MAP_CLEFS = {
     86: ('G', -1),
     116: ('F', -1),
     160: ('G', 1),
-    139: ('percussion', 0), # todo set setting defaults - appearance: <glyph type="percussion-clef">unpitchedPercussionClef1</glyph>
-    214: ('percussion', 0), # todo set setting defaults - appearance: <glyph type="percussion-clef">unpitchedPercussionClef2</glyph>
+    139: ('percussion', 0),
+    # todo set setting defaults - appearance: <glyph type="percussion-clef">unpitchedPercussionClef1</glyph>
+    214: ('percussion', 0),
+    # todo set setting defaults - appearance: <glyph type="percussion-clef">unpitchedPercussionClef2</glyph>
     230: ('F', 1),
     57424: ('G', 0),
     57425: ('G', -2),
@@ -102,8 +105,10 @@ ENGRAVER_CHAR_MAP_CLEFS = {
     57452: ('percussion', 0),
 }
 
+with open('instruments.json') as json_file:
+    INST_UUID_MAP = instrument_mapping = json.load(json_file)
 
-def calculate_mode_and_key_fifths(key: int, key_adjust: int) -> (str, int):
+def calculate_mode_and_key_fifths(key: int, transp_key_adjust) -> (str, int):
     # when key = None -> C maj
     # when key = 1 ... 7 -> G maj ... C# maj
     # when key = 255 ... 249 -> F maj ... Cb maj
@@ -121,7 +126,7 @@ def calculate_mode_and_key_fifths(key: int, key_adjust: int) -> (str, int):
     else:
         key_fifths = key
 
-    key_fifths = key_fifths + key_adjust # key adjust for transposed instrument (ex F instr -> key_adjust = 1, Bb instr -> key_adjust = 2)
+    key_fifths = key_fifths + transp_key_adjust  # key adjust for transposed instrument (ex F instr -> key_adjust = 1, Bb instr -> key_adjust = 2)
     if key_fifths > 7:
         key_fifths = key_fifths - 12
     if key_fifths < -7:
@@ -187,53 +192,55 @@ def calculate_enharmonic(step, alter):
     return best_candidate, best_acc
 
 
-def calculate_step_alter_and_octave(harm_lev: int, harm_alt: int, key: int, key_adjust:int, enharmonic: bool) -> tuple[str, int, str]:
-    mode, fifths = calculate_mode_and_key_fifths(key, key_adjust)
+def calculate_step_alter_and_octave(harm_lev: int, harm_alt: int, key: int, transp_key_adjust: int, transp_interval: int, enharmonic: bool) -> tuple[
+    str, int, str]:
+    mode, fifths = calculate_mode_and_key_fifths(key, transp_key_adjust)
     notes = ('C', 'D', 'E', 'F', 'G', 'A', 'B')
     if mode == 'minor':
-        harm_lev = harm_lev -2
+        harm_lev = harm_lev - 2
     index = (harm_lev + (4 * fifths)) % 7
     step = notes[index]
     _, fifths_no_key_adjust = calculate_mode_and_key_fifths(key, 0)
-    octave = 4 + (harm_lev + ((4 * fifths_no_key_adjust) % 7)  + ((4 * key_adjust) % 7) ) // 7
+    octave = 4 + (harm_lev + ((4 * fifths_no_key_adjust) % 7) + transp_interval) // 7
     alter = harm_alt + calculate_alter(step, fifths)
     if enharmonic:
         step, alter = calculate_enharmonic(step, alter)
     return step, alter, str(octave)
 
-def translate_tempo_marks(text:str):
+
+def translate_tempo_marks(text: str):
     # todo translate dots, ties
 
     # ^fontTxt(Times New Roman,4096)^size(14)^nfx(1)Andante piu tosto Adagio ^fontMus(Engraver Text T,8191)^size(12)^nfx(0)q^fontNum(Engraver Text T,8191) = 70
     parentheses = 'no'
     if '{' in text and '}' in text:
-        parentheses='yes'
-        text= text.replace('{','').replace('}','')
+        parentheses = 'yes'
+        text = text.replace('{', '').replace('}', '')
     else:
         parentheses = 'no'
 
     if ')q^' in text and '=' in text:
         idx1 = text.find(')q^')
         idx2 = text.find('=')
-        words = remove_styling_tags(text[:idx1+1])
+        words = remove_styling_tags(text[:idx1 + 1])
         beat_unit = 'quarter'
-        per_minute = remove_styling_tags(text[idx2+1:]).strip()
+        per_minute = remove_styling_tags(text[idx2 + 1:]).strip()
     elif ')q =' in text:
         idx1 = text.find(')q =')
-        words = remove_styling_tags(text[:idx1+1])
+        words = remove_styling_tags(text[:idx1 + 1])
         beat_unit = 'quarter'
-        per_minute = remove_styling_tags(text[idx1+4:]).strip()
+        per_minute = remove_styling_tags(text[idx1 + 4:]).strip()
         print(f'{words},{beat_unit},{per_minute}')
     else:
         print(f'unk tempomark {text}')
-        words =  remove_styling_tags(text)
+        words = remove_styling_tags(text)
         beat_unit = None
         per_minute = None
 
-    if words and  per_minute and '(' in words and ')' in per_minute:
+    if words and per_minute and '(' in words and ')' in per_minute:
         parentheses = 'yes'
         words = words.replace('(', '')
-        per_minute = per_minute.replace(')','')
+        per_minute = per_minute.replace(')', '')
 
     return words, beat_unit, per_minute, parentheses
 
@@ -263,6 +270,14 @@ def calculate_type_and_dots(dura: int) -> tuple[str, int]:
     return note_type, num_dots
 
 
+def translate_instrument(instUuid: str):
+    if instUuid in INST_UUID_MAP:
+        return INST_UUID_MAP[instUuid]['name'], INST_UUID_MAP[instUuid]['sound_id']
+    else:
+        print('instrument not found {}'.format(instUuid))
+        return None, None
+
+
 # todo can font be not Engraver?
 def translate_clef_sign(clef_char: str) -> tuple[str, int]:
     if clef_char is not None and int(clef_char) in ENGRAVER_CHAR_MAP_CLEFS:
@@ -284,10 +299,10 @@ def translate_bar_style(bar_line_type: str, bacRepBar: bool, barEnding: bool) ->
 
 
 def count_tuplet(tuplet_attributes, dura):
-    refactor = 1 # refactor for nested tuples
+    refactor = 1  # refactor for nested tuples
     for attributes in reversed(tuplet_attributes):
         attributes['count'] = attributes['count'] + refactor * dura / int(attributes['symbolicDur'])
-        refactor *= int(attributes['refNum'])/int(attributes['symbolicNum'])
+        refactor *= int(attributes['refNum']) / int(attributes['symbolicNum'])
 
 
 def remove_styling_tags(text):
@@ -311,6 +326,7 @@ def replace_music_symbols(text):
 
     return text
 
+
 def translate_dynamics(text):
     text = remove_styling_tags(text)
     if len(text) == 1 and ord(text) in ENGRAVER_CHAR_MAP_DYNAMICS:
@@ -318,11 +334,35 @@ def translate_dynamics(text):
     else:
         return None
 
-def translate_articualtion(charMain:str):
+
+def translate_articualtion(charMain: str):
     if int(charMain) in ENGRAVER_CHAR_MAP_ARTICUALTIONS:
         return ENGRAVER_CHAR_MAP_ARTICUALTIONS[int(charMain)]
     else:
-        return    'other-articulation', None
+        return 'other-articulation', None
+
+
+def calculate_transpose(interval: int):
+    # translate diatonic interval (concert pitch to instrument pitch) to MusicXML transpose (instrument pitch to concert pitch)
+    if interval < 0:
+        is_transpose_up = True
+        interval *= -1
+    else:
+        is_transpose_up = False
+
+    octave_change = interval // 7
+    diatonic = interval % 7
+    if diatonic > 2:
+        # compensate E->F semitone
+        chromatic = diatonic * 2 - 1
+    else:
+        chromatic = diatonic * 2
+
+    if is_transpose_up:
+        return diatonic, chromatic, octave_change
+    else:
+        return -diatonic, -chromatic, -octave_change
+
 
 if __name__ == '__main__':
     dura = 1024 + 512 + 128
@@ -338,5 +378,4 @@ if __name__ == '__main__':
     input_text = "This is a ^flat() note and this is a ^sharp() note, and this one is ^natural()."
     output_text = replace_music_symbols(input_text)
     print(output_text)
-
-
+    print(calculate_transpose(1))

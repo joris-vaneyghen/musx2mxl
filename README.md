@@ -91,6 +91,7 @@ The development of this converter is based on earlier work from the following op
 - **MUSX Document Model ([Robert G. Patterson](https://robertgpatterson.com)):** [GitHub Repository](https://github.com/rpatters1/musxdom)
 - **Project-Attacca:** [GitHub Repository](https://github.com/Project-Attacca/enigmaxml-documentation)
 - **Denigma:** [GitHub Repository](https://github.com/chrisroode/denigma)
+- **Finale PDK Framework:** [Documentation](https://pdk.finalelua.com)
 
 ## Disclaimer
 This project is not affiliated with **Finale** or **MakeMusic** in any way. For official Finale software and support, please visit: **[Finale Official Website](https://www.finalemusic.com)**.
