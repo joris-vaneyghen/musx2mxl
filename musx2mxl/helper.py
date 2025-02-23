@@ -1,4 +1,5 @@
 import json
+import importlib.resources
 import re
 
 SHARPS_AND_FLATS = ['F', 'C', 'G', 'D', 'A', 'E', 'B']
@@ -105,7 +106,7 @@ ENGRAVER_CHAR_MAP_CLEFS = {
     57452: ('percussion', 0),
 }
 
-with open('instruments.json') as json_file:
+with importlib.resources.open_text("musx2mxl", "instruments.json") as json_file:
     INST_UUID_MAP = instrument_mapping = json.load(json_file)
 
 def calculate_mode_and_key_fifths(key: int, transp_key_adjust) -> (str, int):

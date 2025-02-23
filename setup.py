@@ -22,6 +22,10 @@ setup(
     long_description=long_description,
     long_description_content_type='text/markdown',
     packages=find_packages(),  # Automatically find package directories
+    include_package_data=True,  # Ensures non-code files are included
+    package_data={
+        "musx2mxl": ["instruments.json"],  # Explicitly include JSON file
+    },
     install_requires=install_requires,
     entry_points={
         "console_scripts": [
@@ -33,5 +37,5 @@ setup(
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
     ],
-    python_requires=">=3.6",
+    python_requires=">=3.9",
 )
