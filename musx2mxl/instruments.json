@@ -3923,5 +3923,20 @@
         "category": "Woodwinds",
         "name": "Zurna",
         "sound_id": "wind.reed.zurna"
+    },
+    "5d93867f-e773-4ee3-b4a1-2fa730a1d82f": {
+        "category": "",
+        "name": "S",
+        "sound_id": "voice.soprano"
+    },
+    "354c2079-3176-40b8-8202-06030ab84ade": {
+        "category": "",
+        "name": "S",
+        "sound_id": "voice.soprano"
+    },
+    "57836c4f-2fea-4d25-a8dc-800ab6657d30": {
+        "category": "",
+        "name": "A",
+        "sound_id": "voice.alto"
     }
 }
