@@ -113,8 +113,7 @@ ENGRAVER_CHAR_MAP_CLEFS = {
     57452: ('percussion', 0),
 }
 
-# with importlib.resources.open_text("musx2mxl", "instruments.json") as json_file:
-with open('instruments.json') as json_file:
+with importlib.resources.open_text("musx2mxl", "instruments.json") as json_file:
     INST_UUID_MAP = instrument_mapping = json.load(json_file)
 
 
