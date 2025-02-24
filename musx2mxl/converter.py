@@ -678,7 +678,7 @@ def process_gfholds(staff_spec_cmper, meas_spec_cmper, staff_id, measure, root, 
                 words.text = remove_styling_tags(expression['text'])
                 words.set('font-style', 'italic')
             elif expression['categoryType'] == 'tempoMarks' and expression['staffAssign'] == '-1':
-                words, beat_unit, per_minute, parentheses = translate_tempo_marks(expression['text'])
+                words, beat_unit, has_dot, per_minute, parentheses = translate_tempo_marks(expression['text'])
                 direction = SubElement(measure, "direction", placement='above')
                 if words:
                     direction_type = SubElement(direction, "direction-type")
@@ -687,6 +687,8 @@ def process_gfholds(staff_spec_cmper, meas_spec_cmper, staff_id, measure, root, 
                     direction_type = SubElement(direction, "direction-type")
                     metronome = SubElement(direction_type, "metronome", parentheses=parentheses)
                     SubElement(metronome, "beat-unit").text = beat_unit
+                    if has_dot:
+                        SubElement(metronome, "beat-unit-dot")
                     SubElement(metronome, "per-minute").text = per_minute
             elif expression['categoryType'] == 'rehearsalMarks':
                 # todo: use instead of using elements forRepBar & bacRepBar?

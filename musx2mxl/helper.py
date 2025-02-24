@@ -22,6 +22,13 @@ BAR_LINE_TYPE_MAP = {
     'partial': 'tick',
 }
 
+ENGRAVER_CHAR_MAP_NOTE_TYPE = {
+    'x': '16th',
+    'e': 'eighth',
+    'q': 'quarter',
+    'h': 'half',
+}
+
 ENGRAVER_CHAR_MAP_ARTICUALTIONS = {
     62: ('accent', None),
     94: ('strong-accent', 'up'),
@@ -106,8 +113,10 @@ ENGRAVER_CHAR_MAP_CLEFS = {
     57452: ('percussion', 0),
 }
 
-with importlib.resources.open_text("musx2mxl", "instruments.json") as json_file:
+# with importlib.resources.open_text("musx2mxl", "instruments.json") as json_file:
+with open('instruments.json') as json_file:
     INST_UUID_MAP = instrument_mapping = json.load(json_file)
+
 
 def calculate_mode_and_key_fifths(key: int, transp_key_adjust) -> (str, int):
     # when key = None -> C maj
@@ -193,7 +202,8 @@ def calculate_enharmonic(step, alter):
     return best_candidate, best_acc
 
 
-def calculate_step_alter_and_octave(harm_lev: int, harm_alt: int, key: int, transp_key_adjust: int, transp_interval: int, enharmonic: bool) -> tuple[
+def calculate_step_alter_and_octave(harm_lev: int, harm_alt: int, key: int, transp_key_adjust: int,
+                                    transp_interval: int, enharmonic: bool) -> tuple[
     str, int, str]:
     mode, fifths = calculate_mode_and_key_fifths(key, transp_key_adjust)
     notes = ('C', 'D', 'E', 'F', 'G', 'A', 'B')
@@ -211,40 +221,37 @@ def calculate_step_alter_and_octave(harm_lev: int, harm_alt: int, key: int, tran
 
 def translate_tempo_marks(text: str):
     # todo translate dots, ties
+    text_without_tags = remove_styling_tags(text)
 
-    # ^fontTxt(Times New Roman,4096)^size(14)^nfx(1)Andante piu tosto Adagio ^fontMus(Engraver Text T,8191)^size(12)^nfx(0)q^fontNum(Engraver Text T,8191) = 70
-    parentheses = 'no'
-    if '{' in text and '}' in text:
-        parentheses = 'yes'
-        text = text.replace('{', '').replace('}', '')
+    pattern = re.compile(r"(.*?\s+)?([({]\s*)?(m\s+)?([xeqh])([d|.])?\s*=\s*(c[a.]{0,2}\s+)?(\d+)(\s*[)}])?(\s+.*)?")
+    match = pattern.match(text_without_tags)
+
+    if match:
+        prefix = match.group(1).strip() if match.group(1) else None
+        has_bracket_open = match.group(2) is not None
+        has_mm = match.group(3) is not None
+        note = match.group(4)
+        has_dot = match.group(5) is not None
+        has_ca = match.group(6) is not None
+        per_minute = match.group(7)
+        has_bracket_closed = match.group(8) is not None
+        postfix = match.group(9).strip() if match.group(9) else None
+
+        words = prefix
+        if postfix:
+            words = words +  ' ' + postfix
+        if has_mm:
+            words += ' M. M.'
+        beat_unit = ENGRAVER_CHAR_MAP_NOTE_TYPE[note]
+        if has_ca:
+            per_minute = 'c. ' + per_minute
+        parentheses = 'yes' if has_bracket_open and has_bracket_closed else 'no'
+        return words, beat_unit, has_dot, per_minute, parentheses
+
     else:
-        parentheses = 'no'
-
-    if ')q^' in text and '=' in text:
-        idx1 = text.find(')q^')
-        idx2 = text.find('=')
-        words = remove_styling_tags(text[:idx1 + 1])
-        beat_unit = 'quarter'
-        per_minute = remove_styling_tags(text[idx2 + 1:]).strip()
-    elif ')q =' in text:
-        idx1 = text.find(')q =')
-        words = remove_styling_tags(text[:idx1 + 1])
-        beat_unit = 'quarter'
-        per_minute = remove_styling_tags(text[idx1 + 4:]).strip()
-        print(f'{words},{beat_unit},{per_minute}')
-    else:
-        print(f'unk tempomark {text}')
-        words = remove_styling_tags(text)
-        beat_unit = None
-        per_minute = None
-
-    if words and per_minute and '(' in words and ')' in per_minute:
-        parentheses = 'yes'
-        words = words.replace('(', '')
-        per_minute = per_minute.replace(')', '')
-
-    return words, beat_unit, per_minute, parentheses
-
+        if '=' in text_without_tags:
+            print('Could not parse tempo markings : {}'.format(text))
+        return text_without_tags, None, False, None, None
 
 def calculate_type_and_dots(dura: int) -> tuple[str, int]:
     """
@@ -380,3 +387,5 @@ if __name__ == '__main__':
     output_text = replace_music_symbols(input_text)
     print(output_text)
     print(calculate_transpose(1))
+
+    print(translate_tempo_marks('a(l)egro ( q = ca. 120 } help'))
