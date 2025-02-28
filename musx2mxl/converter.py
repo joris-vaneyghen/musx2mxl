@@ -1,12 +1,16 @@
+import math
+from datetime import date
 from io import BytesIO
 from lxml.etree import Element, SubElement, parse, ElementTree, XMLSyntaxError
 from musx2mxl.helper import calculate_mode_and_key_fifths, calculate_type_and_dots, calculate_step_alter_and_octave, \
     translate_clef_sign, translate_bar_style, replace_music_symbols, remove_styling_tags, translate_dynamics, \
-    count_tuplet, translate_articualtion, translate_tempo_marks, calculate_transpose, translate_instrument
+    count_tuplet, translate_articualtion, translate_tempo_marks, calculate_transpose, translate_instrument, \
+    reorder_children
+import musx2mxl
 
 ns = {"f": "http://www.makemusic.com/2012/finale"}
 ns2 = {"m": "http://www.makemusic.com/2012/NotationMetadata"}
-DIVISIONS = 4  # nb devisions per quarter note
+DIVISIONS = 16  # nb devisions per quarter note
 
 VERBOSE = False
 
@@ -32,7 +36,12 @@ def convert_from_stream(input_stream, metadata_stream, output_stream):
         meta_tree = parse(metadata_stream)
 
     output_tree = convert_tree(tree, meta_tree)
-    output_tree.write(output_stream, pretty_print=True, encoding="UTF-8", xml_declaration=True)
+
+    doctype = '-//Recordare//DTD MusicXML 4.0 Partwise//EN'
+    dtd_url = 'http://www.musicxml.org/dtds/partwise.dtd'
+
+    output_tree.write(output_stream, pretty_print=True, encoding="UTF-8", xml_declaration=True,
+                      doctype=f'<!DOCTYPE score-partwise PUBLIC "{doctype}" "{dtd_url}">')
 
 
 def lookup_note_alter(root, entnum: str):
@@ -140,7 +149,8 @@ def lookup_staff_groups(root):
         abbrvID_ = staffGroup.find("f:abbrvID", namespaces=ns)
         fullName = lookup_block_text(root, fullID_.text) if fullID_ is not None else None
         abbrvName = lookup_block_text(root, abbrvID_.text) if abbrvID_ is not None else None
-        bracket_id = staffGroup.find("f:bracket/f:id", namespaces=ns).text if staffGroup.find("f:bracket/f:id", namespaces=ns) is not None else None
+        bracket_id = staffGroup.find("f:bracket/f:id", namespaces=ns).text if staffGroup.find("f:bracket/f:id",
+                                                                                              namespaces=ns) is not None else None
         staff_group_list.append({'startInst': startInst, 'endInst': endInst, 'startMeas': startMeas, 'endMeas': endMeas,
                                  'fullName': fullName, 'abbrvName': abbrvName, 'bracket_id': bracket_id})
     if VERBOSE: print(f"staff_group_list: {staff_group_list}")
@@ -166,7 +176,7 @@ def get_piano_brace_staff_group(staff_spec_cmper, staff_groups):
 
 def convert_tree(tree, meta_tree):
     root = tree.getroot()
-    score_partwise = Element("score-partwise", version="4.0", nsmap={None: "http://www.musicxml.org"})
+    score_partwise = Element("score-partwise", version="4.0")
 
     if meta_tree:
         meta_root = meta_tree.getroot()
@@ -203,16 +213,15 @@ def convert_tree(tree, meta_tree):
             i += 1
             part_ids[staff_spec_cmper] = part_id
             score_part = SubElement(part_list, "score-part", id=part_id)
-            if fullName:
-                SubElement(score_part, "part-name").text = fullName
+            SubElement(score_part, "part-name").text = fullName if fullName else ''
             if abbrvName:
                 SubElement(score_part, "part-abbreviation").text = abbrvName
 
-        instrument_name, instrument_sound = translate_instrument(instUuid)
-        if instrument_name:
-            score_instrument = SubElement(score_part, "score-instrument", id=f'{part_id}-I1')
-            SubElement(score_instrument, "instrument-name").text = instrument_name
-            if instrument_sound: SubElement(score_instrument, "instrument-sound").text = instrument_sound
+            instrument_name, instrument_sound = translate_instrument(instUuid)
+            if instrument_name:
+                score_instrument = SubElement(score_part, "score-instrument", id=f'{part_id}-I1')
+                SubElement(score_instrument, "instrument-name").text = instrument_name
+                if instrument_sound: SubElement(score_instrument, "instrument-sound").text = instrument_sound
 
     handle_tempo = True  # todo how to handle tempo changes correctly
 
@@ -314,11 +323,11 @@ def convert_tree(tree, meta_tree):
                                 SubElement(backup, "duration").text = str(
                                     (int(current_beats) * int(current_divbeat) * DIVISIONS) // 1024)
                             clefID, handle_tempo = process_gfholds(staff_spec_cmper, meas_spec_cmper, staff_id,
-                                                                           measure, root, meas_spec,
-                                                                           meas_smart_shapes, handle_tempo, barline_,
-                                                                           bacRepBar, barEnding, ending_cnt,
-                                                                           current_beats, current_divbeat, key,
-                                                                           transp_key_adjust, transp_interval)
+                                                                   measure, root, meas_spec,
+                                                                   meas_smart_shapes, handle_tempo, barline_,
+                                                                   bacRepBar, barEnding, ending_cnt,
+                                                                   current_beats, current_divbeat, key,
+                                                                   transp_key_adjust, transp_interval)
                             clefIDs[staff_id] = clefID
                             staff_id += 1
                             prev = True
@@ -327,10 +336,10 @@ def convert_tree(tree, meta_tree):
                         current_clefID = clefIDs
                 else:
                     clefID, handle_tempo = process_gfholds(staff_spec_cmper, meas_spec_cmper, None, measure,
-                                                                   root, meas_spec, meas_smart_shapes,
-                                                                   handle_tempo, barline_, bacRepBar, barEnding,
-                                                                   ending_cnt, current_beats, current_divbeat, key,
-                                                                   transp_key_adjust, transp_interval)
+                                                           root, meas_spec, meas_smart_shapes,
+                                                           handle_tempo, barline_, bacRepBar, barEnding,
+                                                           ending_cnt, current_beats, current_divbeat, key,
+                                                           transp_key_adjust, transp_interval)
                     # todo handle clefListID =(mid-measure clef changes)
                     # todo use <hasExpr/> to determine show time_signature
                     # todo use <showClefFirstSystemOnly/> to determine show clef
@@ -338,6 +347,11 @@ def convert_tree(tree, meta_tree):
                         attributes = handle_clef_change(root, measure, attributes, clefID)
                         current_clefID = clefID
 
+                if attributes is not None:
+                    reorder_children(attributes,
+                                     ['footnote', 'level', 'divisions', 'key', 'time', 'staves', 'part-symbol',
+                                      'instruments', 'clef', 'staff-details', 'transpose', 'for-part', 'directive',
+                                      'measure-style'])
     return ElementTree(score_partwise)
 
 
@@ -356,7 +370,11 @@ def add_credit(score_partwise, page, credit_type, credit_words, default_x, defau
 
 
 def handle_meta_data(score_partwise, meta_root):
-    SubElement(score_partwise, "defautls")
+    identification = SubElement(score_partwise, "identification")
+    encoding = SubElement(identification, "encoding")
+    SubElement(encoding, "software").text = "musx2mxl " + musx2mxl.__version__
+    SubElement(encoding, "encoding-date").text = date.today().strftime("%Y-%m-%d")
+
     title = meta_root.xpath("/m:metadata/m:fileInfo/m:title", namespaces=ns2)[0] if meta_root.xpath(
         "/m:metadata/m:fileInfo/m:title", namespaces=ns2) else None
     if title is not None:
@@ -378,7 +396,8 @@ def handle_devisions(measure):
 
     return attributes
 
-def lookup_clef_info(root, clefID:str):
+
+def lookup_clef_info(root, clefID: str):
     if clefID:
         clef_def = root.find(f"f:options/f:clefOptions/f:clefDef[@index = '{clefID}']", namespaces=ns)
         clef_char = clef_def.find('f:clefChar', namespaces=ns)
@@ -391,6 +410,7 @@ def lookup_clef_info(root, clefID:str):
         return {'sign': sign, 'line': line, 'clef_octave_change': str(clef_octave_change)}
     else:
         return {'sign': 'G', 'line': '2', 'clef_octave_change': '0'}
+
 
 def handle_mutli_staff_cleff_change(root, measure, attributes, clefIDs):
     if attributes is None:
@@ -406,6 +426,7 @@ def handle_mutli_staff_cleff_change(root, measure, attributes, clefIDs):
             clef_octave_change = SubElement(clef, "clef-octave-change").text = clef_info['clef_octave_change']
 
     return attributes
+
 
 def handle_clef_change(root, measure, attributes, clefID):
     if attributes is None:
@@ -448,16 +469,18 @@ def handle_time_change(measure, attributes, beats, divbeat, timeSigDoAbrvCommon:
     time_ = SubElement(attributes, "time")
     beats_ = SubElement(time_, "beats")
     beats_type = SubElement(time_, "beat-type")
-    if divbeat == '1536':
+    if int(divbeat) % 1536 == 0:
         beats_type.text = '8'
-        beats_.text = str(int(beats) * 3)
-    else:
+        beats_.text = str(int(beats) * 3 * int(divbeat) // 1536 )
+    elif 4096 % int(divbeat) == 0:
         beats_.text = beats
         beats_type.text = str(4096 // int(divbeat))
         if beats == '4' and divbeat == '1024' and timeSigDoAbrvCommon:
             time_.set('symbol', 'common')
         if beats == '2' and divbeat == '2048' and timeSigDoAbrvCut:
             time_.set('symbol', 'cut')
+    else:
+        print("Unknown divbeat {}".format(divbeat))
     return attributes
 
 
@@ -471,21 +494,25 @@ def process_frame(root, measure, frameSpec_cmper, frame_num, staff_id, key, tran
         startEntry = frameSpec.find("f:startEntry", namespaces=ns)
         endEntry = frameSpec.find("f:endEntry", namespaces=ns)
         if (startEntry is not None) and (endEntry is not None):
-            process_frame_entries(root, measure, startEntry.text, endEntry.text, staff_id, voice, key, transp_key_adjust, transp_interval, [])
+            process_frame_entries(root, measure, startEntry.text, endEntry.text, staff_id, voice, key,
+                                  transp_key_adjust, transp_interval, [])
 
 
-def process_frame_entries(root, measure, current_entnum, end_entnum, staff_id, voice, key, transp_key_adjust, transp_interval,
+def process_frame_entries(root, measure, current_entnum, end_entnum, staff_id, voice, key, transp_key_adjust,
+                          transp_interval,
                           tuplet_attributes):
     current_entry = root.xpath(f"/f:finale/f:entries/f:entry[@entnum = '{current_entnum}']", namespaces=ns)[
         0] if root.xpath(f"/f:finale/f:entries/f:entry[@entnum = '{current_entnum}']", namespaces=ns) else None
     if current_entry is None:
         return
-    tuplet_attributes = process_entry(root, measure, current_entry, staff_id, voice, key, transp_key_adjust, transp_interval, tuplet_attributes)
+    tuplet_attributes = process_entry(root, measure, current_entry, staff_id, voice, key, transp_key_adjust,
+                                      transp_interval, tuplet_attributes)
 
     if current_entnum != end_entnum:
         next_entnum = current_entry.get("next")
         if next_entnum:
-            process_frame_entries(root, measure, next_entnum, end_entnum, staff_id, voice, key, transp_key_adjust, transp_interval,
+            process_frame_entries(root, measure, next_entnum, end_entnum, staff_id, voice, key, transp_key_adjust,
+                                  transp_interval,
                                   tuplet_attributes)
 
 
@@ -520,6 +547,7 @@ def handleTupletStart(root, entry, notations, tuplet_attributes):
             SubElement(tuplet_normal, 'tuplet-type').text = normal_type
 
         tuplet_attributes.append(attributes)
+
 
 def handleSmartShapeDetail(root, entry, notations):
     entnum = entry.get("entnum")
@@ -572,14 +600,14 @@ def add_rest_to_empty_measure(root, measure, meas_spec_cmper, staff_id):
         type_name, nb_dots = calculate_type_and_dots(dura)  # todo what if dura does not match type + dots
         note = SubElement(measure, "note")
         SubElement(note, "rest")
-        SubElement(note, "duration").text = str((dura * DIVISIONS) // 1024)
+        SubElement(note, "duration").text = str(math.ceil((dura * DIVISIONS) / 1024))
         voice = (staff_id - 1) * 4 + 1 if staff_id is not None else 1
         SubElement(note, "voice").text = str(voice)
         SubElement(note, "type").text = type_name
-        if staff_id:
-            SubElement(note, "staff").text = str(staff_id)
         for _ in range(nb_dots):
             SubElement(note, "dot")
+        if staff_id:
+            SubElement(note, "staff").text = str(staff_id)
 
 
 def process_gfholds(staff_spec_cmper, meas_spec_cmper, staff_id, measure, root, meas_spec,
@@ -623,7 +651,8 @@ def process_gfholds(staff_spec_cmper, meas_spec_cmper, staff_id, measure, root, 
                     SubElement(backup, "duration").text = str(
                         (int(current_beats) * int(current_divbeat) * DIVISIONS) // 1024)
                 frameSpec_cmper = frame.text
-                process_frame(root, measure, frameSpec_cmper, frame_num, staff_id, key, transp_key_adjust, transp_interval)
+                process_frame(root, measure, frameSpec_cmper, frame_num, staff_id, key, transp_key_adjust,
+                              transp_interval)
                 has_prev_frame = True
 
     hasExpr = meas_spec.find("f:hasExpr", namespaces=ns) is not None
@@ -662,7 +691,7 @@ def process_gfholds(staff_spec_cmper, meas_spec_cmper, staff_id, measure, root, 
                 words.text = remove_styling_tags(expression['text'])
                 words.set('font-style', 'italic')
             elif expression['categoryType'] == 'expressiveText' and expression['staffAssign'] == staff_spec_cmper:
-                direction = SubElement(measure, "direction", placement='bellow')
+                direction = SubElement(measure, "direction", placement='below')
                 direction_type = SubElement(direction, "direction-type")
                 if staff_id:
                     SubElement(direction, "staff").text = str(staff_id)
@@ -682,7 +711,7 @@ def process_gfholds(staff_spec_cmper, meas_spec_cmper, staff_id, measure, root, 
                 direction = SubElement(measure, "direction", placement='above')
                 if words:
                     direction_type = SubElement(direction, "direction-type")
-                    SubElement(direction_type, "words").text= words
+                    SubElement(direction_type, "words").text = words
                 if beat_unit and per_minute:
                     direction_type = SubElement(direction, "direction-type")
                     metronome = SubElement(direction_type, "metronome", parentheses=parentheses)
@@ -762,17 +791,19 @@ def process_entry(root, measure, entry, staff_id, voice, key, transp_key_adjust,
             harm_lev = int(note_.find("f:harmLev", namespaces=ns).text)
             harm_alt = int(note_.find("f:harmAlt", namespaces=ns).text)
             enharmonic = note_alter_map[note_.get('id')]['enharmonic'] if note_.get('id') in note_alter_map else False
-            step_value, alter_value, octave_value = calculate_step_alter_and_octave(harm_lev, harm_alt, key, transp_key_adjust, transp_interval,
+            step_value, alter_value, octave_value = calculate_step_alter_and_octave(harm_lev, harm_alt, key,
+                                                                                    transp_key_adjust, transp_interval,
                                                                                     enharmonic)
             step = SubElement(pitch, "step")
             step.text = step_value
-            octave = SubElement(pitch, "octave")
-            octave.text = str(octave_value)
             if alter_value != 0:
                 alter = SubElement(pitch, "alter")
                 alter.text = str(alter_value)
-            duration = SubElement(note, "duration")
-            duration.text = str((dura * DIVISIONS) // 1024)
+            octave = SubElement(pitch, "octave")
+            octave.text = str(octave_value)
+            if not graceNote:
+                duration = SubElement(note, "duration")
+                duration.text = str((dura * DIVISIONS) // 1024)
 
             tie_start = note_.find("f:tieStart", namespaces=ns)
             tie_end = note_.find("f:tieEnd", namespaces=ns)
@@ -780,7 +811,7 @@ def process_entry(root, measure, entry, staff_id, voice, key, transp_key_adjust,
             if tie_start is not None:
                 SubElement(note, "tie", type='start')
             if tie_end is not None:
-                SubElement(note, "tie", type='end')
+                SubElement(note, "tie", type='stop')
 
             voice_elem = SubElement(note, "voice")
             voice_elem.text = str(voice)
@@ -816,7 +847,7 @@ def process_entry(root, measure, entry, staff_id, voice, key, transp_key_adjust,
                     time_modification = SubElement(note, "time-modification")
                     SubElement(time_modification, "actual-notes").text = str(actual_notes)
                     SubElement(time_modification, "normal-notes").text = str(normal_notes)
-                    if is_nested :
+                    if is_nested:
                         normal_type, _ = calculate_type_and_dots(int(tuplet_attributes[0]['symbolicDur']))
                         SubElement(time_modification, "normal-type").text = normal_type
 
@@ -831,6 +862,14 @@ def process_entry(root, measure, entry, staff_id, voice, key, transp_key_adjust,
                 # Remove empty notations element
                 if len(notations.getchildren()) == 0:
                     note.remove(notations)
+
+            reorder_children(note,
+                             ["grace", "chord", "pitch", "unpitched", "rest", "cue", "duration", "tie", "instrument",
+                              "footnote", "level", "voice", "type", "dot", "accidental", "time-modification", "stem",
+                              "notehead", "notehead-text", "staff", "beam", "notations", "lyric", "play", "listen"
+                              ]
+                             )
+
 
 
     else:
@@ -877,4 +916,10 @@ def process_entry(root, measure, entry, staff_id, voice, key, transp_key_adjust,
         if len(notations.getchildren()) == 0:
             note.remove(notations)
 
+        reorder_children(note,
+                         ["grace", "chord", "pitch", "unpitched", "rest", "cue", "duration", "tie", "instrument",
+                          "footnote", "level", "voice", "type", "dot", "accidental", "time-modification", "stem",
+                          "notehead", "notehead-text", "staff", "beam", "notations", "lyric", "play", "listen"
+                          ]
+                         )
     return tuplet_attributes

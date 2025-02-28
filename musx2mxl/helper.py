@@ -111,6 +111,8 @@ ENGRAVER_CHAR_MAP_CLEFS = {
     57450: ('percussion', 0),
     57451: ('percussion', 0),
     57452: ('percussion', 0),
+    61478: ('F', 0),
+    61503: ('F', 0),
 }
 
 with importlib.resources.open_text("musx2mxl", "instruments.json") as json_file:
@@ -212,6 +214,9 @@ def calculate_step_alter_and_octave(harm_lev: int, harm_alt: int, key: int, tran
     step = notes[index]
     _, fifths_no_key_adjust = calculate_mode_and_key_fifths(key, 0)
     octave = 4 + (harm_lev + ((4 * fifths_no_key_adjust) % 7) + transp_interval) // 7
+    if not 0 <= octave <= 9:
+        print(f'Octave out of range: {octave}')
+        octave = max(0, min(octave, 9))
     alter = harm_alt + calculate_alter(step, fifths)
     if enharmonic:
         step, alter = calculate_enharmonic(step, alter)
@@ -238,7 +243,7 @@ def translate_tempo_marks(text: str):
 
         words = prefix
         if postfix:
-            words = words +  ' ' + postfix
+            words = words + ' ' + postfix
         if has_mm:
             words += ' M. M.'
         beat_unit = ENGRAVER_CHAR_MAP_NOTE_TYPE[note]
@@ -251,6 +256,7 @@ def translate_tempo_marks(text: str):
         if '=' in text_without_tags:
             print('Could not parse tempo markings : {}'.format(text))
         return text_without_tags, None, False, None, None
+
 
 def calculate_type_and_dots(dura: int) -> tuple[str, int]:
     """
@@ -371,6 +377,35 @@ def calculate_transpose(interval: int):
         return -diatonic, -chromatic, -octave_change
 
 
+def reorder_children(parent, element_order):
+    """
+    Reorders the children of the given parent element based on element_order.
+
+    :param parent: lxml.etree.Element, the parent XML element
+    :param element_order: list of str, the desired order of child element names
+    """
+    children_map = {child.tag: [] for child in parent}
+
+    # Group children by tag
+    for child in parent:
+        children_map[child.tag].append(child)
+
+    # Remove existing children
+    parent.clear()
+
+    # Append children in the specified order
+    for tag in element_order:
+        if tag in children_map:
+            for elem in children_map[tag]:
+                parent.append(elem)
+
+    # Append any remaining elements that were not in element_order
+    for tag, elems in children_map.items():
+        if tag not in element_order:
+            for elem in elems:
+                parent.append(elem)
+
+
 if __name__ == '__main__':
     dura = 1024 + 512 + 128
     print(calculate_type_and_dots(dura))
@@ -387,4 +422,4 @@ if __name__ == '__main__':
     print(output_text)
     print(calculate_transpose(1))
 
-    print(translate_tempo_marks('a(l)egro ( q = ca. 120 } help'))
+    print(translate_tempo_marks('^fontMus(EngraverTextT,8191)^size(12)^nfx(0)h. = q'))
