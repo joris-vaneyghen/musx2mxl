@@ -406,6 +406,35 @@ def reorder_children(parent, element_order):
                 parent.append(elem)
 
 
+def find_nth_syllabic(lyrics:str, n:int) -> (str, str):
+    # todo handle elision
+    lyrics = remove_styling_tags(lyrics)
+    lyrics = lyrics.replace('_ ','_').replace('_','_ ') # normalize extend:'_abc' and '_ abc' to '_ abc'
+    words = lyrics.split()
+    syllabics = []
+
+    for word in words:
+        parts = word.split('-')
+        for i, part in enumerate(parts):
+            if part:
+                extend = part.endswith('_')
+                part = part.rstrip('_')  # Remove the extend character
+                if len(parts) == 1:
+                    syllabics.append((part, "single", extend))
+                elif i == 0:
+                    syllabics.append((part, "begin", extend))
+                elif i == len(parts) - 1:
+                    syllabics.append((part, "end", extend))
+                else:
+                    syllabics.append((part, "middle", extend))
+
+    if 1 <= n <= len(syllabics):
+        return syllabics[n - 1]
+    else:
+        print(f"No {n}th syllabic found for {lyrics}")
+        return "???", "single", False
+
+
 if __name__ == '__main__':
     dura = 1024 + 512 + 128
     print(calculate_type_and_dots(dura))
