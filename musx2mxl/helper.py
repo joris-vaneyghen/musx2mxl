@@ -116,7 +116,162 @@ ENGRAVER_CHAR_MAP_CLEFS = {
 }
 
 with importlib.resources.open_text("musx2mxl", "instruments.json") as json_file:
-    INST_UUID_MAP = instrument_mapping = json.load(json_file)
+    INST_UUID_MAP = json.load(json_file)
+
+# Define a dictionary where keys are chord kinds and values are regex patterns
+CHORD_SUFFIX = {
+    "69": {"kind": "major-sixth", "use-symbols": "yes", "parentheses-degrees": "no", "text": "",
+           "degrees": [{"degree-value": 9, "degree-alter": 0, "degree-type": "add"}]},
+    "6/9": {"kind": "major-sixth", "use-symbols": "yes", "parentheses-degrees": "no", "text": "",
+            "degrees": [{"degree-value": 9, "degree-alter": 0, "degree-type": "add"}]},
+}
+
+# Define a common extension pattern
+# EXTENSION_PATTERN = r"(?:\(|{|\[)?(?:alt|omit\d+|add\s?\d+|add\s?maj7|#\d+|\+\d+|\-\d+|b\d+|sus\d+)+(?:\)|}|\])?"
+# Define the degree pattern separately
+DEGREE_PATTERN = r"(?P<type>add|omit|alt|sus|maj7)?(?P<alter>[+\-b#])?(?P<value>[2-79]|11|13)?"
+
+# Use the degree pattern inside the full degrees pattern
+DEGREES_PATTERN = rf"(?P<parentheses_open>\(|{{|\[)?(?P<degrees>({DEGREE_PATTERN})+)(?P<parentheses_closed>\)|}}|\])?"
+
+CHORD_PATTERNS = {
+    "augmented-seventh": re.compile(fr"^(?P<kind>aug7|\+7|7\+)(?:{DEGREES_PATTERN})?$"),
+    "augmented": re.compile(fr"^(?P<kind>aug|\+|\+5)(?:{DEGREES_PATTERN})?$"),
+    "diminished-seventh": re.compile(fr"^(?P<kind>(?:'|`|dim|°|o)7)(?:{DEGREES_PATTERN})?$"),
+    "diminished": re.compile(fr"^(?P<kind>'|`|dim|°|o)(?:{DEGREES_PATTERN})?$"),
+    "half-diminished": re.compile(
+        fr"^(?P<kind>(?:min|mi|m|-|−)7\(?[b\-−]?5\)?|ø7)(?:{DEGREES_PATTERN})?$"),
+    "suspended-fourth": re.compile(fr"^(?P<kind>7?sus4?)(?:{DEGREES_PATTERN})?$"),
+    "suspended-second": re.compile(fr"^(?P<kind>7?sus2)(?:{DEGREES_PATTERN})?$"),
+    "dominant": re.compile(fr"^(?P<kind>7)(?:{DEGREES_PATTERN})?$"),
+    "dominant-ninth": re.compile(fr"^(?P<kind>9)(?:{DEGREES_PATTERN})?$"),
+    "dominant-11th": re.compile(fr"^(?P<kind>11)(?:{DEGREES_PATTERN})?$"),
+    "dominant-13th": re.compile(fr"^(?P<kind>13)(?:{DEGREES_PATTERN})?$"),
+    "major-sixth": re.compile(fr"^(?P<kind>(?:maj|ma|Δ)?6)(?:{DEGREES_PATTERN})?$"),
+    "major-seventh": re.compile(fr"^(?P<kind>(?:maj|ma|Δ)7)(?:{DEGREES_PATTERN})?$"),
+    "major-ninth": re.compile(fr"^(?P<kind>(?:maj|ma|Δ)9)(?:{DEGREES_PATTERN})?$"),
+    "major-11th": re.compile(fr"^(?P<kind>(?:maj|ma|Δ)11)(?:{DEGREES_PATTERN})?$"),
+    "major-13th": re.compile(fr"^(?P<kind>(?:maj|ma|Δ)13)(?:{DEGREES_PATTERN})?$"),
+    "major-minor": re.compile(fr"^(?P<kind>min\(maj7\)|mi\(ma7\)|m\(ma7\)|-Δ7)(?:{DEGREES_PATTERN})?$"),
+    "minor-sixth": re.compile(fr"^(?P<kind>(?:min|mi|m|-|−)6)(?:{DEGREES_PATTERN})?$"),
+    "minor-seventh": re.compile(fr"^(?P<kind>(?:min|mi|m|-|−)7)(?:{DEGREES_PATTERN})?$"),
+    "minor-ninth": re.compile(fr"^(?P<kind>(?:min|mi|m|-|−)9)(?:{DEGREES_PATTERN})?$"),
+    "minor-11th": re.compile(fr"^(?P<kind>(?:min|mi|m|-|−)11)(?:{DEGREES_PATTERN})?$"),
+    "minor-13th": re.compile(fr"^(?P<kind>(?:min|mi|m|-|−)13)(?:{DEGREES_PATTERN})?$"),
+    "power": re.compile(fr"^(?P<kind>5|power)(?:{DEGREES_PATTERN})?$"),
+    "major": re.compile(fr"^(?P<kind>maj|ma|Δ)?(?:{DEGREES_PATTERN})?$"),
+    "minor": re.compile(fr"^(?P<kind>min|mi|m|-|−)(?:{DEGREES_PATTERN})?$"),
+    "Italian": re.compile(fr"^(?P<kind>It6)(?:{DEGREES_PATTERN})?$"),
+    "French": re.compile(fr"^(?P<kind>Fr6)(?:{DEGREES_PATTERN})?$"),
+    "German": re.compile(fr"^(?P<kind>Gr6)(?:{DEGREES_PATTERN})?$"),
+    "Tristan": re.compile(fr"^(?P<kind>Tristan)(?:{DEGREES_PATTERN})?$"),
+}
+
+DEFAULT_CHORD_SYMBOLS = {
+    "augmented": "+",
+    "augmented-seventh": "+7",
+    "diminished": "°",
+    "diminished-seventh": "°7",
+    "half-diminished": "ø",
+    "dominant": "7",
+    "dominant-ninth": "9",
+    "dominant-11th": "11",
+    "dominant-13th": "13",
+    "major": "Δ",
+    "major-sixth": "Δ6",
+    "major-seventh": "Δ7",
+    "major-ninth": "Δ9",
+    "major-11th": "Δ11",
+    "major-13th": "Δ13",
+    "major-minor": "-Δ7",
+    "minor": "-",
+    "minor-sixth": "-6",
+    "minor-seventh": "-7",
+    "minor-ninth": "-9",
+    "minor-11th": "-11",
+    "minor-13th": "-13",
+    "suspended-fourth": "sus4",
+    "suspended-second": "sus2",
+    "power": "5",
+    "Italian": "It6",
+    "French": "Fr6",
+    "German": "Gr6",
+    "Tristan": "Tristan",
+}
+
+
+# Define a dictionary where keys are chord kinds and values are regex patterns
+
+
+def translate_chord_suffix(chord_suffix):
+    """Identify the kind of chord and its extensions."""
+    chord_suffix = chord_suffix.strip() if chord_suffix else None
+    if chord_suffix:
+        if chord_suffix in CHORD_SUFFIX:
+            return CHORD_SUFFIX[chord_suffix]
+        else:
+            for kind, pattern in CHORD_PATTERNS.items():
+                match = pattern.match(chord_suffix)
+                if match:
+                    text = match.group("kind")
+                    # todo handle extensions -> degrees
+                    parentheses_degrees = "yes" if match.group("parentheses_open") and match.group("parentheses_closed") else "no"
+                    degrees_text = match.group("degrees")
+                    degrees = []
+                    if degrees_text:
+                        for degree_match in re.finditer(DEGREE_PATTERN, match.group("degrees")):
+                            degree_alter = degree_match.group("alter")
+                            if degree_alter in ['-','b']:
+                                degree_alter =-1
+                            elif degree_alter in ['+','#']:
+                                degree_alter = 1
+                            else:
+                                degree_alter = 0
+                            degree_type = degree_match.group("type")
+                            if degree_type ==  'alt':
+                                continue #todo
+                            elif degree_type == 'sus':
+                                # todo replace example C13 with degree 13
+                                kind = "suspended-fourth"
+                                text += 'sus'
+                                parentheses_degrees = "no"
+                                continue
+                            elif degree_type == 'maj7':
+                                # todo replace example min11 with degree 11
+                                if kind.startswith('minor'):
+                                    kind = "major-minor"
+                                    text += "(maj7)"
+                                    parentheses_degrees = "no"
+                                if kind.startswith('diminished'):
+                                    text += "(addmaj7)"
+                                    parentheses_degrees = "no"
+                                continue
+                            elif degree_type ==  'omit':
+                                degree_type = 'subtract'
+                            else:
+                                degree_type = 'add'
+                            degree_value= degree_match.group("value")
+                            if degree_value:
+                                degrees.append({
+                                    "degree-type": degree_type,
+                                    "degree-alter": degree_alter,
+                                    "degree-value": int(degree_value),
+                                })
+
+                        print(chord_suffix, degrees_text ,degrees)
+                    if text == DEFAULT_CHORD_SYMBOLS[kind]:
+                        text = ""
+                        use_symbols = "yes"
+                    else:
+                        use_symbols = "no"
+
+                    return {"kind": kind, "use-symbols": use_symbols, "parentheses-degrees": parentheses_degrees, "text": text,
+                            "degrees": degrees}
+            print("could not translate suffix {}".format(chord_suffix))
+            return {"kind": "other", "use-symbols": "no", "parentheses-degrees": "no", "text": chord_suffix,
+                    "degrees": []}
+    else:
+        return {"kind": "major", "use-symbols": "no", "parentheses-degrees": "no", "text": "", "degrees": []}
 
 
 def calculate_mode_and_key_fifths(key: int, transp_key_adjust) -> (str, int):
@@ -355,6 +510,13 @@ def translate_articualtion(charMain: str):
         return 'other-articulation', None
 
 
+def translate_chord_step(key, transp_key_adjust, rootScaleNum, rootAlter):
+    harm_lev = int(rootScaleNum) if rootScaleNum is not None else 0
+    harm_alt = int(rootAlter) if rootAlter is not None else 0
+    step, alter, _ = calculate_step_alter_and_octave(harm_lev, harm_alt, key, transp_key_adjust, 0, False)
+    return step, alter
+
+
 def calculate_transpose(interval: int):
     # translate diatonic interval (concert pitch to instrument pitch) to MusicXML transpose (instrument pitch to concert pitch)
     if interval < 0:
@@ -406,10 +568,10 @@ def reorder_children(parent, element_order):
                 parent.append(elem)
 
 
-def find_nth_syllabic(lyrics:str, n:int) -> (str, str):
+def find_nth_syllabic(lyrics: str, n: int) -> (str, str):
     # todo handle elision
     lyrics = remove_styling_tags(lyrics)
-    lyrics = lyrics.replace('_ ','_').replace('_','_ ') # normalize extend:'_abc' and '_ abc' to '_ abc'
+    lyrics = lyrics.replace('_ ', '_').replace('_', '_ ')  # normalize extend:'_abc' and '_ abc' to '_ abc'
     words = lyrics.split()
     syllabics = []
 

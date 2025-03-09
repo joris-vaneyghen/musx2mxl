@@ -5,7 +5,7 @@ from lxml.etree import Element, SubElement, parse, ElementTree, XMLSyntaxError
 from musx2mxl.helper import calculate_mode_and_key_fifths, calculate_type_and_dots, calculate_step_alter_and_octave, \
     translate_clef_sign, translate_bar_style, replace_music_symbols, remove_styling_tags, translate_dynamics, \
     count_tuplet, translate_articualtion, translate_tempo_marks, calculate_transpose, translate_instrument, \
-    reorder_children, find_nth_syllabic
+    reorder_children, find_nth_syllabic, translate_chord_suffix, translate_chord_step
 import musx2mxl
 
 ns = {"f": "http://www.makemusic.com/2012/finale"}
@@ -139,6 +139,60 @@ def lookup_block_text(root, id):
         return ''
 
 
+def lookup_suffix(root, suffix_cmper):
+    suffix_str = ""
+    if suffix_cmper:
+        chordAssigns = root.xpath(f"/f:finale/f:others/f:chordSuffix[@cmper='{suffix_cmper}'][f:suffix]", namespaces=ns)
+        for chordAssign in chordAssigns:
+            suffix = chordAssign.find("f:suffix", namespaces=ns).text
+            if suffix == '209':
+                suffix_str += 'b'
+            elif int(suffix) >= 20:
+                suffix_str += chr(int(suffix))
+            else:
+                suffix_str += str(suffix)
+
+    return suffix_str
+
+
+def lookup_chords(root, staff_spec_cmper, meas_spec_cmper):
+    chordAssigns = root.xpath(
+        f"/f:finale/f:details/f:chordAssign[@cmper1='{staff_spec_cmper}' and @cmper2='{meas_spec_cmper}']",
+        namespaces=ns)
+    chords = []
+    for chordAssign in chordAssigns:
+        rootScaleNum = chordAssign.find("f:rootScaleNum", namespaces=ns).text if chordAssign.find("f:rootScaleNum",
+                                                                                                  namespaces=ns) is not None else None
+        rootAlter = chordAssign.find("f:rootAlter", namespaces=ns).text if chordAssign.find("f:rootAlter",
+                                                                                            namespaces=ns) is not None else None
+        showAltBass = chordAssign.find("f:showAltBass", namespaces=ns) is not None
+        bassScaleNum = chordAssign.find("f:bassScaleNum", namespaces=ns).text if chordAssign.find("f:bassScaleNum",
+                                                                                                  namespaces=ns) is not None else None
+        bassAlter = chordAssign.find("f:bassAlter", namespaces=ns).text if chordAssign.find("f:bassAlter",
+                                                                                            namespaces=ns) is not None else None
+        bassPosition = chordAssign.find("f:bassPosition", namespaces=ns).text if chordAssign.find("f:bassPosition",
+                                                                                                  namespaces=ns) is not None else None
+        suffix_cmper = chordAssign.find("f:suffix", namespaces=ns).text if chordAssign.find("f:suffix",
+                                                                                            namespaces=ns) is not None else None
+        horzEdu = chordAssign.find("f:horzEdu", namespaces=ns).text if chordAssign.find("f:horzEdu",
+                                                                                        namespaces=ns) is not None else None
+        suffix_text = lookup_suffix(root, suffix_cmper)
+
+        if suffix_text == "es":
+            suffix_text = ""
+            rootAlter = "-1"
+        if suffix_text == "is":
+            suffix_text = ""
+            rootAlter = "1"
+
+        chords.append(
+            {'rootScaleNum': rootScaleNum, 'rootAlter': rootAlter, 'showAltBass': showAltBass,
+             'bassScaleNum': bassScaleNum, 'bassAlter': bassAlter, 'bassPosition': bassPosition,
+             'suffix_text': suffix_text, 'horzEdu': horzEdu})
+        if VERBOSE: print(meas_spec_cmper, chords)
+    return chords
+
+
 def lookup_staff_groups(root):
     # todo check multiStaffInstGroup and multiStaffGroupID
     staff_group_list = []
@@ -265,6 +319,7 @@ def convert_tree(tree, meta_tree):
                 bacRepBar = meas_spec.find("f:bacRepBar", namespaces=ns) is not None
                 barEnding = meas_spec.find("f:barEnding", namespaces=ns) is not None
                 hasSmartShape = meas_spec.find("f:hasSmartShape", namespaces=ns) is not None
+                hasChord = meas_spec.find("f:hasChord", namespaces=ns) is not None
                 if hasSmartShape:
                     meas_smart_shapes = lookup_meas_smart_shapes(root, meas_spec_cmper)
                     if VERBOSE: print(f'Measure smart shapes: {meas_smart_shapes}')
@@ -316,28 +371,38 @@ def convert_tree(tree, meta_tree):
                     staff_id = 1
                     clefIDs = {}
                     prev = False
-                    for staff_spec in staff_specs:
-                        staff_spec_cmper = staff_spec.get("cmper")
-                        if int(piano_staff_group["startInst"]) <= int(staff_spec_cmper) <= int(
-                                piano_staff_group["endInst"]):
-                            if prev:
-                                backup = SubElement(measure, "backup")
-                                # todo is duration correctly calculated? Always start from start measure?
-                                SubElement(backup, "duration").text = str(
-                                    (int(current_beats) * int(current_divbeat) * DIVISIONS) // 1024)
-                            clefID, handle_tempo = process_gfholds(staff_spec_cmper, meas_spec_cmper, staff_id,
-                                                                   measure, root, meas_spec,
-                                                                   meas_smart_shapes, handle_tempo, barline_,
-                                                                   bacRepBar, barEnding, ending_cnt,
-                                                                   current_beats, current_divbeat, key,
-                                                                   transp_key_adjust, transp_interval)
-                            clefIDs[staff_id] = clefID
-                            staff_id += 1
-                            prev = True
+                    piano_staffs = [staff_spec.get("cmper") for staff_spec in staff_specs if
+                                    int(piano_staff_group["startInst"]) <= int(staff_spec.get("cmper")) <= int(
+                                        piano_staff_group["endInst"])]
+                    for piano_staff_spec_cmper in piano_staffs:
+                        if prev:
+                            backup = SubElement(measure, "backup")
+                            # todo is duration correctly calculated? Always start from start measure?
+                            SubElement(backup, "duration").text = str(
+                                (int(current_beats) * int(current_divbeat) * DIVISIONS) // 1024)
+
+                        if hasChord:
+                            chords = lookup_chords(root, piano_staff_spec_cmper, meas_spec_cmper)
+                            handle_chords(measure, chords, key, transp_key_adjust, staff_id)
+
+                        clefID, handle_tempo = process_gfholds(piano_staff_spec_cmper, meas_spec_cmper, staff_id,
+                                                               measure, root, meas_spec,
+                                                               meas_smart_shapes, handle_tempo, barline_,
+                                                               bacRepBar, barEnding, ending_cnt,
+                                                               current_beats, current_divbeat, key,
+                                                               transp_key_adjust, transp_interval)
+                        clefIDs[staff_id] = clefID
+                        staff_id += 1
+                        prev = True
                     if clefIDs != current_clefID:
                         attributes = handle_mutli_staff_cleff_change(root, measure, attributes, clefIDs)
                         current_clefID = clefIDs
                 else:
+                    if hasChord:
+                        chords = lookup_chords(root, staff_spec_cmper, meas_spec_cmper)
+                        handle_chords(measure, chords, key, transp_key_adjust, 1)
+
+
                     clefID, handle_tempo = process_gfholds(staff_spec_cmper, meas_spec_cmper, None, measure,
                                                            root, meas_spec, meas_smart_shapes,
                                                            handle_tempo, barline_, bacRepBar, barEnding,
@@ -447,9 +512,47 @@ def handle_clef_change(root, measure, attributes, clefID):
 
     return attributes
 
+def handle_chords(measure, chords, key, transp_key_adjust, staff_id):
+    for chord in chords:
+        suffix = translate_chord_suffix(chord['suffix_text'])
+        harmony = SubElement(measure, "harmony")
+        chord_root = SubElement(harmony, "root")
+        step, alter = translate_chord_step(key, transp_key_adjust, chord['rootScaleNum'],
+                                           chord['rootAlter'])
+        SubElement(chord_root, "root-step").text = step
+        if alter != 0:
+            SubElement(chord_root, "root-alter").text = str(alter)
+        kind = SubElement(harmony, "kind")
+        kind.text = suffix["kind"]
+        kind.set("use-symbols", suffix["use-symbols"])
+        kind.set("parentheses-degrees", suffix["parentheses-degrees"])
+        if suffix["text"]:
+            kind.set("text", suffix["text"])
+        if chord["showAltBass"]:
+            bass = SubElement(harmony, "bass")
+            if chord["bassPosition"] == "underRoot":
+                bass.set("arrangement", "vertical")
+            bass_step, bass_alter = translate_chord_step(key, transp_key_adjust, chord['bassScaleNum'],
+                                                         chord['bassAlter'])
+            SubElement(bass, "bass-step").text = str(bass_step)
+            if bass_alter != 0:
+                SubElement(bass, "bass-alter").text = str(bass_alter)
 
-def handle_key_change(measure, attributes, key, trasp_key_adjust, transp_interval):
-    mode, fifths = calculate_mode_and_key_fifths(key, trasp_key_adjust)
+        for degree in suffix["degrees"]:
+            degree_ = SubElement(harmony, "degree")
+            SubElement(degree_, "degree-value").text = str(degree['degree-value'])
+            SubElement(degree_, "degree-alter").text = str(degree['degree-alter'])
+            SubElement(degree_, "degree-type").text = str(degree['degree-type'])
+
+        if chord['horzEdu']:
+            SubElement(harmony, "offset").text = str(math.ceil((int(chord['horzEdu']) * DIVISIONS) / 1024))
+
+        if staff_id > 1:
+            SubElement(harmony, "staff").text = str(staff_id)
+
+
+def handle_key_change(measure, attributes, key, transp_key_adjust, transp_interval):
+    mode, fifths = calculate_mode_and_key_fifths(key, transp_key_adjust)
     if attributes is None:
         attributes = SubElement(measure, "attributes")
     key_ = SubElement(attributes, "key")

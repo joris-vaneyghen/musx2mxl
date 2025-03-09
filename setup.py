@@ -24,7 +24,7 @@ setup(
     packages=find_packages(),  # Automatically find package directories
     include_package_data=True,  # Ensures non-code files are included
     package_data={
-        "musx2mxl": ["instruments.json"],  # Explicitly include JSON file
+        "musx2mxl": ["instruments.json", "chord-suffixes.json"],  # Explicitly include JSON file
     },
     install_requires=install_requires,
     entry_points={

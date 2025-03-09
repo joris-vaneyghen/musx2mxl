@@ -92,6 +92,7 @@ The development of this converter is based on earlier work from the following op
 - **Project-Attacca:** [GitHub Repository](https://github.com/Project-Attacca/enigmaxml-documentation)
 - **Denigma:** [GitHub Repository](https://github.com/chrisroode/denigma)
 - **Finale PDK Framework:** [Documentation](https://pdk.finalelua.com)
+- **Finale Chord suffix lib:** [Downloads](https://www.rpmseattle.com/file_downloads/finale/110924_chords-by-numbers/)
 
 ## Disclaimer
 This project is not affiliated with **Finale** or **MakeMusic** in any way. For official Finale software and support, please visit: **[Finale Official Website](https://www.finalemusic.com)**.
