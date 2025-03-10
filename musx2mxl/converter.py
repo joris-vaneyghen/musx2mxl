@@ -63,6 +63,8 @@ def lookup_meas_expressions(root, meas_spec_cmper: str):
     for measExprAssign in measExprAssigns:
         textExprID = measExprAssign.find("f:textExprID", namespaces=ns).text
         staffAssign = measExprAssign.find("f:staffAssign", namespaces=ns).text
+        horzEduOff = measExprAssign.find("f:horzEduOff", namespaces=ns).text if measExprAssign.find("f:horzEduOff",
+                                                                                                    namespaces=ns) is not None else None
         textExprDef = root.find(f"f:others/f:textExprDef[@cmper='{textExprID}']", namespaces=ns)
         textIDKey = textExprDef.find("f:textIDKey", namespaces=ns).text
         vertMeasExprAlign = textExprDef.find("f:vertMeasExprAlign", namespaces=ns).text if textExprDef.find(
@@ -90,6 +92,7 @@ def lookup_meas_expressions(root, meas_spec_cmper: str):
             # todo what if expression_text is not found
             expression = {
                 "staffAssign": staffAssign,
+                "horzEduOff": horzEduOff,
                 "value": value,
                 "categoryType": categoryType,
                 "vertMeasExprAlign": vertMeasExprAlign,
@@ -101,6 +104,28 @@ def lookup_meas_expressions(root, meas_spec_cmper: str):
             expressions.append(expression)
     return expressions
 
+
+def lookup_txt_repeats(root, meas_spec_cmper):
+    textRepeatAssigns = root.xpath(f"/f:finale/f:others/f:textRepeatAssign[@cmper='{meas_spec_cmper}']", namespaces=ns)
+    txt_repeats = []
+    for textRepeatAssign in textRepeatAssigns:
+        topStaffOnly = textRepeatAssign.find("f:topStaffOnly", namespaces=ns) is not None
+        staffList = textRepeatAssign.find("f:staffList", namespaces=ns).text if textRepeatAssign.find(
+            "f:staffList", namespaces=ns) is not None else None
+        horzPos = textRepeatAssign.find("f:horzPos", namespaces=ns).text
+        vertPos = textRepeatAssign.find("f:vertPos", namespaces=ns).text
+        repnum = textRepeatAssign.find('f:repnum', namespaces=ns).text
+        textRepeatText = root.find(f"f:others/f:textRepeatText[@cmper='{repnum}']", namespaces=ns)
+        rptText = textRepeatText.find('f:rptText', namespaces=ns).text
+        # textRepeatDef = root.find(f"f:others/f:textRepeatDef[@cmper='{repnum}']", namespaces=ns)
+        # todo hanlde textRepeatDef
+
+        txt_repeats.append({'topStaffOnly': topStaffOnly, 'staffList':staffList, 'horzPos':horzPos, 'vertPos':vertPos, 'rptText': rptText})
+
+    return txt_repeats
+
+
+#     textRepeatDef cmper
 
 def lookup_meas_smart_shapes(root, meas_spec_cmper):
     smartShapeMeasMarks = root.xpath(f"/f:finale/f:others/f:smartShapeMeasMark[@cmper='{meas_spec_cmper}']",
@@ -116,15 +141,19 @@ def lookup_meas_smart_shapes(root, meas_spec_cmper):
                                                                                               namespaces=ns) is not None else None
             startMeas = smartShape.find("f:startTermSeg/f:endPt/f:meas", namespaces=ns).text
             startInst = smartShape.find("f:startTermSeg/f:endPt/f:inst", namespaces=ns).text
+            startEdu = smartShape.find("f:startTermSeg/f:endPt/f:edu", namespaces=ns).text if smartShape.find(
+                "f:startTermSeg/f:endPt/f:edu", namespaces=ns) is not None else None
             startEntry = smartShape.find("f:startTermSeg/f:endPt/f:entryNum", namespaces=ns).text if smartShape.find(
                 "f:startTermSeg/f:endPt/f:entryNum", namespaces=ns) is not None else None
             endMeas = smartShape.find("f:endTermSeg/f:endPt/f:meas", namespaces=ns).text
             endEntry = smartShape.find("f:endTermSeg/f:endPt/f:entryNum", namespaces=ns).text if smartShape.find(
                 "f:endTermSeg/f:endPt/f:entryNum", namespaces=ns) is not None else None
             endInst = smartShape.find("f:endTermSeg/f:endPt/f:inst", namespaces=ns).text
+            endEdu = smartShape.find("f:endTermSeg/f:endPt/f:edu", namespaces=ns).text if smartShape.find(
+                "f:endTermSeg/f:endPt/f:edu", namespaces=ns) is not None else None
             meas_smart_shapes.append(
                 {'shapeType': shapeType, 'startMeas': startMeas, 'startEntry': startEntry, 'startInst': startInst,
-                 'endMeas': endMeas, 'endEntry': endEntry, 'endInst': endInst, })
+                 'endMeas': endMeas, 'startEdu': startEdu, 'endEntry': endEntry, 'endInst': endInst, 'endEdu': endEdu})
     return meas_smart_shapes
 
 
@@ -319,25 +348,98 @@ def convert_tree(tree, meta_tree):
                 bacRepBar = meas_spec.find("f:bacRepBar", namespaces=ns) is not None
                 barEnding = meas_spec.find("f:barEnding", namespaces=ns) is not None
                 hasSmartShape = meas_spec.find("f:hasSmartShape", namespaces=ns) is not None
+                txtRepeats = meas_spec.find("f:txtRepeats", namespaces=ns) is not None
                 hasChord = meas_spec.find("f:hasChord", namespaces=ns) is not None
+                if txtRepeats:
+                    txt_repeats = lookup_txt_repeats(root, meas_spec_cmper)
+                    if VERBOSE: print(f'Measure text repeats: {txt_repeats}')
+                else:
+                    txt_repeats = []
                 if hasSmartShape:
                     meas_smart_shapes = lookup_meas_smart_shapes(root, meas_spec_cmper)
                     if VERBOSE: print(f'Measure smart shapes: {meas_smart_shapes}')
                 else:
                     meas_smart_shapes = []
                 # todo: Check if inst is always referring to staff_spec_cmper
+                for txt_repeat in txt_repeats:
+                    if (txt_repeat['topStaffOnly'] and staff_spec_cmper == '1') or txt_repeat['staffList'] == staff_spec_cmper:
+                        # todo horzPos vertPos (EVPU 288 per inch) relative-x relative-y (tenth of a staff space)
+                        if txt_repeat['rptText'] == '%':
+                            direction = SubElement(measure, "direction", placement='above')
+                            direction_type = SubElement(direction, "direction-type")
+                            SubElement(direction_type, "segno")
+                        elif txt_repeat['rptText'] == 'Þ':
+                            direction = SubElement(measure, "direction", placement='above')
+                            direction_type = SubElement(direction, "direction-type")
+                            SubElement(direction_type, "coda")
+                        else:
+                            direction = SubElement(measure, "direction", placement='below')
+                            direction_type = SubElement(direction, "direction-type")
+                            SubElement(direction_type, "words").text = txt_repeat['rptText']
+
                 for meas_smart_shape in meas_smart_shapes:
-                    if meas_smart_shape['shapeType'] == 'cresc' and meas_smart_shape['startMeas'] == meas_spec_cmper and \
-                            meas_smart_shape['startInst'] == staff_spec_cmper:
-                        direction = SubElement(measure, "direction", placement='below')
-                        direction_type = SubElement(direction, "direction-type")
-                        SubElement(direction_type, "wedge", type="crescendo")
-                    elif meas_smart_shape['shapeType'] == 'decresc' and meas_smart_shape[
-                        'startMeas'] == meas_spec_cmper and \
-                            meas_smart_shape['endInst'] == staff_spec_cmper:
-                        direction = SubElement(measure, "direction", placement='below')
-                        direction_type = SubElement(direction, "direction-type")
-                        SubElement(direction_type, "wedge", type="diminuendo")
+                    if meas_smart_shape['shapeType'] == 'cresc':
+                        if meas_smart_shape['startMeas'] == meas_spec_cmper and meas_smart_shape[
+                            'startInst'] == staff_spec_cmper:
+
+                            direction = SubElement(measure, "direction", placement='below')
+                            direction_type = SubElement(direction, "direction-type")
+                            if meas_smart_shape['startEdu']:
+                                SubElement(direction, "offset").text = str(
+                                    math.ceil((int(meas_smart_shape['startEdu']) * DIVISIONS) / 1024))
+                            SubElement(direction_type, "wedge", type="crescendo")
+                        if meas_smart_shape['endMeas'] == meas_spec_cmper and meas_smart_shape[
+                            'startInst'] == staff_spec_cmper:
+
+                            direction = SubElement(measure, "direction", placement='below')
+                            direction_type = SubElement(direction, "direction-type")
+                            if meas_smart_shape['endEdu']:
+                                SubElement(direction, "offset").text = str(
+                                    math.ceil((int(meas_smart_shape['endEdu']) * DIVISIONS) / 1024))
+                            # if staff_id:
+                            #     SubElement(direction, "staff").text = str(staff_id)
+                            SubElement(direction_type, "wedge", type="stop")
+                    elif meas_smart_shape['shapeType'] == 'decresc':
+                        if meas_smart_shape['startMeas'] == meas_spec_cmper and meas_smart_shape[
+                            'endInst'] == staff_spec_cmper:
+
+                            direction = SubElement(measure, "direction", placement='below')
+                            direction_type = SubElement(direction, "direction-type")
+                            if meas_smart_shape['startEdu']:
+                                SubElement(direction, "offset").text = str(
+                                    math.ceil((int(meas_smart_shape['startEdu']) * DIVISIONS) / 1024))
+                            SubElement(direction_type, "wedge", type="diminuendo")
+
+                        if meas_smart_shape['endMeas'] == meas_spec_cmper and meas_smart_shape[
+                            'endInst'] == staff_spec_cmper:
+
+                            direction = SubElement(measure, "direction", placement='below')
+                            direction_type = SubElement(direction, "direction-type")
+                            if meas_smart_shape['endEdu']:
+                                SubElement(direction, "offset").text = str(
+                                    math.ceil((int(meas_smart_shape['endEdu']) * DIVISIONS) / 1024))
+                            # if staff_id:
+                            #     SubElement(direction, "staff").text = str(staff_id)
+                            SubElement(direction_type, "wedge", type="stop")
+                    elif meas_smart_shape['shapeType'] == 'octaveUp':
+                        pass
+                    elif meas_smart_shape['shapeType'] == 'octaveDown':
+                        pass
+                    elif meas_smart_shape['shapeType'] == 'slurUp':
+                        pass
+                    elif meas_smart_shape['shapeType'] == 'trill':
+                        pass
+                    elif meas_smart_shape['shapeType'] == 'smartLine':
+                        pass
+                    elif meas_smart_shape['shapeType'] == 'dashLine':
+                        pass
+                    elif meas_smart_shape['shapeType'] == 'trillExt':
+                        pass
+                    elif meas_smart_shape['shapeType'] == 'solidLine':
+                        pass
+                    else:
+                        if meas_smart_shape['startEntry'] is None:
+                            print(meas_smart_shape)
 
                 leftBarline = meas_spec.find("f:leftBarline", namespaces=ns).text
                 if key_ is None:
@@ -387,7 +489,7 @@ def convert_tree(tree, meta_tree):
 
                         clefID, handle_tempo = process_gfholds(piano_staff_spec_cmper, meas_spec_cmper, staff_id,
                                                                measure, root, meas_spec,
-                                                               meas_smart_shapes, handle_tempo, barline_,
+                                                               handle_tempo, barline_,
                                                                bacRepBar, barEnding, ending_cnt,
                                                                current_beats, current_divbeat, key,
                                                                transp_key_adjust, transp_interval)
@@ -402,11 +504,9 @@ def convert_tree(tree, meta_tree):
                         chords = lookup_chords(root, staff_spec_cmper, meas_spec_cmper)
                         handle_chords(measure, chords, key, transp_key_adjust, 1)
 
-
                     clefID, handle_tempo = process_gfholds(staff_spec_cmper, meas_spec_cmper, None, measure,
-                                                           root, meas_spec, meas_smart_shapes,
-                                                           handle_tempo, barline_, bacRepBar, barEnding,
-                                                           ending_cnt, current_beats, current_divbeat, key,
+                                                           root, meas_spec, handle_tempo, barline_, bacRepBar,
+                                                           barEnding, ending_cnt, current_beats, current_divbeat, key,
                                                            transp_key_adjust, transp_interval)
                     # todo handle clefListID =(mid-measure clef changes)
                     # todo use <hasExpr/> to determine show time_signature
@@ -511,6 +611,7 @@ def handle_clef_change(root, measure, attributes, clefID):
         clef_octave_change.text = clef_info['clef_octave_change']
 
     return attributes
+
 
 def handle_chords(measure, chords, key, transp_key_adjust, staff_id):
     for chord in chords:
@@ -732,7 +833,7 @@ def add_rest_to_empty_measure(root, measure, meas_spec_cmper, staff_id):
 
 
 def process_gfholds(staff_spec_cmper, meas_spec_cmper, staff_id, measure, root, meas_spec,
-                    meas_smart_shapes, handle_tempo, barline_, bacRepBar, barEnding, ending_cnt, current_beats,
+                    handle_tempo, barline_, bacRepBar, barEnding, ending_cnt, current_beats,
                     current_divbeat, key, transp_key_adjust, transp_interval):
     clefID = None
     gfholds = root.xpath(
@@ -761,6 +862,9 @@ def process_gfholds(staff_spec_cmper, meas_spec_cmper, staff_id, measure, root, 
                 else:
                     direction = SubElement(measure, "direction", placement=placement)
                     direction_type = SubElement(direction, "direction-type")
+                    if expression['horzEduOff']:
+                        SubElement(direction, "offset").text = str(
+                            math.ceil((int(expression['horzEduOff']) * DIVISIONS) / 1024))
                     if staff_id:
                         SubElement(direction, "staff").text = str(staff_id)
                     words = SubElement(direction_type, 'words')
@@ -771,6 +875,9 @@ def process_gfholds(staff_spec_cmper, meas_spec_cmper, staff_id, measure, root, 
                 if dynamic_name is not None:
                     direction = SubElement(measure, "direction", placement=placement)
                     direction_type = SubElement(direction, "direction-type")
+                    if expression['horzEduOff']:
+                        SubElement(direction, "offset").text = str(
+                            math.ceil((int(expression['horzEduOff']) * DIVISIONS) / 1024))
                     if staff_id:
                         SubElement(direction, "staff").text = str(staff_id)
                     dynamics = SubElement(direction_type, "dynamics")
@@ -778,6 +885,9 @@ def process_gfholds(staff_spec_cmper, meas_spec_cmper, staff_id, measure, root, 
             elif expression['categoryType'] == 'tempoAlts' and expression['staffAssign'] == staff_spec_cmper:
                 direction = SubElement(measure, "direction", placement=placement)
                 direction_type = SubElement(direction, "direction-type")
+                if expression['horzEduOff']:
+                    SubElement(direction, "offset").text = str(
+                        math.ceil((int(expression['horzEduOff']) * DIVISIONS) / 1024))
                 if staff_id:
                     SubElement(direction, "staff").text = str(staff_id)
                 words = SubElement(direction_type, 'words')
@@ -786,6 +896,9 @@ def process_gfholds(staff_spec_cmper, meas_spec_cmper, staff_id, measure, root, 
             elif expression['categoryType'] == 'expressiveText' and expression['staffAssign'] == staff_spec_cmper:
                 direction = SubElement(measure, "direction", placement=placement)
                 direction_type = SubElement(direction, "direction-type")
+                if expression['horzEduOff']:
+                    SubElement(direction, "offset").text = str(
+                        math.ceil((int(expression['horzEduOff']) * DIVISIONS) / 1024))
                 if staff_id:
                     SubElement(direction, "staff").text = str(staff_id)
                 words = SubElement(direction_type, 'words')
@@ -794,6 +907,9 @@ def process_gfholds(staff_spec_cmper, meas_spec_cmper, staff_id, measure, root, 
             elif expression['categoryType'] == 'techniqueText' and expression['staffAssign'] == staff_spec_cmper:
                 direction = SubElement(measure, "direction", placement=placement)
                 direction_type = SubElement(direction, "direction-type")
+                if expression['horzEduOff']:
+                    SubElement(direction, "offset").text = str(
+                        math.ceil((int(expression['horzEduOff']) * DIVISIONS) / 1024))
                 if staff_id:
                     SubElement(direction, "staff").text = str(staff_id)
                 words = SubElement(direction_type, 'words')
@@ -804,16 +920,24 @@ def process_gfholds(staff_spec_cmper, meas_spec_cmper, staff_id, measure, root, 
                 direction = SubElement(measure, "direction", placement=placement)
                 if words:
                     direction_type = SubElement(direction, "direction-type")
+                    if expression['horzEduOff']:
+                        SubElement(direction, "offset").text = str(
+                            math.ceil((int(expression['horzEduOff']) * DIVISIONS) / 1024))
                     SubElement(direction_type, "words").text = words
                 if beat_unit and per_minute:
                     direction_type = SubElement(direction, "direction-type")
+                    if expression['horzEduOff']:
+                        SubElement(direction, "offset").text = str(
+                            math.ceil((int(expression['horzEduOff']) * DIVISIONS) / 1024))
                     metronome = SubElement(direction_type, "metronome", parentheses=parentheses)
                     SubElement(metronome, "beat-unit").text = beat_unit
                     if has_dot:
                         SubElement(metronome, "beat-unit-dot")
                     SubElement(metronome, "per-minute").text = per_minute
             elif expression['categoryType'] == 'rehearsalMarks':
-                # todo: use instead of using elements forRepBar & bacRepBar?
+                # if not '^rehearsal()' in expression['text'] and not 'Rehearsal' in expression['descStr']:
+                #     print(meas_spec_cmper, 'rehearsalMarks', expression)
+                # todo rehearsal letters
                 pass
 
     for gfhold in gfholds:
@@ -857,23 +981,6 @@ def process_gfholds(staff_spec_cmper, meas_spec_cmper, staff_id, measure, root, 
         ending_cnt = 0
     if bacRepBar:
         SubElement(barline, "repeat", direction='backward', winged='none')
-
-    for meas_smart_shape in meas_smart_shapes:
-        if meas_smart_shape['shapeType'] == 'cresc' and meas_smart_shape['endMeas'] == meas_spec_cmper and \
-                meas_smart_shape['startInst'] == staff_spec_cmper:
-            direction = SubElement(measure, "direction", placement='below')
-            direction_type = SubElement(direction, "direction-type")
-            if staff_id:
-                SubElement(direction, "staff").text = str(staff_id)
-            SubElement(direction_type, "wedge", type="stop")
-        elif meas_smart_shape['shapeType'] == 'decresc' and meas_smart_shape[
-            'endMeas'] == meas_spec_cmper and \
-                meas_smart_shape['endInst'] == staff_spec_cmper:
-            direction = SubElement(measure, "direction", placement='below')
-            direction_type = SubElement(direction, "direction-type")
-            if staff_id:
-                SubElement(direction, "staff").text = str(staff_id)
-            SubElement(direction_type, "wedge", type="stop")
 
     return clefID, handle_tempo
 

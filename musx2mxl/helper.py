@@ -258,7 +258,6 @@ def translate_chord_suffix(chord_suffix):
                                     "degree-value": int(degree_value),
                                 })
 
-                        print(chord_suffix, degrees_text ,degrees)
                     if text == DEFAULT_CHORD_SYMBOLS[kind]:
                         text = ""
                         use_symbols = "yes"
