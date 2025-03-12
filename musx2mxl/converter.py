@@ -112,15 +112,25 @@ def lookup_txt_repeats(root, meas_spec_cmper):
         topStaffOnly = textRepeatAssign.find("f:topStaffOnly", namespaces=ns) is not None
         staffList = textRepeatAssign.find("f:staffList", namespaces=ns).text if textRepeatAssign.find(
             "f:staffList", namespaces=ns) is not None else None
-        horzPos = textRepeatAssign.find("f:horzPos", namespaces=ns).text
-        vertPos = textRepeatAssign.find("f:vertPos", namespaces=ns).text
-        repnum = textRepeatAssign.find('f:repnum', namespaces=ns).text
-        textRepeatText = root.find(f"f:others/f:textRepeatText[@cmper='{repnum}']", namespaces=ns)
-        rptText = textRepeatText.find('f:rptText', namespaces=ns).text
-        # textRepeatDef = root.find(f"f:others/f:textRepeatDef[@cmper='{repnum}']", namespaces=ns)
+        horzPos = textRepeatAssign.find("f:horzPos", namespaces=ns).text if textRepeatAssign.find("f:horzPos",
+                                                                                                  namespaces=ns) is not None else None
+        vertPos = textRepeatAssign.find("f:vertPos", namespaces=ns).text if textRepeatAssign.find("f:vertPos",
+                                                                                                  namespaces=ns) is not None else None
+        repnum = textRepeatAssign.find('f:repnum', namespaces=ns).text if textRepeatAssign.find("f:repnum",
+                                                                                                namespaces=ns) is not None else None
         # todo hanlde textRepeatDef
+        # textRepeatDef = root.find(f"f:others/f:textRepeatDef[@cmper='{repnum}']", namespaces=ns)
 
-        txt_repeats.append({'topStaffOnly': topStaffOnly, 'staffList':staffList, 'horzPos':horzPos, 'vertPos':vertPos, 'rptText': rptText})
+        if repnum is not None:
+            textRepeatText = root.find(f"f:others/f:textRepeatText[@cmper='{repnum}']", namespaces=ns)
+            if textRepeatText is not None:
+                rptText = textRepeatText.find('f:rptText', namespaces=ns).text if textRepeatText.find("f:rptText",
+                                                                                                      namespaces=ns) is not None else None
+                txt_repeats.append(
+                    {'topStaffOnly': topStaffOnly, 'staffList': staffList, 'horzPos': horzPos, 'vertPos': vertPos,
+                     'rptText': rptText})
+            else:
+                print(f'textRepeatText with cmper {repnum} not found.')
 
     return txt_repeats
 
@@ -362,7 +372,8 @@ def convert_tree(tree, meta_tree):
                     meas_smart_shapes = []
                 # todo: Check if inst is always referring to staff_spec_cmper
                 for txt_repeat in txt_repeats:
-                    if (txt_repeat['topStaffOnly'] and staff_spec_cmper == '1') or txt_repeat['staffList'] == staff_spec_cmper:
+                    if (txt_repeat['topStaffOnly'] and staff_spec_cmper == '1') or txt_repeat[
+                        'staffList'] == staff_spec_cmper:
                         # todo horzPos vertPos (EVPU 288 per inch) relative-x relative-y (tenth of a staff space)
                         if txt_repeat['rptText'] == '%':
                             direction = SubElement(measure, "direction", placement='above')
